@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
-import HeaderBar from './Components/HeaderBar';
-import ProductPage from './Components/ProductPage';
-import HomePage from './Components/HomePage';
+import HeaderBar from './components/HeaderBar';
+import ProductPage from './components/ProductPage';
+import HomePage from './components/HomePage';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
         <HeaderBar />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          <Route path="/product" element={<ProductPage />} />
+          <Route exact path="/cart" element={<ShoppingCart />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
         </Routes>
       </BrowserRouter>
     </div>
