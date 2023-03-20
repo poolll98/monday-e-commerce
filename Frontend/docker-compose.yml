@@ -1,0 +1,5 @@
+services:
+  app:
+    image: my-react-app
+    ports:
+      - 3001:80
