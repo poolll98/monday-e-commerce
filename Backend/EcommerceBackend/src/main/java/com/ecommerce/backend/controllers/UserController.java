@@ -18,8 +18,9 @@ public class UserController {
     ProductRepository productObject;
    
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @GetMapping("/getproduct")
-    public ResponseEntity<?> GetProductbyName(String name) {
+    @GetMapping("/getproduct/{name}")
+    public ResponseEntity<?> GetProductbyName(@PathVariable String name) {
+        System.out.println("Product "+name);
         return ResponseEntity.ok(productObject.findByName(name));
       }
 }
