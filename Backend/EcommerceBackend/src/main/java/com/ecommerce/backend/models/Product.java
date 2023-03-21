@@ -32,6 +32,9 @@ public class Product {
     @NotBlank(message = "")
     private Float price;
 
+    @NotBlank(message ="Product must have a name!")
+    private String name;
+
     public Product(){
 
     }
@@ -90,5 +93,13 @@ public class Product {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
