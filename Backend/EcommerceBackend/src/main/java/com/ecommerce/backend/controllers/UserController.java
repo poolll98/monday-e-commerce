@@ -19,7 +19,7 @@ public class UserController {
    
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping("/getproduct")
-    public ResponseEntity<?> GetProductbyName(@PathVariable String name) {
+    public ResponseEntity<?> GetProductbyName(String name) {
         return ResponseEntity.ok(productObject.findByName(name));
       }
 }
