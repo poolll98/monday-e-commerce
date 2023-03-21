@@ -63,11 +63,20 @@ public class AuthController {
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
 
+    //update last login date
+    updateLastLogin(userDetails);
+
     return ResponseEntity.ok(new JwtResponse(jwt, 
                          userDetails.getId(), 
                          userDetails.getUsername(), 
                          userDetails.getEmail(), 
                          roles));
+  }
+
+  private void updateLastLogin(UserDetailsImpl userDetailsImpl) {
+    User userFromDb = userRepository.findByUsername(userDetailsImpl.getUsername()).get();
+    userFromDb.setLastlogin(new Date());
+    userRepository.save(userFromDb);
   }
 
   @PostMapping("/signup")
@@ -79,7 +88,6 @@ public class AuthController {
     }
 
     // Create new user's account
-
     User user = new User(signUpRequest.getUsername(),
                signUpRequest.getEmail(),
                encoder.encode(signUpRequest.getPassword()),
@@ -133,6 +141,7 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse(registrationMessage));
   }
+
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public Map<String, String> handleValidationExceptions(
