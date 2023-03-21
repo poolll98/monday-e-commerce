@@ -21,6 +21,6 @@ public class UserController {
     @GetMapping("/getproduct/{name}")
     public ResponseEntity<?> GetProductbyName(@PathVariable String name) {
         System.out.println("Product "+name);
-        return ResponseEntity.ok(productObject.findByName(name));
+        return ResponseEntity.ok(productObject.findByName(name).get().getName());
       }
 }
