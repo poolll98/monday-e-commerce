@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,7 +21,7 @@ public class Product {
     @JoinColumn(name = "product_category.id")
     private ProductCategory productCategory;
 
-    @NotBlank(message = "")
+    @NotEmpty(message = "")
     @Size(max = 500, message = "")
     private String description;
 
@@ -34,7 +35,7 @@ public class Product {
     @NotNull(message = "")
     private Float price;
 
-    @NotBlank(message ="Product must have a name!")
+    @NotEmpty(message ="Product must have a name!")
     private String name;
 
     public Product(){
