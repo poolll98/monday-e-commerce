@@ -2,6 +2,7 @@ package com.ecommerce.backend.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "addresses")
@@ -13,7 +14,7 @@ public class Address {
     @NotBlank(message="")
     private String street;
 
-    @NotBlank(message="")
+    @NotNull(message="")
     private int street_nr;
 
     @NotBlank(message="")
