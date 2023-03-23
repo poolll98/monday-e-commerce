@@ -24,7 +24,7 @@ public class Purchase {
     @NotBlank(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderstatus.id")
-    private Long orderstatusid;
+    private OrderStatus orderstatusid;
 
     @NotBlank(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
