@@ -12,17 +12,16 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotBlank(message="")
     @NotNull(message="You need a minimum quantity.")
     @Min(value=1, message="")
     private Integer quantity;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shopping_cart.id")
     private ShoppingCart shoppingCart;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product.id")
     private Product product;

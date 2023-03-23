@@ -3,7 +3,7 @@ package com.ecommerce.backend.models;
 
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Min;
 
 @Entity
@@ -13,34 +13,34 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "login_user.id")
     private User user;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     private Date orderdate;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderstatus.id")
     private OrderStatus orderstatusid;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "addresses.id")
     private Address address;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @Min(value=0, message="")
     private Float totalprice;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_payment.id")
     private UserPayment userPayment;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shopping_cart.id")
     private ShoppingCart shoppingCart;
@@ -49,7 +49,7 @@ public class Purchase {
 
     }
 
-    public Purchase(User user, Date orderdate, Long orderstatusid, Address address, Float totalprice, UserPayment userPayment, ShoppingCart shoppingCart) {
+    public Purchase(User user, Date orderdate, OrderStatus orderstatusid, Address address, Float totalprice, UserPayment userPayment, ShoppingCart shoppingCart) {
         this.user = user;
         this.orderdate = orderdate;
         this.orderstatusid = orderstatusid;
@@ -83,11 +83,11 @@ public class Purchase {
         this.orderdate = orderdate;
     }
 
-    public Long getOrderstatus() {
+    public OrderStatus getOrderstatusId() {
         return orderstatusid;
     }
 
-    public void setOrderstatus(Long orderstatusid) {
+    public void setOrderstatusId(OrderStatus orderstatusid) {
         this.orderstatusid = orderstatusid;
     }
 

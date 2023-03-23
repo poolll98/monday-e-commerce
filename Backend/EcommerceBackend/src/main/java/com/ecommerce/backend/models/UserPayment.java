@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -14,7 +15,7 @@ public class UserPayment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "login_user.id")
     private User user;
@@ -25,15 +26,15 @@ public class UserPayment {
     @NotBlank(message = "")
     private String name_on_card;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @Size(min=13, max=16, message="")
     private int card_nr;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @JsonFormat(pattern = "MM/YY")
     private Date expiry_date;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @Size(min = 3, max=5, message="")
     private int security_code;
 

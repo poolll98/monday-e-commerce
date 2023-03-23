@@ -2,6 +2,7 @@ package com.ecommerce.backend.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_addresses")
@@ -10,12 +11,12 @@ public class UserAddress{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "login_user.id")
     private User user;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "addresses.id")
     private Address address;

@@ -19,6 +19,16 @@ public class OrderStatus {
 
     private Date ordertime;
 
+    public OrderStatus(){
+
+    }
+
+    public OrderStatus(String status, Date ordertime) {
+        this.status = status;
+        this.ordertime = ordertime;
+    }
+
+
     public Long getId() {
         return id;
     }

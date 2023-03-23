@@ -39,13 +39,13 @@ public class ShopController {
 
     @GetMapping("/remove")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String userAccess() {
+    public String removeCartItem() {
       return "User Content.";
     }
 
     @GetMapping("/editq")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String userAccess() {
+    public String editCartItem() {
       return "User Content.";
     }
 

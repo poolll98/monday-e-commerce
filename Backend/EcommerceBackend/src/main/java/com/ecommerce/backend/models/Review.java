@@ -2,6 +2,7 @@ package com.ecommerce.backend.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,15 +16,15 @@ public class Review {
     @Size(max = 500, message = "")
     private String feedback;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "login_user.id")
     private User user;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     private int  review_score;
 
-      @NotBlank(message = "")
+      @NotNull(message = "")
       @ManyToOne(fetch = FetchType.LAZY)
       @JoinColumn(name = "product.id")
       private Product product;
