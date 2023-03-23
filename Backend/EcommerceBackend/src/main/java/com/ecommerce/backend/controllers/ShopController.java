@@ -3,6 +3,7 @@ package com.ecommerce.backend.controllers;
 import java.util.List;
 
 import com.ecommerce.backend.models.CartItem;
+import com.ecommerce.backend.payload.request.AddCartItemRequest;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.repository.CartItemRepo;
 import com.ecommerce.backend.repository.ShopCartRepo;
@@ -25,15 +26,15 @@ public class ShopController {
     @Autowired CartItemRepo cartRepo;
     @GetMapping("/add")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> addCartItem(@Valid CartItem item) {
-        if (cartRepo.existsById(item.getId())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Product already in the cart. Adjust quantity instead."));
-            }
-        else {
-            CartItem itemtoadd = new CartItem();
-            itemtoadd = item;
+    public ResponseEntity<?> addCartItem(@Valid AddCartItemRequest item) {
+       // if (cartRepo.existsById(id)) {
+       //     return ResponseEntity.badRequest().body(new MessageResponse("Product already in the cart. Adjust quantity instead."));
+       //     }
+       // else {
+            CartItem itemtoadd = new CartItem(item.getQuantity(),item.getCartObj(),item.getProdObj());
+            
             cartRepo.save(itemtoadd);
-        }
+      //  }
         return ResponseEntity.ok(new MessageResponse(item.toString()+" added to the cart."));
      }        
 
