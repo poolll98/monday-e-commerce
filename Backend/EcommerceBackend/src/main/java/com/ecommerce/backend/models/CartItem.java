@@ -2,6 +2,7 @@ package com.ecommerce.backend.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Min;
 
 @Entity
@@ -11,7 +12,8 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message="")
+    //@NotBlank(message="")
+    @NotNull(message="You need a minimum quantity.")
     @Min(value=1, message="")
     private Integer quantity;
 
