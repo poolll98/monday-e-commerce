@@ -28,10 +28,10 @@ public class Product {
     @Type(type="org.hibernate.type.BinaryType")
     private byte[] media;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     private Boolean instock;
 
-    @NotBlank(message = "")
+    @NotNull(message = "")
     private Float price;
 
     @NotBlank(message ="Product must have a name!")
