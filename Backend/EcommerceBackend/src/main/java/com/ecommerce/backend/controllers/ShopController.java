@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 
@@ -50,6 +51,7 @@ public class ShopController {
 
     @GetMapping("/remove")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Transactional
     public ResponseEntity<?> removeCartItem(@Valid @RequestBody AddCartItemRequest item) {
         ShoppingCart shopcartid = shopRepo.findById(item.getCartId()).get();
         Product prodid = prodRepo.findById(item.getProdId()).get();
