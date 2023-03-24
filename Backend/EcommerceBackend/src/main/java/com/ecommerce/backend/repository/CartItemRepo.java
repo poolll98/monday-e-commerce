@@ -14,5 +14,5 @@ import com.ecommerce.backend.models.ShoppingCart;
 @Repository
 
 public interface CartItemRepo extends JpaRepository<CartItem, Long>{
-    
+    Optional<CartItem> findById(Long id);
 }
