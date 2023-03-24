@@ -30,7 +30,7 @@ public class ShopController {
     @Autowired ProductRepository prodRepo;
     @GetMapping("/add")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> addCartItem(@Valid AddCartItemRequest item) {
+    public ResponseEntity<?> addCartItem(@Valid @RequestBody AddCartItemRequest item) {
        // if (cartRepo.existsById(id)) {
        //     return ResponseEntity.badRequest().body(new MessageResponse("Product already in the cart. Adjust quantity instead."));
        //     }
