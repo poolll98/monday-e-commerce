@@ -11,4 +11,5 @@ import com.ecommerce.backend.models.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
   Optional<Product> findByName(String name);
   Optional<Product> findById(Long id);
+  boolean existsById(Long id);
 }

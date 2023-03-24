@@ -11,4 +11,5 @@ import com.ecommerce.backend.models.ShoppingCart;
 
 public interface ShopCartRepo extends JpaRepository<ShoppingCart, Long>{
     Optional<ShoppingCart> findById(Long id);
+    boolean existsById(Long id);
 }
