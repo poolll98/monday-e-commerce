@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Getting Started with Monday E-Commerce Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Development
 
-## Available Scripts
+### Configuring your IDE
 
-In the project directory, you can run:
+We recommend using VS Code as an IDE.
 
-### `npm start`
+Recommended Plugins are
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Prettier Code Formatter
+- ES7+ React/Redux/React-Native snippets
+- ESLint
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can configure VS Code to use Prettier as formatter and format when saving as follows:
 
-### `npm test`
+1. Use [Ctrl]+[Shift]+[p]
+2. Type "Preferences"
+3. Select "Preferences: Open User Settings"
+4. Search for "format"
+5. Change "Editor: Format On Save" or "Editor: Format On Paste".
+6. Search for "formatter"
+7. Select "Prettier" as default formatter.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Running the App
 
-### `npm run build`
+The react app can be run in a Docker container. Use the docker-compose.dev.yml file to run it on localhost:3000. This is the recommended setup for development, as it doesn't compile/minify anything and includes hot reload (any changes to the code are reflected immediately).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Dev container with hot reload (execute from within /Frontend):
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`docker build -t my-app:latest -f Dockerfile.dev .`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`docker compose -f docker-compose.dev.yml up`
 
-### `npm run eject`
+Or in one step:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`docker compose -f docker-compose.dev.yml up --build`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+For deployment, a production container can be created: It uses a two-stage build to create the optimized app, and then copy it to an optimized image from where it is served.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Production container:
 
-## Learn More
+`docker build -t my-react-app:latest .`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`docker compose up`
