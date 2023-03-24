@@ -17,12 +17,12 @@ public class CartItem {
     private Integer quantity;
 
     @NotNull(message = "")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_cart.id")
     private ShoppingCart shoppingCart;
 
     @NotNull(message = "")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product.id")
     private Product product;
 
