@@ -2,32 +2,29 @@ package com.ecommerce.backend.payload.request;
 
 import javax.validation.constraints.NotNull;
 
-import com.ecommerce.backend.models.Product;
-import com.ecommerce.backend.models.ShoppingCart;
-
 public class AddCartItemRequest {
     
     @NotNull
-    private ShoppingCart cartobj;
+    private Long cartid;
 
     @NotNull
-    private Product prodobj;
+    private Long prodid;
 
     @NotNull
     private Integer quantity;
 
-    public AddCartItemRequest(Integer quantity, ShoppingCart cartobj, Product prodobj) {
+    public AddCartItemRequest(Integer quantity, Long cartid, Long prodid) {
         this.quantity=quantity;
-        this.cartobj=cartobj;
-        this.prodobj=prodobj;
+        this.cartid=cartid;
+        this.prodid=prodid;
     }
 
-    public Product getProdObj() {
-		return prodobj;
+    public Long getProdId() {
+		return prodid;
 	}
 
-	public ShoppingCart getCartObj() {
-		return cartobj;
+	public Long getCartId() {
+		return cartid;
 	}
 
 	public Integer getQuantity() {
