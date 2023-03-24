@@ -16,6 +16,7 @@ public class AddCartItemRequest {
     public AddCartItemRequest(Integer quantity, Long cartid, Long prodid) {
         this.quantity=quantity;
         this.cartid=cartid;
+        System.out.println("So the cartid is"+cartid);
         this.prodid=prodid;
     }
 
