@@ -45,13 +45,20 @@ public class ShopController {
             
         cartRepo.save(itemadd);
       //  }
-        return ResponseEntity.ok(new MessageResponse(item.toString()+" added to the cart."));
+        return ResponseEntity.ok(new MessageResponse(item.getProdId().toString()+" added to the cart."));
      }        
 
     @GetMapping("/remove")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String removeCartItem() {
-      return "User Content.";
+    public ResponseEntity<?> removeCartItem(@Valid @RequestBody AddCartItemRequest item) {
+        ShoppingCart shopcartid = shopRepo.findById(item.getCartId()).get();
+        Product prodid = prodRepo.findById(item.getProdId()).get();
+
+        CartItem itemdel = new CartItem(item.getQuantity(), shopcartid,  prodid);
+            
+        cartRepo.delete(itemdel);
+
+        return ResponseEntity.ok(new MessageResponse(item.getProdId().toString()+" removed from the cart."));
     }
 
     @GetMapping("/editq")
