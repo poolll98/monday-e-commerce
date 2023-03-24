@@ -14,7 +14,7 @@ function App() {
     <div className="wrapper">
       <BrowserRouter>
         <UserProvider>
-            <HeaderBar />
+          <HeaderBar />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/cart" element={<ShoppingCart />} />
