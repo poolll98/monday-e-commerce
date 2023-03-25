@@ -14,7 +14,13 @@ function ProductDetail() {
       }
 
     function handleReduceClick() {
-        setIndex(index - 1);
+        if (index){
+            setIndex(index-1)
+
+        }else{
+            setIndex(0);
+
+        }
     }
     
     return (
