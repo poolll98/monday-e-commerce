@@ -5,11 +5,13 @@ export function getShoppingCartItems(user) {
 
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve({
-        id: 123,
-        name: 'Item Name',
-        amount: 2,
-      });
-    }, 500);
+      resolve([
+        {
+          id: 123,
+          name: "Item Name",
+          amount: 2,
+        },
+      ]);
+    }, 2000);
   });
 }
