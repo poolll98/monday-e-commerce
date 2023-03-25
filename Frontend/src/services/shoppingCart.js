@@ -13,9 +13,10 @@ export function addItemToCart(itemData, user) {
     // do something?
   }
 
-  let body = JSON.stringify({ itemData }); // TODO: Transform data as needed.
+  let body = JSON.stringify(itemData); // TODO: Transform data as needed.
+  console.log(body);
 
-  return fetch("http://localhost:3333/list", {
+  return fetch("http://localhost:3333/cart", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
