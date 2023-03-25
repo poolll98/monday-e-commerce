@@ -11,7 +11,7 @@ export default function ShoppingCart() {
 
   useEffect(() => {
     let isMounted = true;
-    getShoppingCartItems().then((data) => {
+    getShoppingCartItems(user).then((data) => {
       if (isMounted) {
         setItems(data);
       }
@@ -19,22 +19,16 @@ export default function ShoppingCart() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [user]);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
+  if (!user || Object.keys(user).length === 0) {
+    return <p>Please log in to access your cart.</p>;
+  }
   if (items === null) {
     return <div>Loading...</div>;
   }
 
-  let cartItems = items?.map((item) => (
-    <CartItem
-      item={item}
-      key={item.id}
-      isActive={activeIndex === item.id}
-      onHighlight={() => setActiveIndex(item.id)}
-    />
-  ));
+  let cartItems = items?.map((item) => <CartItem item={item} key={item.id} />);
 
-  return user?.username !== undefined && <ul>{cartItems}</ul>;
+  return <ul>{cartItems}</ul>;
 }
