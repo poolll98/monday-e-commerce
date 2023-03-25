@@ -30,5 +30,5 @@ export default function ShoppingCart() {
 
   let cartItems = items?.map((item) => <CartItem item={item} key={item.id} />);
 
-  return <ul>{cartItems}</ul>;
+  return cartItems.length ? <ul>{cartItems}</ul> : <p>No items in cart.</p>;
 }
