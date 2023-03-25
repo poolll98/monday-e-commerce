@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 import HeaderBar from './components/HeaderBar';
-import ProductPage from './ProductPage/ProductPage';
-import ProductDetail from './ProductPage/ProductDetails';
+import ProductPage from './components/ProductPage/ProductPage';
+import ProductDetail from './components/ProductPage/ProductDetails';
 import HomePage from './components/HomePage';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import { UserProvider } from './components/UserContext';
