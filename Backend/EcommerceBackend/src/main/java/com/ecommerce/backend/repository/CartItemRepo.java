@@ -19,7 +19,7 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long>{
     Optional<CartItem> findById(Long id);
     boolean existsById(Long id);
 
-    @Query(value = "SELECT * FROM cart_item WHERE product_id =:productId AND shopping_cart_id =:cartId", nativeQuery = true)
-    List<CartItem> findProductInTheCartById(@Param("productId") Long productId, @Param("cartId") Long cartId);
+    @Query(value = "SELECT * FROM public.cart_item WHERE product_id =:productId AND shopping_cart_id =:cartId", nativeQuery = true)
+    List<CartItem> findProductInTheCartById(@Param("cartId") Long cartId, @Param("productId") Long productId);
     void deleteById(Long id);
 }

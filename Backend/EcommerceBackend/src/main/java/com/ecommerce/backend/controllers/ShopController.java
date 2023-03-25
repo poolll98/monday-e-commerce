@@ -1,11 +1,13 @@
 package com.ecommerce.backend.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ecommerce.backend.models.CartItem;
 import com.ecommerce.backend.models.Product;
 import com.ecommerce.backend.models.ShoppingCart;
 import com.ecommerce.backend.payload.request.AddCartItemRequest;
+import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.repository.CartItemRepo;
 import com.ecommerce.backend.repository.ProductRepository;
@@ -45,14 +47,12 @@ public class ShopController {
             return ResponseEntity.badRequest().body(new MessageResponse(message));
         }
 
-        ShoppingCart shopcart = shopRepo.findById(item.getCartId()).get();
-        Product product = prodRepo.findById(item.getProdId()).get();
-
-        System.out.println("cart: "+shopcart.getId() + "Prod: "+ product.getId());
-       if (! cartRepo.findProductInTheCartById(shopcart.getId(),product.getId()).isEmpty()) {
+       if (! cartRepo.findProductInTheCartById(item.getCartId(), item.getProdId()).isEmpty()) {
            return ResponseEntity.badRequest().
                    body(new MessageResponse("Error: This Product is already in this cart."));
        }
+        ShoppingCart shopcart = shopRepo.findById(item.getCartId()).get();
+        Product product = prodRepo.findById(item.getProdId()).get();
         CartItem itemadd = new CartItem(item.getQuantity(), shopcart,  product);
         cartRepo.save(itemadd);
 
@@ -70,10 +70,22 @@ public class ShopController {
         return ResponseEntity.ok(new MessageResponse("Item has been removed from the cart."));
     }
 
-    @GetMapping("/editq")
+    @PutMapping("/editq")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String editCartItem() {
-      return "User Content.";
+    public ResponseEntity<?> editCartItem(@RequestBody UpdateQCartItemRequest updateQCartItemRequest) {
+        if (!cartRepo.existsById(updateQCartItemRequest.getCartItemId())) {
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: This CartItem doesn't exist."));
+        }
+        if(updateQCartItemRequest.getQuantity() <= 0){
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: quantity must be greater then 0."));
+        }
+        CartItem updatedCartItem = cartRepo.findById(updateQCartItemRequest.getCartItemId()).get();
+        updatedCartItem.setQuantity(updateQCartItemRequest.getQuantity());
+        cartRepo.save(updatedCartItem);
+
+        return ResponseEntity.ok(new MessageResponse(updatedCartItem.getId().toString()+": quantity updated."));
     }
 
 }
