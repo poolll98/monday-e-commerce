@@ -1,27 +1,31 @@
 import React from "react"
 import {Link, useParams} from "react-router-dom"
-import productData from "./MockData"
+import productData from "../../MockData/ProductData"
 import { useState } from 'react';
 
 function ProductDetail() {
     const {productId} = useParams()
     const thisProduct = productData.find(prod => prod.id === productId)
-    const [index, setIndex] = useState(0);
+    const [Quantity, setQuantity] = useState(0);
+
+    const TotalAmount=Quantity*thisProduct.price;
 
 
     function handleAddClick() {
-        setIndex(index + 1);
+        setQuantity(Quantity + 1);
       }
 
     function handleReduceClick() {
-        if (index){
-            setIndex(index-1)
+        if (Quantity){
+            setQuantity(Quantity-1)
 
         }else{
-            setIndex(0);
+            setQuantity(0);
 
         }
     }
+
+
     
     return (
         <div>
@@ -35,8 +39,16 @@ function ProductDetail() {
             <button onClick={handleReduceClick}>
                 -
             </button>
-            <p>Quantity: {index}</p>
-            <p>Total amount: ${thisProduct.price*index}</p>
+            <p>Quantity: {Quantity}</p>
+            <p>Total amount: ${TotalAmount}</p>
+            <button
+                onClick={() => {
+                    alert("Added to cart");
+                }}
+            >
+                Add to Cart
+            </button>
+
             <h3>
                 <Link to={`/cart/`}>ShoppingCart</Link>
             </h3>
