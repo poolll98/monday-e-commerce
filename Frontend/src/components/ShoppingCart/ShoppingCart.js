@@ -117,6 +117,7 @@ export default function ShoppingCart() {
   useEffect(() => {
     !cart.length && setCart(productData);
   }, [cart]);
+
   /* ===== Select all -- "two-way data binding" ===== */
   /* 
   Listen to the data change of the shopping cart to switch the selected state
