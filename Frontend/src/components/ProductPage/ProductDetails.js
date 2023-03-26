@@ -41,6 +41,7 @@ function ProductDetail() {
             </button>
             <p>Quantity: {Quantity}</p>
             <p>Total amount: ${TotalAmount}</p>
+            
             <button
                 onClick={() => {
                     alert("Added to cart");
