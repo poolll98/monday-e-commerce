@@ -31,6 +31,14 @@ export default function ProductPage() {
       <p>Quantity: {quantity}</p>
       <p>Total amount: ${thisProduct.price * quantity}</p>
 
+      <button
+        onClick={() => {
+          alert("Added to cart");
+        }}
+      >
+        Add to Cart
+      </button>
+
       <img src={thisProduct.img} alt={thisProduct.id} />
     </div>
   );
