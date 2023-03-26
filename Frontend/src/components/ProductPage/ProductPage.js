@@ -1,6 +1,6 @@
 import React from "react"
 import {Link, useParams} from "react-router-dom"
-import productData from "../../MockData/ProductData"
+import productData from "../../MockData/products"
 import { useState } from 'react';
 
 function ProductDetail() {
