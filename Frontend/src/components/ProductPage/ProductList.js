@@ -1,5 +1,5 @@
 import React from "react";
-import productData from "../../MockData/products";
+import productData from "../../mockdata/products";
 import { Link } from "react-router-dom";
 
 
