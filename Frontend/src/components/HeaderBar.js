@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { UserContext, UserLoginContext } from "./UserContext";
 import { useContext } from "react";
-import { addItemToCart } from "../services/shoppingCart";
 
 export default function HeaderBar() {
   const colors = { color: "blue" };
