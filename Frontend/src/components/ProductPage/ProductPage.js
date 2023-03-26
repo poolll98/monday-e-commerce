@@ -1,22 +1,22 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import productData from "../../mockdata/products";
 import { useState } from "react";
 
-export default function Products() {
+export default function ProductPage() {
   const { productId } = useParams();
   const thisProduct = productData.find((prod) => prod.id === productId);
-  const [index, setIndex] = useState(0);
+  const [quantity, setQuantity] = useState(0);
 
   function handleAddClick() {
-    setIndex(index + 1);
+    setQuantity(quantity + 1);
   }
 
   function handleReduceClick() {
-    if (index) {
-      setIndex(index - 1);
+    if (quantity) {
+      setQuantity(quantity - 1);
     } else {
-      setIndex(0);
+      setQuantity(0);
     }
   }
 
@@ -28,11 +28,8 @@ export default function Products() {
 
       <button onClick={handleAddClick}>+</button>
       <button onClick={handleReduceClick}>-</button>
-      <p>Quantity: {index}</p>
-      <p>Total amount: ${thisProduct.price * index}</p>
-      <h3>
-        <Link to={`/cart/`}>ShoppingCart</Link>
-      </h3>
+      <p>Quantity: {quantity}</p>
+      <p>Total amount: ${thisProduct.price * quantity}</p>
 
       <img src={thisProduct.img} alt={thisProduct.id} />
     </div>
