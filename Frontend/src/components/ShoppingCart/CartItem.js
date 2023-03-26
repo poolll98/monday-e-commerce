@@ -19,7 +19,7 @@ const CartItem = ({
       </div>
 
       <div className="imgname-box">
-        <img src={"/images/" + item.jpg} alt="item" />
+        <img src={item.img} alt="item" />
       </div>
 
       <div className="price-box">

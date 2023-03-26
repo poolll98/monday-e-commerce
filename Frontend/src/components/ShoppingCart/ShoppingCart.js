@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import { useState, useEffect, useCallback } from "react";
 import { UserContext } from "../UserContext";
@@ -115,8 +116,7 @@ export default function ShoppingCart() {
 
   useEffect(() => {
     !cart.length && setCart(productData);
-  }, []);
-
+  }, [cart]);
   /* ===== Select all -- "two-way data binding" ===== */
   /* 
   Listen to the data change of the shopping cart to switch the selected state
