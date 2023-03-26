@@ -1,29 +1,45 @@
 import React from "react";
-import productData from "./MockData";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import productData from "../../mockdata/products";
+import { useState } from "react";
 
+export default function ProductPage() {
+  const { productId } = useParams();
+  const thisProduct = productData.find((prod) => prod.id === productId);
+  const [quantity, setQuantity] = useState(0);
 
-const Products = () => {
-  const products = productData.map(product => {
+  function handleAddClick() {
+    setQuantity(quantity + 1);
+  }
 
-    return (
-      <div key={product.id}>
-        <h3>
-          <Link to={`/products/${product.id}`}>{product.name}</Link>
-        </h3>
-        <p>Price: ${product.price}</p>
-        <img src={product.img} alt={product.id}/>
-        <hr />
-      </div>
-    );
-  });
+  function handleReduceClick() {
+    if (quantity) {
+      setQuantity(quantity - 1);
+    } else {
+      setQuantity(0);
+    }
+  }
 
   return (
-    <>
-      <h1>Products Page</h1>
-      {products}
-    </>
-  );
-};
+    <div>
+      <h1>{thisProduct.name}</h1>
+      <p>Price: ${thisProduct.price}</p>
+      <p>Description: {thisProduct.description}</p>
 
-export default Products;
+      <button onClick={handleAddClick}>+</button>
+      <button onClick={handleReduceClick}>-</button>
+      <p>Quantity: {quantity}</p>
+      <p>Total amount: ${thisProduct.price * quantity}</p>
+
+      <button
+        onClick={() => {
+          alert("Added to cart");
+        }}
+      >
+        Add to Cart
+      </button>
+
+      <img src={thisProduct.img} alt={thisProduct.id} />
+    </div>
+  );
+}
