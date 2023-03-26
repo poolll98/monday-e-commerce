@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 
-export const UserContext = createContext(null); // provides currently logged in user
+export const UserContext = createContext({}); // provides currently logged in user
 export const UserLoginContext = createContext(null); // handles login/logout
 
 function userManagementReducer(user, action) {

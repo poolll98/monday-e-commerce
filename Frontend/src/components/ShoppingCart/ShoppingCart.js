@@ -1,17 +1,34 @@
-import React from 'react';
-import { useContext } from 'react';
-import { useState } from 'react';
-import { UserContext } from '../UserContext';
+import React from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../UserContext";
+import { getShoppingCartItems } from "../../services/shoppingCart";
 
-import CartItem from './CartItem';
+import CartItem from "./CartItem";
 
 export default function ShoppingCart() {
-  let items = [{'id': 1}, {'id': 2}, {'id': 3}]; // example items
-
-  const [activeIndex, setActiveIndex] = useState(0);
   const user = useContext(UserContext);
+  const [items, setItems] = useState(null);
 
-  let cartItems = items.map(item => <CartItem item={item} key={item.id} isActive={activeIndex === item.id} onHighlight={() => setActiveIndex(item.id)}/>)
+  useEffect(() => {
+    let isMounted = true;
+    getShoppingCartItems(user).then((data) => {
+      if (isMounted) {
+        setItems(data);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
 
-  return (user.username !== undefined && <ul>{cartItems}</ul>);
+  if (!user || Object.keys(user).length === 0) {
+    return <p>Please log in to access your cart.</p>;
+  }
+  if (items === null) {
+    return <div>Loading...</div>;
+  }
+
+  let cartItems = items?.map((item) => <CartItem item={item} key={item.id} />);
+
+  return cartItems.length ? <ul>{cartItems}</ul> : <p>No items in cart.</p>;
 }

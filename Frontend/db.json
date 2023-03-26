@@ -1,0 +1,14 @@
+{
+  "cart": [
+    {
+      "id": 1,
+      "name": "Shoes",
+      "amount": 2
+    },
+    {
+      "id": 2,
+      "name": "Cable",
+      "amount": 5
+    }
+  ]
+}
