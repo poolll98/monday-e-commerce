@@ -9,7 +9,7 @@ export default function HomePage() {
 
   return (
     <>
-      <h1>Products Page</h1>
+      <h1>Our Products</h1>
       {products}
     </>
   );

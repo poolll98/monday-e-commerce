@@ -1,0 +1,144 @@
+.cart-wrapper {
+  width: 800px;
+  height: 500px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-wrapper .price {
+  color: orangered;
+  font-weight: bold;
+}
+
+.cart-wrapper .top {
+  display: flex;
+  background-color: #eee;
+  height: 40px;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.cart-wrapper .top .sel-box {
+  margin-left: 12px;
+}
+
+.cart-wrapper .top .sel-box i {
+  display: inline-block;
+  margin-left: 5px;
+  padding-bottom: 0px;
+}
+
+.cart-wrapper .top span {
+  display: inline-block;
+  flex-grow: 1;
+}
+
+.cart-wrapper .top .imgname-box {
+  flex-grow: 2.3;
+}
+
+.cart-wrapper .top .count-box {
+  flex-grow: 1.5;
+}
+
+.cart-wrapper .middle {
+  flex-grow: 1;
+}
+
+.cart-wrapper .middle ul::-webkit-scrollbar {
+  display: none;
+  /* Chrome Safari */
+}
+
+.cart-wrapper .middle ul {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0px;
+  margin: 6px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.cart-wrapper .middle ul li.item {
+  display: flex;
+  height: 100px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-wrapper .middle ul li.item div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-wrapper .middle ul li.item .sel-box {
+  width: 40px;
+}
+
+.cart-wrapper .middle ul li.item .imgname-box img {
+  width: 60px;
+  height: 60px;
+  margin-right: 5px;
+}
+
+.cart-wrapper .middle ul li.item .imgname-box span {
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+}
+
+.cart-wrapper .middle ul li.item .price-box {
+  flex-grow: 1;
+}
+
+.cart-wrapper .middle ul li.item .count-box {
+  flex-grow: 0.6;
+}
+
+.cart-wrapper .middle ul li.item .count-box input {
+  width: 30px;
+  height: 25px;
+  text-align: center;
+}
+
+.cart-wrapper .middle ul li.item .count-box button {
+  border-radius: 2px;
+  margin: 0 2px;
+}
+
+.cart-wrapper .middle ul li.item .amount-box {
+  flex-grow: 1;
+}
+
+.cart-wrapper .middle ul li.item .action-box {
+  flex-grow: 1;
+}
+
+.cart-wrapper .bottom {
+  display: flex;
+  background-color: #eee;
+  height: 40px;
+  align-items: center;
+}
+
+.cart-wrapper .bottom .price {
+  font-size: 0.9rem;
+}
+
+.cart-wrapper .bottom div {
+  flex-grow: 1;
+}
+
+.cart-wrapper .bottom div.left {
+  flex-grow: 8;
+}
+
+.cart-wrapper .bottom div.pay-box {
+  background-color: gray;
+  text-align: center;
+  color: white;
+  padding: 8px;
+}
