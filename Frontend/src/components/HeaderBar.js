@@ -10,12 +10,6 @@ export default function HeaderBar() {
   const user = useContext(UserContext);
   const userAction = useContext(UserLoginContext);
 
-  let exampleItem = {
-    name: "Example Item",
-    id: Math.floor(Math.random() * 1000),
-    amount: 8,
-  };
-
   return (
     <div style={{ ...colors, textAlign: "center" }}>
       <Link to="/">MarketMate</Link>
@@ -38,15 +32,7 @@ export default function HeaderBar() {
           Log Out
         </button>
       )}
-      {user.username !== undefined && (
-        <button
-          onClick={() => {
-            addItemToCart(exampleItem);
-          }}
-        >
-          Add example item to cart
-        </button>
-      )}
+      <Link to="/cart">Shopping Cart</Link>
     </div>
   );
 }
