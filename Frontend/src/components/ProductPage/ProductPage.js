@@ -25,7 +25,6 @@ function ProductDetail() {
         }
     }
 
-
     
     return (
         <div>
