@@ -22,6 +22,10 @@ const CartItem = ({
         <img src={item.img} alt="item" />
       </div>
 
+      <div>
+        <p>{item.name}</p>
+      </div>
+
       <div className="price-box">
         ￥<span className="price">{item.price}</span>
       </div>
