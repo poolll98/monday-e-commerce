@@ -1,29 +1,62 @@
-import React from "react";
-import productData from "../../MockData/ProductData";
-import { Link } from "react-router-dom";
+import React from "react"
+import {Link, useParams} from "react-router-dom"
+import productData from "../../MockData/ProductData"
+import { useState } from 'react';
+
+function ProductDetail() {
+    const {productId} = useParams()
+    const thisProduct = productData.find(prod => prod.id === productId)
+    const [Quantity, setQuantity] = useState(0);
+
+    const TotalAmount=Quantity*thisProduct.price;
 
 
-const Products = () => {
-  const products = productData.map(product => {
+    function handleAddClick() {
+        setQuantity(Quantity + 1);
+      }
 
+    function handleReduceClick() {
+        if (Quantity){
+            setQuantity(Quantity-1)
+
+        }else{
+            setQuantity(0);
+
+        }
+    }
+
+
+    
     return (
-      <div key={product.id}>
-        <h3>
-          <Link to={`/products/${product.id}`}>{product.name}</Link>
-        </h3>
-        <p>Price: ${product.price}</p>
-        <img src={product.img} alt={product.id}/>
-        <hr />
-      </div>
-    );
-  });
+        <div>
+            <h1>{thisProduct.name}</h1>
+            <p>Price: ${thisProduct.price}</p>
+            <p>Description: {thisProduct.description}</p>
 
-  return (
-    <>
-      <h1>Products Page</h1>
-      {products}
-    </>
-  );
-};
+            <button onClick={handleAddClick}>
+                +
+            </button>
+            <button onClick={handleReduceClick}>
+                -
+            </button>
+            <p>Quantity: {Quantity}</p>
+            <p>Total amount: ${TotalAmount}</p>
+            
+            <button
+                onClick={() => {
+                    alert("Added to cart");
+                }}
+            >
+                Add to Cart
+            </button>
 
-export default Products;
+            <h3>
+                <Link to={`/cart/`}>ShoppingCart</Link>
+            </h3>
+
+            <img src={thisProduct.img} alt={thisProduct.id}/>
+        </div>
+    )
+}
+
+export default ProductDetail
