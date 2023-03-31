@@ -15,4 +15,6 @@ import com.ecommerce.backend.models.Product;
 @Repository
 public interface CategoryRepository extends JpaRepository<ProductCategory, Long>{
     Optional<ProductCategory> findById(Long Id);
+    @Query(value = "SELECT * FROM public.product_category WHERE category_name =:category_name", nativeQuery = true)
+    List<ProductCategory> findProductCategoryByCategory_name(@Param("category_name") String category_name);
 }
