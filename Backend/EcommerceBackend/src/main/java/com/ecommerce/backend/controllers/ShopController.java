@@ -1,13 +1,10 @@
 package com.ecommerce.backend.controllers;
-
-import java.util.Date;
-import java.util.List;
-
 import com.ecommerce.backend.models.CartItem;
 import com.ecommerce.backend.models.Product;
 import com.ecommerce.backend.models.ShoppingCart;
 import com.ecommerce.backend.payload.request.AddCartItemRequest;
 import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
+import com.ecommerce.backend.payload.response.AddElementMessage;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.repository.CartItemRepo;
 import com.ecommerce.backend.repository.ProductRepository;
@@ -18,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -43,7 +38,7 @@ public class ShopController {
         if (! prodRepo.existsById(item.getProdId())){
             message += "Error: This product doesn't exist.";
         }
-        if (message != ""){
+        if (!message.equals("")){
             return ResponseEntity.badRequest().body(new MessageResponse(message));
         }
 
@@ -53,10 +48,10 @@ public class ShopController {
        }
         ShoppingCart shopcart = shopRepo.findById(item.getCartId()).get();
         Product product = prodRepo.findById(item.getProdId()).get();
-        CartItem itemadd = new CartItem(item.getQuantity(), shopcart,  product);
-        cartRepo.save(itemadd);
+        CartItem itemAdd = new CartItem(item.getQuantity(), shopcart,  product);
+        cartRepo.save(itemAdd);
 
-        return ResponseEntity.ok(new MessageResponse(item.getProdId().toString()+" added to the cart."));
+        return ResponseEntity.ok(new AddElementMessage("Product has been added to the cart.", item.getProdId()));
      }        
 
     @DeleteMapping("/remove/{id}")
