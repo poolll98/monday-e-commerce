@@ -41,12 +41,14 @@ public class Product {
 
     }
 
-    public Product(String description, ProductCategory productCategory, byte[] media, Boolean instock, Float price) {
+    public Product(String description, ProductCategory productCategory, byte[] media, Boolean instock, Float price,
+                   String name) {
         this.description = description;
         this.productCategory = productCategory;
         this.media = media;
         this.instock = instock;
         this.price = price;
+        this.name = name;
     }
 
     public Long getId() {

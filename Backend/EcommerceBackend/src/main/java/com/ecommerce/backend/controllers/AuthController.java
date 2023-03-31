@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.ecommerce.backend.payload.response.AddElementMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -100,11 +101,12 @@ public class AuthController {
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
-    String registrationMessage = "User registered successfully with basic permissions!";
+    String registrationMessage = "User successfully registered with basic permissions!";
     for (String s : strRoles){
       if (s.equals("admin")){
         registrationMessage = "Impossible to register a user with admin permissions." +
                 "User registered with basic permissions!";
+        break;
       }
     }
 
@@ -139,6 +141,7 @@ public class AuthController {
     user.setRoles(roles);
     userRepository.save(user);
 
-    return ResponseEntity.ok(new MessageResponse(registrationMessage));
+    return ResponseEntity.ok(new AddElementMessage(registrationMessage,
+            userRepository.findByUsername(user.getUsername()).get().getId()));
   }
 }
