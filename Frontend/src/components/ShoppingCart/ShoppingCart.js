@@ -7,20 +7,22 @@ import { getShoppingCartItems } from "../../services/shoppingCart";
 import CartItem from "./CartItem";
 
 import "./ShoppingCart.css";
-import productData from "./MockData";
+//import productData from "./MockData";
 
 export default function ShoppingCart() {
-  //let items = [{'id': 1}, {'id': 2}, {'id': 3}]; // example items
-
-  //const [activeIndex, setActiveIndex] = useState(0);
   const user = useContext(UserContext);
-  const [items, setItems] = useState(null);
+  //const [items, setItems] = useState(null);
 
+  const [cart, setCart] = useState([]);
+  const [allSelected, setAllSelected] = useState(false);
+
+  // TODO: Only try to load when logged in.
   useEffect(() => {
     let isMounted = true;
     getShoppingCartItems(user).then((data) => {
+      console.log(data);
       if (isMounted) {
-        setItems(data);
+        setCart(data);
       }
     });
     return () => {
@@ -28,20 +30,15 @@ export default function ShoppingCart() {
     };
   }, [user]);
 
-  // let cartItems = items?.map((item) => <CartItem item={item} key={item.id} />);
-
-  // return cartItems.length ? <ul>{cartItems}</ul> : <p>No items in cart.</p>;
-
-  const [cart, setCart] = useState([]);
-  const [allSelected, setAllSelected] = useState(false);
-
   /* Add item */
   const addItem = useCallback(
-    (i) => {
-      console.log("addItem", i);
+    (id) => {
+      console.log("addItem", id);
       setCart(
-        cart.map((item, _i) => {
-          _i === i && item.count++;
+        cart.map((item) => {
+          if (item.id === id) {
+            item.amount += 1;
+          }
           return item;
         })
       );
@@ -51,11 +48,13 @@ export default function ShoppingCart() {
 
   /* reduce item */
   const subItem = useCallback(
-    (i) => {
-      console.log("subItem", i);
+    (id) => {
+      console.log("subItem", id);
       setCart(
-        cart.map((item, _i) => {
-          _i === i && item.count && item.count--;
+        cart.map((item) => {
+          if (item.id === id) {
+            item.amount -= 1;
+          }
           return item;
         })
       );
@@ -114,9 +113,9 @@ export default function ShoppingCart() {
       }, 0);
   }, [cart]);
 
-  useEffect(() => {
-    !cart.length && setCart(productData);
-  }, [cart]);
+  // useEffect(() => {
+  //   !cart.length && setCart(productData);
+  // }, [cart]);
 
   /* ===== Select all -- "two-way data binding" ===== */
   /* 
@@ -152,7 +151,7 @@ export default function ShoppingCart() {
   if (!user || Object.keys(user).length === 0) {
     return <p>Please log in to access your cart.</p>;
   }
-  if (items === null) {
+  if (cart === null) {
     return <div>Loading...</div>;
   }
 
@@ -189,7 +188,7 @@ export default function ShoppingCart() {
               subItem={subItem}
               removeItem={removeItem}
               toggleSelection={toggleItem}
-              key={item.name}
+              key={item.id}
             ></CartItem>
           ))}
         </ul>

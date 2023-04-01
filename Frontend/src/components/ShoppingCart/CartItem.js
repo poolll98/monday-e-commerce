@@ -33,15 +33,15 @@ const CartItem = ({
       <div className="count-box">
         <button onClick={() => subItem(index)}>-</button>
         <input
-          value={item.count}
+          value={item.amount}
           onChange={(newVal) => {
             console.log(newVal);
           }}
         />
         <button
           onClick={() => {
-            console.log("on + click", index);
-            addItem(index);
+            console.log("on + click", item.id);
+            addItem(item.id);
           }}
         >
           +
@@ -49,7 +49,7 @@ const CartItem = ({
       </div>
 
       <div className="amount-box">
-        <span className="price">{(item.price * item.count).toFixed(2)}</span>
+        <span className="price">{(item.price * item.amount).toFixed(2)}</span>
       </div>
       <div className="action-box">
         <a href="#" onClick={() => removeItem(index)}>
