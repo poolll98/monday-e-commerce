@@ -24,11 +24,12 @@ export function addItemToCart(itemData, user) {
       "Content-Type": "application/json",
     },
     body: body,
-  }).then((data) => {
-    if (!data.ok) {
-      alert(`Error when adding item ${itemData?.name} to cart.`);
-      console.log(`Could not store item ${body} in cart.`);
+  }).then((response) => {
+    if (!response.ok) {
+      alert(`Error when adding item to cart.`);
+      console.log(`Could not store item ${body} in cart: ${response}`);
     }
+    // Add item to header shopping cart indicator?
   });
 }
 
