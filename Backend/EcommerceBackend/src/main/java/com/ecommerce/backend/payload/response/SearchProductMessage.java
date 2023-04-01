@@ -1,7 +1,5 @@
 package com.ecommerce.backend.payload.response;
 
-import com.ecommerce.backend.models.ProductCategory;
-
 public class SearchProductMessage{
 
     private Long id;
