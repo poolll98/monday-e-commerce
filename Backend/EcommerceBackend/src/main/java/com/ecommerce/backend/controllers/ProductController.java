@@ -21,13 +21,14 @@ import java.util.Optional;
 @RequestMapping("/product")
 public class ProductController {
 
-    @Autowired ProductRepository prodRepo;
+    @Autowired 
+    ProductRepository prodRepo;
+
+    @Autowired 
+    ProductRepository prodStockRepo;
 
     @Autowired
     CategoryRepository categoryRepo;
-
-    @Autowired
-    ProductInStockRepository prodStockRepo;
 
 
     @GetMapping("search/name/{name}")
@@ -68,8 +69,8 @@ public class ProductController {
 
     @GetMapping("search/instock/{instock}")
     public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
-        List<Product> productInStockList = prodRepo.findProductsByStock(instock);
-        System.out.println(productInStockList.toString());
+        List<Product> productInStockList = prodStockRepo.findProductsByStock(instock);
+        System.out.println("CE E ASTA? "+productInStockList.toString());
             List<SearchProductMessage> searchResult = new ArrayList<>();
             for(Product p: productInStockList){
                 String name  = p.getName();
