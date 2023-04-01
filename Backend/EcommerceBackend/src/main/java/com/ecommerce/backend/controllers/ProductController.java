@@ -71,7 +71,7 @@ public class ProductController {
         List<Product> productInStock = prodStockRepo.findProductByStock(instock);
         if (! instock.booleanValue() ){
             List<SearchProductMessage> searchResult = new ArrayList<>();
-            List<Product> sTockProductList = prodRepo.findProductsInStock(productInStock.get(0));
+            List<Product> sTockProductList = prodRepo.findProductsByStock(productInStock.get(0));
             for(Product p: sTockProductList){
                 String name  = p.getName();
                 SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),

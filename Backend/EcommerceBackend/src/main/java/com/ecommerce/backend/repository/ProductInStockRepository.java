@@ -14,7 +14,7 @@ import com.ecommerce.backend.models.Product;
 @Repository
 public interface ProductInStockRepository extends JpaRepository<Product, Boolean>{
     Optional<Product> findByInStock(Boolean inStock);
-    @Query(value = "SELECT * FROM public.product WHERE instock=:inStock", nativeQuery = true)
+    @Query(value = "SELECT * FROM public.product WHERE instock=:instock", nativeQuery = true)
     List<Product> findProductByStock(@Param("instock") Boolean inStock);
 }
 
