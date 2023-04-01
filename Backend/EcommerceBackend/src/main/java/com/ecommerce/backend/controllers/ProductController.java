@@ -4,6 +4,7 @@ import com.ecommerce.backend.models.ProductCategory;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.payload.response.SearchProductMessage;
 import com.ecommerce.backend.repository.CategoryRepository;
+import com.ecommerce.backend.repository.ProductInStockRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ProductController {
 
     @Autowired
     CategoryRepository categoryRepo;
+
+    @Autowired
+    ProductInStockRepository prodStockRepo;
 
 
     @GetMapping("search/name/{name}")
@@ -60,6 +64,25 @@ public class ProductController {
             return ResponseEntity.ok(searchResult);
         }
         return ResponseEntity.badRequest().body(new MessageResponse("This category doesn't exist."));
+    }
+
+    @GetMapping("search/instock/{instock}")
+    public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
+        List<Product> productInStock = prodStockRepo.findProductByStock(instock);
+        if (! instock.booleanValue() ){
+            List<SearchProductMessage> searchResult = new ArrayList<>();
+            List<Product> sTockProductList = prodRepo.findProductsInStock(productInStock.get(0));
+            for(Product p: sTockProductList){
+                String name  = p.getName();
+                SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),
+                        p.getDescription(), name, p.getMedia(), p.getInstock(),
+                        p.getPrice());
+                searchResult.add(spm);
+
+            }
+            return ResponseEntity.ok(searchResult);
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("In stock can only be true or false!"));
     }
 
 }
