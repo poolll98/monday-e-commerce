@@ -68,11 +68,10 @@ public class ProductController {
 
     @GetMapping("search/instock/{instock}")
     public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
-        List<Product> productInStock = prodStockRepo.findProductByStock(instock);
-        if (! instock.booleanValue() ){
+        List<Product> productInStockList = prodRepo.findProductsByStock(instock);
+        System.out.println(productInStockList.toString());
             List<SearchProductMessage> searchResult = new ArrayList<>();
-            List<Product> stockProductList = prodRepo.findProductsByStock(productInStock.get(0));
-            for(Product p: stockProductList){
+            for(Product p: productInStockList){
                 String name  = p.getName();
                 SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),
                         p.getDescription(), name, p.getMedia(), p.getInstock(),
@@ -80,9 +79,8 @@ public class ProductController {
                 searchResult.add(spm);
 
             }
-            return ResponseEntity.ok(searchResult);
-        }
-        return ResponseEntity.badRequest().body(new MessageResponse("In stock can only be true or false!"));
+            return ResponseEntity.ok(searchResult); 
     }
+
 
 }
