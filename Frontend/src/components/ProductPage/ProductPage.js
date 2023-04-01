@@ -36,7 +36,6 @@ export default function ProductPage() {
 
       <button
         onClick={() => {
-          alert("Added to cart");
           let itemData = { id: productId, quantity: quantity };
           addItemToCart(itemData, user);
         }}
