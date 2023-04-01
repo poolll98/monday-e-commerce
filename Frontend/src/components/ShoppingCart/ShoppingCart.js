@@ -11,10 +11,10 @@ import "./ShoppingCart.css";
 
 export default function ShoppingCart() {
   const user = useContext(UserContext);
-  //const [items, setItems] = useState(null);
 
   const [cart, setCart] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]); // contains the ids of the selected items
 
   // TODO: Only try to load when logged in.
   useEffect(() => {
@@ -64,32 +64,26 @@ export default function ShoppingCart() {
 
   /* remove item */
   const removeItem = useCallback(
-    (i) => {
-      console.log("removeItem", i);
-      setCart(cart.filter((item, _i) => _i !== i));
+    (id) => {
+      console.log("removeItem", id);
+      setCart(cart.filter((item) => item.id !== id));
     },
     [cart]
   );
 
   /* Select and unselect item */
-  const toggleItem = useCallback(
-    (i) => {
-      console.log("toggleItem", i);
-      console.log("cart", cart);
-
-      const item = cart.find((item, _i) => {
-        console.log("_i", _i);
-        return _i === i;
-      });
-
-      if (item) {
-        console.log("here");
-        item.selected = !item.selected;
-        setCart([...cart]);
-      }
-    },
-    [cart]
-  );
+  const toggleItem = (id) => {
+    let newSelectedItems = [];
+    if (selectedItems.includes(id)) {
+      newSelectedItems = selectedItems.filter(
+        (selectedId) => selectedId !== id
+      );
+    } else {
+      newSelectedItems = selectedItems.map((el) => el);
+      newSelectedItems.push(id);
+    }
+    setSelectedItems(newSelectedItems);
+  };
 
   /* Calculate total quantity */
   const getTotalCount = useCallback(() => {
@@ -113,39 +107,20 @@ export default function ShoppingCart() {
       }, 0);
   }, [cart]);
 
-  // useEffect(() => {
-  //   !cart.length && setCart(productData);
-  // }, [cart]);
-
-  /* ===== Select all -- "two-way data binding" ===== */
-  /* 
-  Listen to the data change of the shopping cart to switch the selected state
-   cart driver allSelected
-  */
-  useEffect(() => {
-    // console.log("useEffect", "cart=>allSelected");
-    cart.every((item) => item.selected)
-      ? setAllSelected(true)
-      : setAllSelected(false);
-    // return () => { }
-  }, [cart]);
-
   /*     
   When the user actively uses the [Select All] function
   First modify the cart data (select all or delete all) and then drive allSelected by cart 
   */
-  const toggleAllSelected = useCallback(
-    (value) => {
-      console.log("toggleAllSelected", value);
-      // setAllSelected(value)
-
-      // First modify the cart data to (select all or delete all)
-      // Modify shopping cart data => [data listening logic A] will trigger setAllSelected
-      cart.forEach((item) => (item.selected = value));
-      setCart([...cart]);
-    },
-    [cart]
-  );
+  const toggleAllSelected = (value) => {
+    console.log("toggleAllSelected", value);
+    if (value) {
+      let itemIds = cart.map((item) => item.id);
+      setSelectedItems(itemIds);
+    } else {
+      setSelectedItems([]);
+    }
+    setAllSelected(value);
+  };
   /* ===== ENDOF Select all -- "two-way data binding" ===== */
 
   if (!user || Object.keys(user).length === 0) {
@@ -180,9 +155,9 @@ export default function ShoppingCart() {
 
       <div className="middle">
         <ul>
-          {cart.map((item, i) => (
+          {cart.map((item) => (
             <CartItem
-              index={i}
+              selected={selectedItems.includes(item.id)}
               item={item}
               addItem={addItem}
               subItem={subItem}
@@ -210,6 +185,4 @@ export default function ShoppingCart() {
       </div>
     </div>
   );
-
-  //return (user.username !== undefined && <ul>{cartItems}</ul>);
 }

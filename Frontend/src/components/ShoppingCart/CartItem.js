@@ -1,20 +1,21 @@
 import React from "react";
 
 const CartItem = ({
-  index,
+  selected,
   item,
   addItem,
   subItem,
   removeItem,
   toggleSelection,
 }) => {
+  console.log("rendering");
   return (
     <li className="item">
       <div className="sel-box">
         <input
           type="checkbox"
-          checked={item.selected}
-          onChange={() => toggleSelection(index)}
+          checked={selected}
+          onChange={() => toggleSelection(item.id)}
         />
       </div>
 
@@ -31,7 +32,7 @@ const CartItem = ({
       </div>
 
       <div className="count-box">
-        <button onClick={() => subItem(index)}>-</button>
+        <button onClick={() => subItem(item.id)}>-</button>
         <input
           value={item.amount}
           onChange={(newVal) => {
@@ -52,7 +53,7 @@ const CartItem = ({
         <span className="price">{(item.price * item.amount).toFixed(2)}</span>
       </div>
       <div className="action-box">
-        <a href="#" onClick={() => removeItem(index)}>
+        <a href="#" onClick={() => removeItem(item.id)}>
           Remove Item
         </a>
       </div>
