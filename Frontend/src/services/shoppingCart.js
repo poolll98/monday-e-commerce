@@ -15,7 +15,10 @@ export function getShoppingCartItems(user) {
     .then((items) => {
       // TODO: Load actual data.
       let f = items
-        .map((item) => products.find((product) => product.id === item.id))
+        .map((item) => {
+          let product = products.find((product) => product.id === item.id);
+          return product ? { ...product, amount: item.amount } : undefined;
+        })
         .filter((product) => product !== undefined);
       return f;
     });
