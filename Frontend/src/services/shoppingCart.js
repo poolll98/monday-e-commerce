@@ -1,11 +1,13 @@
 // TODO: Check if user needs to be passed or can be extracted from context.
 
+const cartEndpointUrl = "http://localhost:3333/cart";
+
 export function getShoppingCartItems(user) {
   if (!isValidUser(user)) {
     // do something?
   }
 
-  return fetch("http://localhost:3333/cart").then((data) => data.json());
+  return fetch(cartEndpointUrl).then((data) => data.json());
 }
 
 export function addItemToCart(itemData, user) {
@@ -16,7 +18,7 @@ export function addItemToCart(itemData, user) {
   let body = JSON.stringify(itemData); // TODO: Transform data as needed.
   console.log(body);
 
-  return fetch("http://localhost:3333/cart", {
+  return fetch(cartEndpointUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
