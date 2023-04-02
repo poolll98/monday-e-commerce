@@ -4,7 +4,6 @@ import com.ecommerce.backend.models.ProductCategory;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.payload.response.SearchProductMessage;
 import com.ecommerce.backend.repository.CategoryRepository;
-import com.ecommerce.backend.repository.ProductInStockRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ public class ProductController {
     @Autowired 
     ProductRepository prodRepo;
 
-    @Autowired 
-    ProductRepository prodStockRepo;
-
     @Autowired
     CategoryRepository categoryRepo;
 
@@ -34,18 +30,9 @@ public class ProductController {
     @GetMapping("search/name/{name}")
     // public endpoint
     public ResponseEntity<?> searchProductByName(@PathVariable String name){
-        List<Product> productList = prodRepo.findProductsByName(name);
-        System.out.println(productList.size());
-        List<SearchProductMessage> searchResult = new ArrayList<>();
-        for(Product p: productList){
-            String category_name  = p.getProductCategory().getCategory_name();
-            SearchProductMessage m = new SearchProductMessage(p.getId(), p.getName(),
-                    p.getDescription(), category_name, p.getMedia(), p.getInstock(),
-                    p.getPrice());
-            searchResult.add(m);
-
-        }
-        return ResponseEntity.ok(searchResult);
+        List<Product> searchResult = prodRepo.findProductsByName(name);
+        System.out.println("This many products found by name: "+searchResult.size());
+        return ResponseEntity.ok(this.prepareOutputMessage(searchResult));
     }
 
     @GetMapping("search/category/{category_name}")
@@ -69,18 +56,22 @@ public class ProductController {
 
     @GetMapping("search/instock/{instock}")
     public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
-        List<Product> productInStockList = prodStockRepo.findProductsByInstock(instock);
-        System.out.println("This many products in stock: "+productInStockList.toString());
-            List<SearchProductMessage> searchResult = new ArrayList<>();
-            for(Product p: productInStockList){
-                String name  = p.getName();
-                SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),
-                        p.getDescription(), name, p.getMedia(), p.getInstock(),
-                        p.getPrice());
-                searchResult.add(spm);
+        List<Product> searchResult = prodRepo.findProductsByInstock(instock);
+        System.out.println("This many products in stock: "+searchResult.toString());
+        return ResponseEntity.ok(this.prepareOutputMessage(searchResult));
+    }
 
-            }
-            return ResponseEntity.ok(searchResult); 
+    private List<SearchProductMessage> prepareOutputMessage(List<Product> searchResult){
+        List<SearchProductMessage> outputResult = new ArrayList<>();
+        for(Product p: searchResult){
+            String category_name  = p.getProductCategory().getCategory_name();
+            SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),
+                    p.getDescription(), category_name, p.getMedia(), p.getInstock(),
+                    p.getPrice());
+            outputResult.add(spm);
+
+        }
+        return outputResult;
     }
 
 
