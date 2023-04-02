@@ -7,7 +7,7 @@ export default function LoginGuard({ children }) {
   const user = useContext(UserContext);
   const userAction = useContext(UserLoginContext);
 
-  if (user.username === undefined) {
+  if (!user || Object.keys(user).length === 0) {
     let token = getToken();
     if (token) {
       userAction({ action: "login" });

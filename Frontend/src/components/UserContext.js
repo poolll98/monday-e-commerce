@@ -23,15 +23,6 @@ function userManagementReducer(user, action) {
 export function UserProvider({ children }) {
   const [user, dispatch] = useReducer(userManagementReducer, {});
 
-  if (user.username === undefined) {
-    let token = getToken();
-    if (token) {
-      dispatch({ action: "login" });
-    } else {
-      return <LoginPage />;
-    }
-  }
-
   return (
     <UserContext.Provider value={user}>
       <UserLoginContext.Provider value={dispatch}>

@@ -124,9 +124,6 @@ export default function ShoppingCart() {
   };
   /* ===== ENDOF Select all -- "two-way data binding" ===== */
 
-  if (!user || Object.keys(user).length === 0) {
-    return <p>Please log in to access your cart.</p>;
-  }
   if (cart === null) {
     return <div>Loading...</div>;
   }
