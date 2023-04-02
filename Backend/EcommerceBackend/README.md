@@ -24,7 +24,7 @@ docker load < mon-pg.tar docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSW
 And on Windows:
 
 ```
-Get-Content mon-pg.tar | docker load; docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres; docker start mon-pg
+docker load -i mon-pg.tar; docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres; docker start mon-pg
 ```
 
 Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL Server.
