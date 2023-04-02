@@ -7,6 +7,7 @@ import ProductPage from "./components/ProductPage/ProductPage";
 import HomePage from "./components/HomePage";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import { UserProvider } from "./components/UserContext";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <HeaderBar />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/login" element={<LoginPage />} />
             <Route exact path="/cart" element={<ShoppingCart />} />
             <Route exact path="/products" element={<ListProducts />} />
             <Route path="/products/:productId" element={<ProductPage />} />
