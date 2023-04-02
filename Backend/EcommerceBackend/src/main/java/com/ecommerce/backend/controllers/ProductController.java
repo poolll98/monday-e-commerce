@@ -70,7 +70,7 @@ public class ProductController {
     @GetMapping("search/instock/{instock}")
     public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
         List<Product> productInStockList = prodStockRepo.findProductsByInstock(instock);
-        System.out.println("CE E ASTA? "+productInStockList.toString());
+        System.out.println("This many products in stock: "+productInStockList.toString());
             List<SearchProductMessage> searchResult = new ArrayList<>();
             for(Product p: productInStockList){
                 String name  = p.getName();
