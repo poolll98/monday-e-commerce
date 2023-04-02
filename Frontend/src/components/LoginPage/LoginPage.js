@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./LoginPage.css";
 
-import { login } from "../../services/UserSessionService";
+import { login } from "../../services/userSessionManagement";
 import { UserLoginContext } from "../UserContext";
 
 export default function LoginPage() {

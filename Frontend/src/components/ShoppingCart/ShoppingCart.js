@@ -7,6 +7,7 @@ import { getShoppingCartItems } from "../../services/shoppingCart";
 import CartItem from "./CartItem";
 
 import "./ShoppingCart.css";
+import LoginGuard from "../LoginGuard";
 //import productData from "./MockData";
 
 export default function ShoppingCart() {
@@ -132,57 +133,59 @@ export default function ShoppingCart() {
 
   /* functional component => render JSX */
   return (
-    <div className="cart-wrapper">
-      <div className="top">
-        <div className="sel-box">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={(e) => {
-              console.log("SelectAll input onChanged", !allSelected);
-              toggleAllSelected(!allSelected);
-            }}
-          />
-          <i>SelectAll</i>
+    <LoginGuard>
+      <div className="cart-wrapper">
+        <div className="top">
+          <div className="sel-box">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={(e) => {
+                console.log("SelectAll input onChanged", !allSelected);
+                toggleAllSelected(!allSelected);
+              }}
+            />
+            <i>SelectAll</i>
+          </div>
+
+          <span className="imgname-box">Product Name</span>
+          <span>Unit Price</span>
+          <span className="count-box">Quantity</span>
+          <span>Amount</span>
+          <span>Operation</span>
         </div>
 
-        <span className="imgname-box">Product Name</span>
-        <span>Unit Price</span>
-        <span className="count-box">Quantity</span>
-        <span>Amount</span>
-        <span>Operation</span>
-      </div>
+        <div className="middle">
+          <ul>
+            {cart.map((item) => (
+              <CartItem
+                selected={selectedItems.includes(item.id)}
+                item={item}
+                addItem={addItem}
+                subItem={subItem}
+                removeItem={removeItem}
+                toggleSelection={toggleItem}
+                key={item.id}
+              ></CartItem>
+            ))}
+          </ul>
+        </div>
 
-      <div className="middle">
-        <ul>
-          {cart.map((item) => (
-            <CartItem
-              selected={selectedItems.includes(item.id)}
-              item={item}
-              addItem={addItem}
-              subItem={subItem}
-              removeItem={removeItem}
-              toggleSelection={toggleItem}
-              key={item.id}
-            ></CartItem>
-          ))}
-        </ul>
-      </div>
-
-      <div className="bottom">
-        <div className="left"></div>
-        <div className="count-box">
-          <span className="price">{getTotalCount()}</span> items has been
-          selected
-        </div>
-        <div className="amount-box">
-          Total Amount{" "}
-          <span className="price">{getTotalAmount().toFixed(2)}</span>
-        </div>
-        <div className="pay-box">
-          <i>Buy</i>
+        <div className="bottom">
+          <div className="left"></div>
+          <div className="count-box">
+            <span className="price">{getTotalCount()}</span> items has been
+            selected
+          </div>
+          <div className="amount-box">
+            Total Amount{" "}
+            <span className="price">{getTotalAmount().toFixed(2)}</span>
+          </div>
+          <div className="pay-box">
+            <i>Buy</i>
+          </div>
         </div>
       </div>
-    </div>
+    </LoginGuard>
   );
 }

@@ -23,3 +23,9 @@ export function login(credentials) {
     .then((data) => data.json())
     .then((data) => localStorage.setItem("bearerToken", data.bearerToken));
 }
+
+export function getToken() {
+  const tokenString = sessionStorage.getItem("bearerToken");
+  const userToken = JSON.parse(tokenString);
+  return userToken?.token;
+}
