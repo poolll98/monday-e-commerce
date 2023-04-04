@@ -2,7 +2,7 @@
 The application is based on Spring Boot framework, supporting Token based Authentication with JWT and Spring Security.
 It uses Spring Data JPA to interact with PostgreSQL Database.
 
-## Use the backend application without Docker
+## Use the backend application with Docker
 1. Run "mvn package" to create the Backend applicatino as a jar. Alternatively, run "./mvnw clean package -DskipTests" if you want to created the jar without having the DB already running.
 
 2. Make sure the Dockerfile contains the exact name of the generated jar and then run:
