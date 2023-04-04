@@ -3,14 +3,15 @@ The application is based on Spring Boot framework, supporting Token based Authen
 It uses Spring Data JPA to interact with PostgreSQL Database.
 
 ## Use the backend application with Docker
-1. Run "mvn package" to create the Backend applicatino as a jar. Alternatively, run "./mvnw clean package -DskipTests" if you want to created the jar without having the DB already running.
+1. Run "mvn package" to create the Backend application as a jar. Alternatively, run "./mvnw clean package -DskipTests" if you want to create the jar without having the DB already running.
 
 2. Make sure the Dockerfile contains the exact name of the generated jar and then run:
 docker build -t monday-backend .
 
 3. Your postgres image should already be present on your environment. The image, not the container. Actually the postgres container you were previously using should be stopped now. Once you checked all this and saw your backend image was created at step 2, run: docker compose up -d
 
-4. Have fun and when done, you may as well stop the containers, if you like: docker compose down
+4. Have fun (See Interact with the Services section) and when done, you may as well stop the containers, if you like: docker compose down
+
 
 
 
@@ -43,7 +44,9 @@ INSERT INTO shopping_cart(login_user_id) VALUES(1);
 INSERT INTO product_category(category_name) VALUES('food');
 INSERT INTO product(description,instock,name,price,product_category_id) VALUES('super random pizza', true,'pizza', 8,1);
 ```
-### Interact with the services
+
+
+## Interact with the services
 The application automatically generates the documentation about the available endpoints, thanks to Swagger, here:
 ```
 http://localhost:8080/swagger-ui/index.html
