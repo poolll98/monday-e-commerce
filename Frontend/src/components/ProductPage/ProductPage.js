@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import productData from "../../mockdata/products";
+import productData from "../../mocks/products";
 import { useState } from "react";
 
 export default function ProductPage() {
