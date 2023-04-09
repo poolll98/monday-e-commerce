@@ -7,7 +7,6 @@ import { getShoppingCartItems } from "../../services/shoppingCart";
 import CartItem from "./CartItem";
 
 import "./ShoppingCart.css";
-import productData from "./MockData";
 
 export default function ShoppingCart() {
   //let items = [{'id': 1}, {'id': 2}, {'id': 3}]; // example items
@@ -115,8 +114,8 @@ export default function ShoppingCart() {
   }, [cart]);
 
   useEffect(() => {
-    !cart.length && setCart(productData);
-  }, [cart]);
+    !cart?.length && setCart(items);
+  }, [cart, items]);
 
   /* ===== Select all -- "two-way data binding" ===== */
   /* 
@@ -125,7 +124,7 @@ export default function ShoppingCart() {
   */
   useEffect(() => {
     // console.log("useEffect", "cart=>allSelected");
-    cart.every((item) => item.selected)
+    cart?.every((item) => item.selected)
       ? setAllSelected(true)
       : setAllSelected(false);
     // return () => { }
