@@ -1,7 +1,6 @@
-const userEndpointUrl = "http://localhost:3333/login";
+const userEndpointUrl = "http://localhost:3333/login"; // TODO: Load from config file/environment.
 
 export function signup(userData) {
-  return;
   fetch(userEndpointUrl, {
     method: "POST",
     headers: {
@@ -14,8 +13,6 @@ export function signup(userData) {
 }
 
 export function login(username, password) {
-  localStorage.setItem("bearerToken", "token");
-  return;
   fetch(userEndpointUrl, {
     method: "POST",
     headers: {
