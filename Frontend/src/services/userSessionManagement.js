@@ -9,7 +9,7 @@ export function signup(userData) {
     body: JSON.stringify(userData),
   })
     .then((data) => data.json())
-    .then((data) => localStorage.setItem("bearerToken", data.bearerToken));
+    .then((data) => localStorage.setItem("bearerToken", data.token));
 }
 
 export function login(username, password) {
@@ -26,7 +26,7 @@ export function login(username, password) {
       }
     })
     .then((data) => data.json())
-    .then((data) => localStorage.setItem("bearerToken", data.bearerToken))
+    .then((data) => localStorage.setItem("bearerToken", data.token))
     .catch((reason) => {
       alert("Unable to log in.");
       console.log(reason);
