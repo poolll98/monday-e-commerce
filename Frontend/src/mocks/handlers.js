@@ -2,7 +2,8 @@
 import { rest } from "msw";
 
 import testuser from "./testuser";
-import items from "./items";
+import products from "./products";
+import cart from "./cart";
 
 let requestUrl = "http://localhost:8080";
 
@@ -19,14 +20,25 @@ export const handlers = [
   }),
 
   // example for replacement of json-server
+  rest.get("http://localhost:3333/products", (req, res, ctx) => {
+    return res(
+      // Respond with a 200 status code
+      ctx.status(200),
+      ctx.json(products)
+    );
+  }),
+
+  // example for replacement of json-server
   rest.get("http://localhost:3333/cart", (req, res, ctx) => {
-    // Persist user's authentication in the session
-    sessionStorage.setItem("is-authenticated", "true");
+    // Check if user is logged in.
+    if (!sessionStorage.getItem("is-authenticated")) {
+      return res(ctx.status(401));
+    }
 
     return res(
       // Respond with a 200 status code
       ctx.status(200),
-      ctx.json(items)
+      ctx.json(cart)
     );
   }),
 
