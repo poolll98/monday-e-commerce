@@ -23,7 +23,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
-  image: maven:3.6.3-jdk-17
+  image: maven:3.8.4-jdk-17
   script:
     - cd Backend/EcommerceBackend
     - echo "Building the backend jar"
