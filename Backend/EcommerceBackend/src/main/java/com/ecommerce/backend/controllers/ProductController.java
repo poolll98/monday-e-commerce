@@ -8,12 +8,10 @@ import com.ecommerce.backend.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -36,6 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("search/category/{category_name}")
+    // public endpoint
     public ResponseEntity<?> searchProductByCategory(@PathVariable String category_name){
         List<ProductCategory> productCategory = categoryRepo.findProductCategoryByCategory_name(category_name);
         if (! productCategory.isEmpty()){
@@ -55,6 +54,7 @@ public class ProductController {
     }
 
     @GetMapping("search/instock/{instock}")
+    // public endpoint
     public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
         List<Product> searchResult = prodRepo.findProductsByInstock(instock);
         System.out.println("This many products in stock: "+searchResult.toString());

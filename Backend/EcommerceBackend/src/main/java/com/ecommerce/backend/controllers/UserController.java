@@ -78,6 +78,42 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("Address correctly added to the User."));
     }
 
+    @DeleteMapping("address/remove/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    //notice that this is the id of the Address not of the UserAddress
+    public ResponseEntity<?> removeAddressFromUser(@PathVariable Long id,
+                                                   @RequestHeader(name = "Authorization") String token) {
+
+        if(!addressRepository.existsById(id)){ //check if we have that address in the db
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: This Address doesn't exist."));
+        }
+        else {
+            token = token.substring(7); //we just drop the word "bearer" from the token's signature
+            User currentUser = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+            List<UserAddress> userAddresses = userAddressRepository.findAllByUser(currentUser);
+            boolean userHasAddress = false;
+            UserAddress targetAddress = new UserAddress();
+            for (UserAddress userAddr: userAddresses){
+                Address addr = userAddr.getAddress();
+                if(addr.getId().equals(id)){ // check if the user is associated with that address
+                    userHasAddress = true;
+                    targetAddress = userAddr;
+                    break;
+                }
+            }
+            if(userHasAddress){
+                userAddressRepository.deleteById(targetAddress.getId());
+                return ResponseEntity.ok(new MessageResponse("Address has been removed from the user's list."));
+            }
+            else{
+                return ResponseEntity.badRequest().
+                        body(new MessageResponse("Error: This address is not associated with the user."));
+            }
+        }
+
+    }
+
     private boolean equalAddresses(AddAddressRequest addr1, Address addr2){
         return addr1.getCountry().equals(addr2.getCountry()) &&
                 addr1.getRegion().equals(addr2.getRegion()) &&
