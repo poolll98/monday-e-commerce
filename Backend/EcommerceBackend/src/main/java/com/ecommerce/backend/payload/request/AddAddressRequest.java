@@ -22,17 +22,15 @@ public class AddAddressRequest {
     @NotNull
     private Integer street_nr;
 
-    private boolean defaultaddr;
 
-    public AddAddressRequest(String city, String country, String receiver, String region, String street, Integer street_nr,
-                             boolean defaultaddr) {
+    public AddAddressRequest(String city, String country, String receiver, String region, String street, Integer street_nr
+                            ) {
         this.city = city;
         this.country = country;
         this.receiver = receiver;
         this.region = region;
         this.street = street;
         this.street_nr = street_nr;
-        this.defaultaddr = defaultaddr;
     }
 
     public String getCity() {
@@ -59,10 +57,6 @@ public class AddAddressRequest {
         return street_nr;
     }
 
-    public boolean isDefaultaddr() {
-        return defaultaddr;
-    }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -87,8 +81,5 @@ public class AddAddressRequest {
         this.street_nr = street_nr;
     }
 
-    public void setDefaultaddr(boolean defaultaddr) {
-        this.defaultaddr = defaultaddr;
-    }
 }
 

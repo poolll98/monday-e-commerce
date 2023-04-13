@@ -57,8 +57,9 @@ public class UserController {
                     address.getRegion(), address.getCountry(), address.getReceiver());
             addressRepository.save(newAddress);
             System.out.println("New address added in the db.");
-        } else { // we check that the user doesn't have that address associated with him
-            List<UserAddress> userAddress = userAddressRepository.findAllByUser(currentUser);
+        }
+        else { // we check that the user doesn't have that address associated with him
+            List <UserAddress> userAddress = userAddressRepository.findAllByUser(currentUser);
             boolean userHasAddress = false;
             for (UserAddress userAdd : userAddress) {
                 Address addr = userAdd.getAddress();
@@ -73,7 +74,7 @@ public class UserController {
             }
         }
 
-        UserAddress newUserAddress = new UserAddress(currentUser, newAddress, address.isDefaultaddr());
+        UserAddress newUserAddress = new UserAddress(currentUser, newAddress, false);
         userAddressRepository.save(newUserAddress);
         return ResponseEntity.ok(new MessageResponse("Address correctly added to the User."));
     }
@@ -114,6 +115,37 @@ public class UserController {
 
     }
 
+    @PutMapping("address/make/default/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    //notice that this is the id of the Address not of the UserAddress
+    public ResponseEntity<?> makeDefaultAddress(@PathVariable Long id,
+                                                @RequestHeader(name = "Authorization") String token) {
+        if (!addressRepository.existsById(id)) { //check if we have that address in the db
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: This Address doesn't exist."));
+        } else {
+            token = token.substring(7); //we just drop the word "bearer" from the token's signature
+            User currentUser = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+            List<UserAddress> userAddresses = userAddressRepository.findAllByUser(currentUser);
+            boolean userHasAddress = false;
+            UserAddress targetAddress = new UserAddress();
+            for (UserAddress userAddr : userAddresses) {
+                Address addr = userAddr.getAddress();
+                if (addr.getId().equals(id)) { // check if the user is associated with that address
+                    userHasAddress = true;
+                    targetAddress = userAddr;
+                    break;
+                }
+            }
+            if (userHasAddress) {
+                this.setDefaultAddress(userAddresses, id);
+                return ResponseEntity.ok(new MessageResponse("Address has been set has default address."));
+            } else {
+                return ResponseEntity.badRequest().
+                        body(new MessageResponse("Error: This address is not associated with the user."));
+            }
+        }
+    }
     private boolean equalAddresses(AddAddressRequest addr1, Address addr2){
         return addr1.getCountry().equals(addr2.getCountry()) &&
                 addr1.getRegion().equals(addr2.getRegion()) &&
@@ -121,6 +153,13 @@ public class UserController {
                 addr1.getStreet().equals(addr2.getStreet()) &&
                 addr1.getStreet_nr().equals(addr2.getStreet_nr()) &&
                 addr1.getReceiver().equals(addr2.getReceiver());
+    }
+
+    private void setDefaultAddress(List<UserAddress> userAddresses, Long id){
+        for (UserAddress userAddr : userAddresses) { //we set false all the addresses except the target one
+            userAddr.setDefaultaddr(userAddr.getAddress().getId().equals(id));
+            userAddressRepository.save(userAddr);
+        }
     }
 
 }
