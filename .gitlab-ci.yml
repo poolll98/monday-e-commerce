@@ -43,6 +43,7 @@ docker-build:
   services:
     - docker:dind
   script:
+    - cd Backend/EcommerceBackend
     - echo "Building the backend image"
     - docker build -t monday-backend Backend/EcommerceBackend/Dockerfile
   dependencies:
