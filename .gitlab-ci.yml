@@ -45,7 +45,7 @@ docker-build:
   script:
     - cd Backend/EcommerceBackend
     - echo "Building the backend image"
-    - docker build -t monday-backend Backend/EcommerceBackend/Dockerfile
+    - docker build -t monday-backend .
   dependencies:
     - build-job
 
