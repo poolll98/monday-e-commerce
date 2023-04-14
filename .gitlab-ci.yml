@@ -41,5 +41,5 @@ docker-build:
     - echo "Building the backend image"
     - docker build -t monday-backend Backend/EcommerceBackend/Dockerfile
   dependencies:
-    - build
+    - build-job
 
