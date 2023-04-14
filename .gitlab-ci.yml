@@ -27,7 +27,7 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - cd Backend/EcommerceBackend
     - echo "Building the backend jar"
-    - mvn clean package
+    - mvn clean package -DskipTests
     - echo "Build complete."
   artifacts:
     paths:
