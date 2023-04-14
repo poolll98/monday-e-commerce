@@ -1,0 +1,30 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres
+    container_name: pg-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pgpwd1
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./db-scripts:/docker-entrypoint-initdb.d/
+  backend:
+    image: monday-backend
+    container_name: backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: pgpwd1
+    depends_on:
+      - postgres
+volumes:
+  pg-data:

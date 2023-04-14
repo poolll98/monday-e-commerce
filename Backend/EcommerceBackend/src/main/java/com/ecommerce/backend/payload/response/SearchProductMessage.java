@@ -1,9 +1,8 @@
 package com.ecommerce.backend.payload.response;
 
-import com.ecommerce.backend.models.ProductCategory;
-
 public class SearchProductMessage{
 
+    private Long id;
     private String name;
     private String description;
     private String categoryName;
@@ -11,8 +10,9 @@ public class SearchProductMessage{
     private Boolean instock;
     private Float price;
 
-    public SearchProductMessage(String name, String description, String categoryName, byte[] media,
+    public SearchProductMessage(Long id,String name, String description, String categoryName, byte[] media,
                                 Boolean instock, Float price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.categoryName = categoryName;
@@ -20,6 +20,14 @@ public class SearchProductMessage{
         this.instock = instock;
         this.price = price;
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
