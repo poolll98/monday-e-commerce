@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import productData from "../../mockdata/products";
+import productData from "../mockdata/products";
 import { Link } from "react-router-dom";
 
 function SearchBar({ query, onChange }) {
