@@ -146,6 +146,7 @@ public class UserController {
             }
         }
     }
+    
     private boolean equalAddresses(AddAddressRequest addr1, Address addr2){
         return addr1.getCountry().equals(addr2.getCountry()) &&
                 addr1.getRegion().equals(addr2.getRegion()) &&

@@ -18,17 +18,14 @@
 
 stages:          # List of stages for jobs, and their order of execution
   - build
-  - docker-build
+#  - docker-build
 #  - test
 #  - deploy
 
 variables: 
   DOCKER_HOST: tcp://docker:2375/
-<<<<<<< .gitlab-ci.yml
-  
-=======
 
->>>>>>> .gitlab-ci.yml
+
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   image: maven:3.8.3-openjdk-17

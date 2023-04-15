@@ -1,4 +1,5 @@
 version: '3'
+
 services:
 
   postgres:
@@ -13,8 +14,9 @@ services:
       - "5432:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
-      - ./db-scripts:/docker-entrypoint-initdb.d/
+
   backend:
+    build: .
     image: monday-backend
     container_name: backend
     restart: always
@@ -26,5 +28,15 @@ services:
       SPRING_DATASOURCE_PASSWORD: pgpwd1
     depends_on:
       - postgres
+
+  db-init:
+    build: 
+      context: .
+      dockerfile: db-script-dockerfile
+    container_name: db-init-script
+    depends_on:
+      - postgres
+      - backend
+
 volumes:
   pg-data:
