@@ -114,13 +114,15 @@ RESULT: {
 
 Take note of the generated bear token, 
 which could be different than that of this example.
-Use this token to authorize from now on.
+Use this token to authorize yourself from now on.
 
 - Test the token: 
 
 GET http://localhost:8080/api/test/user
 
 Authorization: type: Bear Token
+
+RESULT: User Content.
 
 
 - Add a product (already inserted in the db) to the shopping cart (already inserted in the db):
@@ -317,5 +319,4 @@ Authorization: type: Bear Token
 RESPONSE: {
     "message": "Address has been removed from the user's list."
 }
-
 ``` 
