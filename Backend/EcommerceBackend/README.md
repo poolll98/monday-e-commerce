@@ -5,7 +5,7 @@ It uses Spring Data JPA to interact with PostgreSQL Database.
 ## Use the backend application with Docker
 1. Run "./mvnw clean package -DskipTests" to create the backend jar. Alternatively, you can run the Gitlab CI/CD Pipeline which will do the build for you, after which you can download the jar and place it under the project's "target" folder.
 
-2. Run "docker compose up"
+2. Run "docker compose up" or "docker compose up -d", if you want your containers to be running in the underground. For stopping the backend, run "docker compose down"
 
 4. See "Interact with the Services" for testing or integrating the APIs
 
