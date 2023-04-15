@@ -57,6 +57,8 @@ Use this tool to test the endpoints:
 1)Test public resources:
 ```
  GET http://localhost:8080/api/test/all
+ 
+ RESULT: Public Content.
 ```
 2)Test user resources:
 ``` 
@@ -77,6 +79,11 @@ body: {
     "role": ["user"]
 }   
 
+RESULT: {
+    "message": "User successfully registered with basic permissions!",
+    "id": 2
+}
+
 
 - Login with the credentials:
 
@@ -87,8 +94,27 @@ body: {
 "password": "testpassw"
 }
 
-Take note of the generated bear token.
+RESULT: {
+    "id": 2,
+    "username": "test_username",
+    "email": "test123@gmail.com",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X3VzZXJuYW1lIiwiaWF0IjoxNjgxNTQ2ODg2LCJleHAiOjE2ODE2MzMyODZ9.NvMtcFWM3t1dHQa2hFrp_4HA6fRkYARyAq6ZJtPq6hIrUuetsmizZj4j-YZuj1WHMnmJImCYSZCAdrLLAZyMSg",
+    "tokenType": "Bearer"
+}
 
+- From now on log in use the following test account already inserted in the db:
+  
+  body: {
+  "username" = "username"
+  "password" = "password"
+  }
+
+Take note of the generated bear token, 
+which could be different than that of this example.
+Use this token to authorize from now on.
 
 - Test the token: 
 
@@ -97,7 +123,7 @@ GET http://localhost:8080/api/test/user
 Authorization: type: Bear Token
 
 
-- Add a product to the shopping cart:
+- Add a product (already inserted in the db) to the shopping cart (already inserted in the db):
 
 POST http://localhost:8080/shopcart/add
 
@@ -108,6 +134,11 @@ body:{
 }
 
 Authorization: type: Bear Token
+
+RESULT: {
+    "message": "Product has been added to the cart.",
+    "id": 1
+}
 
 
 - Edit the quantity of a product in the shopping cart:
@@ -122,9 +153,169 @@ body:
 
 Authorization: type: Bear Token
 
+RESPONSE: {
+    "message": "1: quantity updated."
+}
+
+
 - Delete a product from the shopping cart:
 
 DELETE http://localhost:8080/shopcart/remove/1
 
 Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Item has been removed from the cart."
+}
+
+- Search products by name (public API, no autorization required):
+
+GET http://localhost:8080/product/search/name/pizza
+
+RESPONSE: [
+{
+        "id": 1,
+        "name": "pizza",
+        "description": "super random pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 8.0
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "description": "super test pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 6.0
+    }
+]
+
+- Search products by category (public API, no autorization required):
+
+GET http://localhost:8080/product/search/category/food
+
+RESPONSE:[
+  {
+        "id": 1,
+        "name": "pizza",
+        "description": "super random pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 8.0
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "description": "super test pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 6.0
+    },
+    {
+        "id": 3,
+        "name": "burger",
+        "description": "random burger",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 5.0
+    },
+    {
+        "id": 4,
+        "name": "pasta",
+        "description": "random pasta",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 3.0
+    }
+]
+
+- Search products by instock (public API, no autorization required):
+
+GET http://localhost:8080/product/search/instock/true
+
+REPONSE:[
+  {
+        "id": 1,
+        "name": "pizza",
+        "description": "super random pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 8.0
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "description": "super test pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 6.0
+    },
+    {
+        "id": 3,
+        "name": "burger",
+        "description": "random burger",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 5.0
+    },
+    {
+        "id": 4,
+        "name": "pasta",
+        "description": "random pasta",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 3.0
+    }
+]
+
+- Add user's address: 
+
+POST http://localhost:8080/user/address/add
+
+Authorization: type: Bear Token
+
+body: {
+    "city": "Rome",
+    "country": "Italy",
+    "receiver": "Marco Rossi",
+    "region": "Lazio",
+    "street": "Via del Quirinale",
+    "street_nr": 9
+}
+
+RESPONSE: {
+    "message": "Address correctly added to the User."
+}
+
+- Modify default user's address:
+
+PUT http://localhost:8080/user/address/make/default/1
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Address has been set has default address."
+}
+
+- Delete user's address:
+
+DELETE: http://localhost:8080/user/address/remove/1
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Address has been removed from the user's list."
+}
+
 ``` 
