@@ -3,10 +3,10 @@ package com.ecommerce.backend.payload.request;
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
-	@NotBlank
+	@NotBlank(message = "username is mandatory.")
     private String username;
 
-	@NotBlank
+	@NotBlank(message = "password is mandatory.")
 	private String password;
 
 	public String getUsername() {
