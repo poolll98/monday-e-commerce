@@ -3,15 +3,11 @@ The application is based on Spring Boot framework, supporting Token based Authen
 It uses Spring Data JPA to interact with PostgreSQL Database.
 
 ## Use the backend application with Docker
-1. Run "mvn package" to create the Backend application as a jar. Alternatively, run "./mvnw clean package -DskipTests" if you want to create the jar without having the DB already running.
+1. Run "./mvnw clean package -DskipTests" to create the backend jar. Alternatively, you can run the Gitlab CI/CD Pipeline which will do the build for you, after which you can download the jar and place it under the project's "target" folder.
 
-2. Make sure the Dockerfile contains the exact name of the generated jar and then run:
-docker build -t monday-backend .
+2. Run "docker compose up"
 
-3. Your postgres image should already be present on your environment. The image, not the container. Actually the postgres container you were previously using should be stopped now. Once you checked all this and saw your backend image was created at step 2, run: docker compose up -d
-
-4. Have fun (See Interact with the Services section) and when done, you may as well stop the containers, if you like: docker compose down
-
+4. See "Interact with the Services" for testing or integrating the APIs
 
 
 
