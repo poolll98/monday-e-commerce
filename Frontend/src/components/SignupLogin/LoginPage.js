@@ -12,8 +12,9 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    login(username, password);
-    userAction({ type: "login" });
+    login(username, password, (data) => {
+      userAction({ type: "login" });
+    });
   };
 
   return (

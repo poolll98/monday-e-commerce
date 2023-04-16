@@ -1,5 +1,5 @@
 import React from "react";
-import productData from "../../mockdata/products";
+import productData from "../../mocks/products";
 import { Link } from "react-router-dom";
 
 const ListProducts = () => {

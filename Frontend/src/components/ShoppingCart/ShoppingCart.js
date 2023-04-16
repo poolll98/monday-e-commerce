@@ -17,10 +17,10 @@ export default function ShoppingCart() {
   const [allSelected, setAllSelected] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]); // contains the ids of the selected items
 
-  // TODO: Only try to load when logged in.
   useEffect(() => {
     let isMounted = true;
     getShoppingCartItems(user).then((data) => {
+      console.log("Shopping cart items:");
       console.log(data);
       if (isMounted) {
         setCart(data);
@@ -38,7 +38,7 @@ export default function ShoppingCart() {
       setCart(
         cart.map((item) => {
           if (item.id === id) {
-            item.amount += 1;
+            item.quantity += 1;
           }
           return item;
         })
@@ -54,7 +54,7 @@ export default function ShoppingCart() {
       setCart(
         cart.map((item) => {
           if (item.id === id) {
-            item.amount -= 1;
+            item.quantity -= 1;
           }
           return item;
         })
@@ -92,7 +92,11 @@ export default function ShoppingCart() {
     let selectedCartItems = selectedItems
       .map((id) => cart.filter((item) => item.id === id))
       .flat();
-    return selectedCartItems.reduce((total, item, i) => total + item.amount, 0);
+    console.log(selectedCartItems);
+    return selectedCartItems.reduce(
+      (total, item, i) => total + item.quantity,
+      0
+    );
   }, [cart, selectedItems]);
 
   /* calculate total amount */
@@ -102,7 +106,7 @@ export default function ShoppingCart() {
       .map((id) => cart.filter((item) => item.id === id))
       .flat();
     return selectedCartItems.reduce(
-      (total, item, i) => total + item.price * item.amount,
+      (total, item, i) => total + item.price * item.quantity,
       0
     );
   }, [cart, selectedItems]);

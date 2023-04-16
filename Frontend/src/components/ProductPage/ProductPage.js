@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import productData from "../../mockdata/products";
+import productData from "../../mocks/products";
 import { useState, useContext } from "react";
 import { addItemToCart } from "../../services/shoppingCart";
 import { UserContext } from "../UserContext";

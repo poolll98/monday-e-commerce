@@ -16,7 +16,7 @@ export default function HeaderBar() {
     <div style={{ ...colors, textAlign: "center" }}>
       <Link to="/">MarketMate</Link>
       <h3>Here be the header</h3>
-      {!user && (
+      {!user?.username && (
         <button
           onClick={() => {
             return navigate("/login");
@@ -25,7 +25,7 @@ export default function HeaderBar() {
           Log In
         </button>
       )}
-      {user && (
+      {user?.username && (
         <button
           onClick={() => {
             logout();

@@ -33,18 +33,25 @@ function List({ items }) {
 
 export default function FilterableList() {
   const [query, setQuery] = useState("");
-
-  const results = searchItems(query);
+  const [searchResults, setSearchResults] = useState([]);
 
   function handleChange(e) {
     setQuery(e.target.value);
+    let trimmed = e.target.value.trim();
+    // TODO: Don't search on every keystroke.
+    if (trimmed) {
+      searchItems(trimmed).then((data) => {
+        setSearchResults(data);
+        console.log(data);
+      });
+    }
   }
 
   return (
     <>
       <SearchBar query={query} onChange={handleChange} />
       <hr />
-      <List items={results} />
+      {searchResults ? <List items={searchResults} /> : null}
     </>
   );
 }

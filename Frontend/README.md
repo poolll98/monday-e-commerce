@@ -36,6 +36,14 @@ Or in one step:
 
 `docker compose -f docker-compose.dev.yml up --build`
 
+## Testing
+
+For testing, install npm on your machine.Then, install all dependencies for this app by running:
+`npm install --dev-dependencies`
+
+To run the tests:
+`npm test`
+
 ## Deployment
 
 For deployment, a production container can be created: It uses a two-stage build to create the optimized app, and then copy it to an optimized image from where it is served.

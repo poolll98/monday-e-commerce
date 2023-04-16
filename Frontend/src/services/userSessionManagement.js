@@ -16,7 +16,7 @@ export function signup(userData) {
   });
 }
 
-export function login(username, password) {
+export function login(username, password, callback) {
   fetch(userEndpointUrl + "signin", {
     method: "POST",
     headers: {
@@ -28,12 +28,13 @@ export function login(username, password) {
       if (!data.ok) {
         throw Error("Login failed");
       }
+      return data.json();
     })
-    .then((data) => data.json())
     .then((data) => {
       setToken(data.accessToken);
-      setUserData(data);
+      setUserData(JSON.stringify(data));
     })
+    .then((data) => callback(data))
     .catch((reason) => {
       alert("Unable to log in.");
       console.log(reason);
@@ -58,8 +59,8 @@ function setUserData(userData) {
 }
 
 export function getUserData() {
-  let data = localStorage.getItem("userData");
-  return !data
+  let userData = localStorage.getItem("userData");
+  return !userData
     ? {} // TODO: Load data from backend.
-    : { userId: data.id, username: data.username, email: data.email };
+    : JSON.parse(userData);
 }
