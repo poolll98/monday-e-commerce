@@ -3,7 +3,7 @@
 
 import products from "../mocks/products";
 
-const cartEndpointUrl = "http://localhost:3333/cart";
+const cartEndpointUrl = "http://localhost:8080/cart";
 
 export function getShoppingCartItems(user) {
   if (!isValidUser(user)) {
