@@ -42,6 +42,7 @@ export function login(username, password) {
 
 export function logout() {
   localStorage.removeItem("bearerToken");
+  localStorage.removeItem("userData");
 }
 
 function setToken(token) {

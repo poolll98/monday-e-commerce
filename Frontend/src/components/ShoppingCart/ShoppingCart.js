@@ -129,51 +129,53 @@ export default function ShoppingCart() {
 
   /* functional component => render JSX */
   return (
-    <div className="cart-wrapper">
-      <div className="cart-header">
-        <h3>Shopping Cart</h3>
-      </div>
+    <LoginGuard>
+      <div className="cart-wrapper">
+        <div className="cart-header">
+          <h3>Shopping Cart</h3>
+        </div>
 
-      <div className="middle">
-        <ul>
-          {cart.map((item) => (
-            <CartItem
-              selected={selectedItems.includes(item.id)}
-              item={item}
-              addItem={addItem}
-              subItem={subItem}
-              removeItem={removeItem}
-              toggleSelection={toggleItem}
-              key={item.id}
-            ></CartItem>
-          ))}
-        </ul>
-      </div>
+        <div className="middle">
+          <ul>
+            {cart.map((item) => (
+              <CartItem
+                selected={selectedItems.includes(item.id)}
+                item={item}
+                addItem={addItem}
+                subItem={subItem}
+                removeItem={removeItem}
+                toggleSelection={toggleItem}
+                key={item.id}
+              ></CartItem>
+            ))}
+          </ul>
+        </div>
 
-      <div className="bottom">
-        <div className="sel-box">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={(e) => {
-              console.log("SelectAll input onChanged", !allSelected);
-              toggleAllSelected(!allSelected);
-            }}
-          />
-          <i> SelectAll </i>
-        </div>
-        <div className="left"></div>
-        <div className="count-box">
-          <span className="price">{getTotalCount()}</span> Items selected
-        </div>
-        <div className="amount-box">
-          Total Amount{" "}
-          <span className="price">{getTotalAmount().toFixed(2)}</span>
-        </div>
-        <div className="pay-box">
-          <button className="blue-button" onClick={() => subItem(1)}>
-            Buy
-          </button>
+        <div className="bottom">
+          <div className="sel-box">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={(e) => {
+                console.log("SelectAll input onChanged", !allSelected);
+                toggleAllSelected(!allSelected);
+              }}
+            />
+            <i> SelectAll </i>
+          </div>
+          <div className="left"></div>
+          <div className="count-box">
+            <span className="price">{getTotalCount()}</span> Items selected
+          </div>
+          <div className="amount-box">
+            Total Amount{" "}
+            <span className="price">{getTotalAmount().toFixed(2)}</span>
+          </div>
+          <div className="pay-box">
+            <button className="blue-button" onClick={() => subItem(1)}>
+              Buy
+            </button>
+          </div>
         </div>
       </div>
     </LoginGuard>
