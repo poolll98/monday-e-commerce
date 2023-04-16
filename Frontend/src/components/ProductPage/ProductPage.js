@@ -8,7 +8,7 @@ import { UserContext } from "../UserContext";
 export default function ProductPage() {
   const { productId } = useParams();
   const user = useContext(UserContext);
-  const thisProduct = productData.find((prod) => prod.id === productId);
+  const thisProduct = productData.find((prod) => prod.id == productId);
   const [quantity, setQuantity] = useState(0);
 
   function handleAddClick() {
