@@ -2,6 +2,7 @@
 import { rest } from "msw";
 
 import products from "./products";
+import searchProducts from "./searchProducts";
 import cart from "./cart";
 
 let requestUrl = "http://localhost:8080";
@@ -74,7 +75,7 @@ export const handlers = [
   rest.get(requestUrl + "/search/name/:searchTerm", (req, res, ctx) => {
     const { searchTerm } = req.params;
 
-    let matches = products.filter((products) =>
+    let matches = searchProducts.filter((products) =>
       products.name.toLowerCase().includes(searchTerm)
     );
 
