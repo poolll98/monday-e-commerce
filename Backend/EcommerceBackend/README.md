@@ -15,7 +15,7 @@ It uses Spring Data JPA to interact with PostgreSQL Database.
 
 ### Run the Database
 
-The first time you execute the procedure on MacOS/Linux:
+The first time you execute the procedure on MacOs/Linux:
 
 ```
 docker load < mon-pg.tar docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres docker start mon-pg
@@ -59,7 +59,7 @@ INSERT INTO product(description,instock,name,price,product_category_id) VALUES('
 commit;
 ```
 
-### Interact with the services
+## Interact with the services
 
 The application automatically generates the documentation about the available endpoints, thanks to Swagger, here:
 
@@ -185,4 +185,158 @@ RESPONSE: {
 DELETE http://localhost:8080/shopcart/remove/1
 
 Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Item has been removed from the cart."
+}
+
+- Search products by name (public API, no autorization required):
+
+GET http://localhost:8080/product/search/name/pizza
+
+RESPONSE: [
+{
+        "id": 1,
+        "name": "pizza",
+        "description": "super random pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 8.0
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "description": "super test pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 6.0
+    }
+]
+
+- Search products by category (public API, no autorization required):
+
+GET http://localhost:8080/product/search/category/food
+
+RESPONSE:[
+  {
+        "id": 1,
+        "name": "pizza",
+        "description": "super random pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 8.0
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "description": "super test pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 6.0
+    },
+    {
+        "id": 3,
+        "name": "burger",
+        "description": "random burger",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 5.0
+    },
+    {
+        "id": 4,
+        "name": "pasta",
+        "description": "random pasta",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 3.0
+    }
+]
+
+- Search products by instock (public API, no autorization required):
+
+GET http://localhost:8080/product/search/instock/true
+
+REPONSE:[
+  {
+        "id": 1,
+        "name": "pizza",
+        "description": "super random pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 8.0
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "description": "super test pizza",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 6.0
+    },
+    {
+        "id": 3,
+        "name": "burger",
+        "description": "random burger",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 5.0
+    },
+    {
+        "id": 4,
+        "name": "pasta",
+        "description": "random pasta",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 3.0
+    }
+]
+
+- Add user's address:
+
+POST http://localhost:8080/user/address/add
+
+Authorization: type: Bear Token
+
+body: {
+    "city": "Rome",
+    "country": "Italy",
+    "receiver": "Marco Rossi",
+    "region": "Lazio",
+    "street": "Via del Quirinale",
+    "street_nr": 9
+}
+
+RESPONSE: {
+    "message": "Address correctly added to the User."
+}
+
+- Modify default user's address:
+
+PUT http://localhost:8080/user/address/make/default/1
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Address has been set has default address."
+}
+
+- Delete user's address:
+
+DELETE: http://localhost:8080/user/address/remove/1
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Address has been removed from the user's list."
+}
 ```
