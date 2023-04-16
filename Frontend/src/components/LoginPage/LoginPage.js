@@ -12,13 +12,13 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(username, password);
+    login(username, password);
     userAction({ type: "login" });
   };
 
   return (
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
+      <h1>Log In To Access This Page</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Username</p>
@@ -36,7 +36,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <div>
+        <div style={{ margin: "20px" }}>
           <button type="submit">Login</button>
         </div>
       </form>
