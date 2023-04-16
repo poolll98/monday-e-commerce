@@ -1,6 +1,7 @@
 INSERT INTO roles(name) VALUES('ROLE_USER');
 INSERT INTO roles(name) VALUES('ROLE_ADMIN');
 INSERT INTO login_user(username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES ('username', 'username@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
+INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
 INSERT INTO shopping_cart(login_user_id) VALUES(1);
 INSERT INTO product_category(category_name) VALUES('food');
 INSERT INTO product(description,instock,name,price,product_category_id) VALUES('super random pizza', true,'pizza', 8, 1);

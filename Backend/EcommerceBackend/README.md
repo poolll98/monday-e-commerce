@@ -61,6 +61,7 @@ Use this tool to test the endpoints:
  RESULT: Public Content.
 ```
 2)Test user resources:
+(the body must be in JSON format)
 ``` 
 - Create an account:
 
