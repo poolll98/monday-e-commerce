@@ -1,47 +1,48 @@
 .cart-wrapper {
-  width: 800px;
-  height: 500px;
+  width: 1148px;
+  height: 550px;
   border: 1px solid #eee;
   border-radius: 2px;
-  font-size: 12px;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+}
+
+.cart-wrapper .cart-header {
+  /* Roboto 30px/Roboto_medium_30px */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
+  color: #1D232C;
+  text-align: center;
 }
 
 .cart-wrapper .price {
-  color: orangered;
-  font-weight: bold;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
 }
 
-.cart-wrapper .top {
-  display: flex;
-  background-color: #eee;
-  height: 40px;
-  align-items: center;
-  padding: 0 10px;
+.cart-wrapper .white-button {
+  background: #FFFFFF;
+  border: 1px solid #586A84;
+  border-radius: 24px;
+  width: 105px;
+  height: 36px;
+  color: #586A84;
 }
 
-.cart-wrapper .top .sel-box {
-  margin-left: 12px;
-}
-
-.cart-wrapper .top .sel-box i {
-  display: inline-block;
-  margin-left: 5px;
-  padding-bottom: 0px;
-}
-
-.cart-wrapper .top span {
-  display: inline-block;
-  flex-grow: 1;
-}
-
-.cart-wrapper .top .imgname-box {
-  flex-grow: 2.3;
-}
-
-.cart-wrapper .top .count-box {
-  flex-grow: 1.5;
+.cart-wrapper .blue-button {
+  background: #319DFF;
+  border-radius: 24px;
+  border: 1px solid #319DFF;
+  width: 219px;
+  height: 36px;
+  color: #FFFFFF;
 }
 
 .cart-wrapper .middle {
@@ -58,13 +59,13 @@
   border-radius: 5px;
   padding: 0px;
   margin: 6px;
-  height: 400px;
+  height: 450px;
   overflow-y: scroll;
 }
 
 .cart-wrapper .middle ul li.item {
   display: flex;
-  height: 100px;
+  height: 280px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -75,46 +76,78 @@
 }
 
 .cart-wrapper .middle ul li.item .sel-box {
-  width: 40px;
+  width: 80px;
+  margin-left: 60px;
+  margin-right: 60px;
 }
 
 .cart-wrapper .middle ul li.item .imgname-box img {
-  width: 60px;
-  height: 60px;
-  margin-right: 5px;
+  width: 240px;
+  height: 240px;
+  margin-right: 60px;
 }
 
-.cart-wrapper .middle ul li.item .imgname-box span {
-  display: inline-block;
-  width: 200px;
-  text-align: left;
+.cart-wrapper .middle ul li.item .product-name {
+  /* Roboto 30px/Roboto_medium_30px */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #0077E4;
 }
 
-.cart-wrapper .middle ul li.item .price-box {
-  flex-grow: 1;
+.cart-wrapper .middle ul li.item .button-box{
+  margin-left: auto;
+  margin-right: 90px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 220px;
+  top: 12px;
 }
 
-.cart-wrapper .middle ul li.item .count-box {
-  flex-grow: 0.6;
+.cart-wrapper .middle ul li.item .button-box .price-box {
+  font-size: 20px;
+  line-height: 25px;
 }
 
-.cart-wrapper .middle ul li.item .count-box input {
-  width: 30px;
-  height: 25px;
+.cart-wrapper .middle ul li.item .button-box .count-box {
+
+}
+
+.cart-wrapper .middle ul li.item .button-box .count-box input {
   text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #586A84;
+  border-radius: 24px;
+  height: 36px;
 }
 
-.cart-wrapper .middle ul li.item .count-box button {
-  border-radius: 2px;
+.cart-wrapper .middle ul li.item .button-box .count-box button {
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #586A84;
+  border-radius: 24px;
+  height: 36px;
+  width: 36px;
   margin: 0 2px;
 }
 
-.cart-wrapper .middle ul li.item .amount-box {
+.cart-wrapper .middle ul li.item .button-box.amount-box {
   flex-grow: 1;
 }
 
-.cart-wrapper .middle ul li.item .action-box {
-  flex-grow: 1;
+.cart-wrapper .middle ul li.item .button-box.action-box {
+  /* display: inline-block; */
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
 }
 
 .cart-wrapper .bottom {
@@ -122,6 +155,16 @@
   background-color: #eee;
   height: 40px;
   align-items: center;
+}
+
+.cart-wrapper .bottom .sel-box {
+  margin-left: 65px;
+}
+
+.cart-wrapper .bottom .sel-box i {
+  display: inline-block;
+  margin-left: 5px;
+  padding-bottom: 0px;
 }
 
 .cart-wrapper .bottom .price {
@@ -137,8 +180,6 @@
 }
 
 .cart-wrapper .bottom div.pay-box {
-  background-color: gray;
-  text-align: center;
-  color: white;
+
   padding: 8px;
 }
