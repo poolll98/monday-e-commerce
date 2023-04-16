@@ -1,7 +1,6 @@
 // src/mocks/handlers.js
 import { rest } from "msw";
 
-import testuser from "./testuser";
 import products from "./products";
 import cart from "./cart";
 
@@ -31,8 +30,8 @@ export const handlers = [
     let request = req.json();
 
     if (
-      userData.username == request.username &&
-      userData.password == request.password
+      userData.username === request.username &&
+      userData.password === request.password
     ) {
       return res(
         // Respond with a 200 status code
@@ -49,7 +48,7 @@ export const handlers = [
   }),
 
   // example for replacement of json-server
-  rest.get("http://localhost:3333/products", (req, res, ctx) => {
+  rest.get(requestUrl + "/products", (req, res, ctx) => {
     return res(
       // Respond with a 200 status code
       ctx.status(200),
@@ -58,7 +57,7 @@ export const handlers = [
   }),
 
   // example for replacement of json-server
-  rest.get("http://localhost:3333/cart", (req, res, ctx) => {
+  rest.get(requestUrl + "/cart", (req, res, ctx) => {
     // Check if user is logged in.
     if (!sessionStorage.getItem("is-authenticated")) {
       return res(ctx.status(401));
@@ -72,7 +71,7 @@ export const handlers = [
   }),
 
   // example for replacement of json-server
-  rest.get("http://localhost:3333/search/name/:searchTerm", (req, res, ctx) => {
+  rest.get(requestUrl + "/search/name/:searchTerm", (req, res, ctx) => {
     const { searchTerm } = req.params;
 
     let matches = products.filter((products) =>
