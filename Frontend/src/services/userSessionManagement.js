@@ -1,19 +1,23 @@
-const userEndpointUrl = "http://localhost:3333/login"; // TODO: Load from config file/environment.
+const userEndpointUrl = "http://localhost:8080/api/auth/"; // TODO: Load from config file/environment.
 
 export function signup(userData) {
-  fetch(userEndpointUrl, {
+  fetch(userEndpointUrl + "signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
-  })
-    .then((data) => data.json())
-    .then((data) => localStorage.setItem("bearerToken", data.token));
+  }).then((data) => {
+    if (data.ok) {
+      login(userData.username, userData.password);
+    } else {
+      alert("Signup not successful.");
+    }
+  });
 }
 
 export function login(username, password) {
-  fetch(userEndpointUrl, {
+  fetch(userEndpointUrl + "signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,7 +30,10 @@ export function login(username, password) {
       }
     })
     .then((data) => data.json())
-    .then((data) => localStorage.setItem("bearerToken", data.token))
+    .then((data) => {
+      setToken(data.accessToken);
+      setUserData(data);
+    })
     .catch((reason) => {
       alert("Unable to log in.");
       console.log(reason);
@@ -37,6 +44,21 @@ export function logout() {
   localStorage.removeItem("bearerToken");
 }
 
+function setToken(token) {
+  localStorage.setItem("bearerToken", token);
+}
+
 export function getToken() {
   return localStorage.getItem("bearerToken");
+}
+
+function setUserData(userData) {
+  localStorage.setItem("userData", userData);
+}
+
+export function getUserData() {
+  let data = localStorage.getItem("userData");
+  return !data
+    ? {}
+    : { userId: data.id, username: data.username, email: data.email };
 }
