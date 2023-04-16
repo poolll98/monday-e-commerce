@@ -7,6 +7,7 @@ import { getShoppingCartItems } from "../../services/shoppingCart";
 import CartItem from "./CartItem";
 
 import "./ShoppingCart.css";
+import LoginGuard from "../LoginGuard";
 //import productData from "./MockData";
 
 export default function ShoppingCart() {
@@ -16,10 +17,10 @@ export default function ShoppingCart() {
   const [allSelected, setAllSelected] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]); // contains the ids of the selected items
 
-  // TODO: Only try to load when logged in.
   useEffect(() => {
     let isMounted = true;
     getShoppingCartItems(user).then((data) => {
+      console.log("Shopping cart items:");
       console.log(data);
       if (isMounted) {
         setCart(data);
@@ -37,7 +38,7 @@ export default function ShoppingCart() {
       setCart(
         cart.map((item) => {
           if (item.id === id) {
-            item.amount += 1;
+            item.quantity += 1;
           }
           return item;
         })
@@ -53,7 +54,7 @@ export default function ShoppingCart() {
       setCart(
         cart.map((item) => {
           if (item.id === id) {
-            item.amount -= 1;
+            item.quantity -= 1;
           }
           return item;
         })
@@ -87,25 +88,28 @@ export default function ShoppingCart() {
 
   /* Calculate total quantity */
   const getTotalCount = useCallback(() => {
-    // console.log("getTotalItems");
-    return cart
-      .filter((item) => item.selected)
-      .reduce((pv, cv, i) => {
-        // console.log(pv, cv);
-        return pv + cv.count;
-      }, 0);
-  }, [cart]);
+    console.log("getTotalItems");
+    let selectedCartItems = selectedItems
+      .map((id) => cart.filter((item) => item.id === id))
+      .flat();
+    console.log(selectedCartItems);
+    return selectedCartItems.reduce(
+      (total, item, i) => total + item.quantity,
+      0
+    );
+  }, [cart, selectedItems]);
 
   /* calculate total amount */
   const getTotalAmount = useCallback(() => {
-    // console.log("getTotalAmount");
-    return cart
-      .filter((item) => item.selected)
-      .reduce((pv, cv, i) => {
-        // console.log(pv, cv);
-        return pv + cv.price * cv.count;
-      }, 0);
-  }, [cart]);
+    console.log("getTotalAmount");
+    let selectedCartItems = selectedItems
+      .map((id) => cart.filter((item) => item.id === id))
+      .flat();
+    return selectedCartItems.reduce(
+      (total, item, i) => total + item.price * item.quantity,
+      0
+    );
+  }, [cart, selectedItems]);
 
   /*     
   When the user actively uses the [Select All] function
@@ -123,66 +127,61 @@ export default function ShoppingCart() {
   };
   /* ===== ENDOF Select all -- "two-way data binding" ===== */
 
-  if (!user || Object.keys(user).length === 0) {
-    return <p>Please log in to access your cart.</p>;
-  }
   if (cart === null) {
     return <div>Loading...</div>;
   }
 
   /* functional component => render JSX */
   return (
-    <div className="cart-wrapper">
-      <div className="top">
-        <div className="sel-box">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={(e) => {
-              console.log("SelectAll input onChanged", !allSelected);
-              toggleAllSelected(!allSelected);
-            }}
-          />
-          <i>SelectAll</i>
+    <LoginGuard>
+      <div className="cart-wrapper">
+        <div className="cart-header">
+          <h3>Shopping Cart</h3>
         </div>
 
-        <span className="imgname-box">Product Name</span>
-        <span>Unit Price</span>
-        <span className="count-box">Quantity</span>
-        <span>Amount</span>
-        <span>Operation</span>
-      </div>
+        <div className="middle">
+          <ul>
+            {cart.map((item) => (
+              <CartItem
+                selected={selectedItems.includes(item.id)}
+                item={item}
+                addItem={addItem}
+                subItem={subItem}
+                removeItem={removeItem}
+                toggleSelection={toggleItem}
+                key={item.id}
+              ></CartItem>
+            ))}
+          </ul>
+        </div>
 
-      <div className="middle">
-        <ul>
-          {cart.map((item) => (
-            <CartItem
-              selected={selectedItems.includes(item.id)}
-              item={item}
-              addItem={addItem}
-              subItem={subItem}
-              removeItem={removeItem}
-              toggleSelection={toggleItem}
-              key={item.id}
-            ></CartItem>
-          ))}
-        </ul>
-      </div>
-
-      <div className="bottom">
-        <div className="left"></div>
-        <div className="count-box">
-          <span className="price">{getTotalCount()}</span> items has been
-          selected
-        </div>
-        <div className="amount-box">
-          Total Amount{" "}
-          <span className="price">{getTotalAmount().toFixed(2)}</span>
-        </div>
-        <div className="pay-box">
-          <i>Buy</i>
+        <div className="bottom">
+          <div className="sel-box">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={(e) => {
+                console.log("SelectAll input onChanged", !allSelected);
+                toggleAllSelected(!allSelected);
+              }}
+            />
+            <i> SelectAll </i>
+          </div>
+          <div className="left"></div>
+          <div className="count-box">
+            <span className="price">{getTotalCount()}</span> Items selected
+          </div>
+          <div className="amount-box">
+            Total Amount{" "}
+            <span className="price">{getTotalAmount().toFixed(2)}</span>
+          </div>
+          <div className="pay-box">
+            <button className="blue-button" onClick={() => subItem(1)}>
+              Buy
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </LoginGuard>
   );
 }
