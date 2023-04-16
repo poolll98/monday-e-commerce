@@ -88,23 +88,18 @@ export default function ShoppingCart() {
   /* Calculate total quantity */
   const getTotalCount = useCallback(() => {
     console.log("getTotalItems");
-    return cart
-      .filter((item) => item.selected)
-      .reduce((pv, cv, i) => {
-        console.log("getTotalItems1");
-        console.log(pv, cv);
-        return pv + cv.amount;
-      }, 0);
-  }, [cart]);
+    let selectedCartItems = selectedItems
+      .map((id) => cart.filter((item) => item.id === id))
+      .flat();
+    return selectedCartItems.reduce((total, item, i) => total + item.amount, 0);
+  }, [cart, selectedItems]);
 
   /* calculate total amount */
   const getTotalAmount = useCallback(() => {
     console.log("getTotalAmount");
-    console.log(selectedItems);
     let selectedCartItems = selectedItems
       .map((id) => cart.filter((item) => item.id === id))
       .flat();
-    console.log(selectedCartItems);
     return selectedCartItems.reduce(
       (total, item, i) => total + item.price * item.amount,
       0
