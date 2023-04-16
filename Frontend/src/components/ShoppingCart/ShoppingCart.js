@@ -87,23 +87,24 @@ export default function ShoppingCart() {
 
   /* Calculate total quantity */
   const getTotalCount = useCallback(() => {
-    // console.log("getTotalItems");
+    console.log("getTotalItems");
     return cart
       .filter((item) => item.selected)
       .reduce((pv, cv, i) => {
-        // console.log(pv, cv);
-        return pv + cv.count;
+        console.log("getTotalItems1");
+        console.log(pv, cv);
+        return pv + cv.amount;
       }, 0);
   }, [cart]);
 
   /* calculate total amount */
   const getTotalAmount = useCallback(() => {
-    // console.log("getTotalAmount");
+    console.log("getTotalAmount");
     return cart
       .filter((item) => item.selected)
       .reduce((pv, cv, i) => {
-        // console.log(pv, cv);
-        return pv + cv.price * cv.count;
+        console.log(pv, cv);
+        return pv + cv.price * cv.amount;
       }, 0);
   }, [cart]);
 
@@ -133,24 +134,8 @@ export default function ShoppingCart() {
   /* functional component => render JSX */
   return (
     <div className="cart-wrapper">
-      <div className="top">
-        <div className="sel-box">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={(e) => {
-              console.log("SelectAll input onChanged", !allSelected);
-              toggleAllSelected(!allSelected);
-            }}
-          />
-          <i>SelectAll</i>
-        </div>
-
-        <span className="imgname-box">Product Name</span>
-        <span>Unit Price</span>
-        <span className="count-box">Quantity</span>
-        <span>Amount</span>
-        <span>Operation</span>
+      <div className="cart-header">
+        <h3>Shopping Cart</h3>
       </div>
 
       <div className="middle">
@@ -170,6 +155,17 @@ export default function ShoppingCart() {
       </div>
 
       <div className="bottom">
+        <div className="sel-box">
+          <input
+            type="checkbox"
+            checked={allSelected}
+            onChange={(e) => {
+              console.log("SelectAll input onChanged", !allSelected);
+              toggleAllSelected(!allSelected);
+            }}
+          />
+          <i>  SelectAll  </i>
+        </div>
         <div className="left"></div>
         <div className="count-box">
           <span className="price">{getTotalCount()}</span> items has been
@@ -180,7 +176,9 @@ export default function ShoppingCart() {
           <span className="price">{getTotalAmount().toFixed(2)}</span>
         </div>
         <div className="pay-box">
-          <i>Buy</i>
+          <button className="blue-button" onClick={() => subItem(1)}>
+            Buy
+          </button>
         </div>
       </div>
     </div>
