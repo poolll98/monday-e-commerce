@@ -80,8 +80,8 @@ Use this tool to test the endpoints:
 ```
 
 2)Test user resources:
-
-```
+(the body must be in JSON format)
+``` 
 - Create an account:
 
 POST http://localhost:8080/api/auth/signup
