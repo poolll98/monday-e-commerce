@@ -1,53 +1,40 @@
 import React from "react";
-import { useState } from 'react';
-import productData from "../mockdata/products";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { searchItems } from "../services/search";
 
 function SearchBar({ query, onChange }) {
   return (
     <label>
-      Search:{' '}
-      <input
-        value={query}
-        onChange={onChange}
-      />
+      Search: <input value={query} onChange={onChange} />
     </label>
   );
 }
 
 function List({ items }) {
-  return ( 
+  // TODO: Handle missing images.
+  return (
     <table>
-      <tbody> 
-        {items.map(productData => (
+      <tbody>
+        {items.map((productData) => (
           <div key={productData.id}>
             <h3>
-            <Link to={`/products/${productData.id}`}>{productData.name}</Link>
+              <Link to={`/products/${productData.id}`}>{productData.name}</Link>
             </h3>
-
             <p>{productData.description}</p>
-
-            <img src={productData.img} alt={productData.description}/>
+            <img src={productData.media[0]} alt={productData.description} />
             <hr />
           </div>
         ))}
       </tbody>
-    </table> 
-  );
-}
-
-function filterItems(items, query) {
-  query = query.toLowerCase();
-  return items.filter(item =>
-    item.name.split(' ').some(word =>
-      word.toLowerCase().startsWith(query)
-    )
+    </table>
   );
 }
 
 export default function FilterableList() {
-  const [query, setQuery] = useState('');
-  const results = filterItems(productData, query);
+  const [query, setQuery] = useState("");
+
+  const results = searchItems(query);
 
   function handleChange(e) {
     setQuery(e.target.value);
@@ -55,13 +42,9 @@ export default function FilterableList() {
 
   return (
     <>
-      <SearchBar
-        query={query}
-        onChange={handleChange}
-      />
+      <SearchBar query={query} onChange={handleChange} />
       <hr />
       <List items={results} />
     </>
   );
 }
-
