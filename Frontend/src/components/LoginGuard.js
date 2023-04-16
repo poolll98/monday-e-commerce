@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext, UserLoginContext } from "./UserContext";
 import { getToken } from "../services/userSessionManagement";
-import LoginPage from "./LoginPage/LoginPage";
+import SignupLoginPage from "./SignupLogin/SignupLoginPage";
 
 export default function LoginGuard({ children }) {
   const user = useContext(UserContext);
@@ -12,7 +12,7 @@ export default function LoginGuard({ children }) {
     if (token) {
       userAction({ action: "login" });
     } else {
-      return <LoginPage />;
+      return <SignupLoginPage />;
     }
   }
 

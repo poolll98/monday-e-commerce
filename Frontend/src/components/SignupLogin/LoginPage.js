@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "./LoginPage.css";
+import "./form-styling.css";
 
 import { login } from "../../services/userSessionManagement";
 import { UserLoginContext } from "../UserContext";
@@ -17,7 +17,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className="form-wrapper">
       <h1>Log In To Access This Page</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -36,7 +36,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <div style={{ margin: "20px" }}>
+        <div className="form-submit-button">
           <button type="submit">Login</button>
         </div>
       </form>

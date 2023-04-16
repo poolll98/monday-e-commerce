@@ -1,6 +1,5 @@
 import { createContext, useReducer } from "react";
-import { getToken } from "../services/userSessionManagement";
-import LoginPage from "./LoginPage/LoginPage";
+import { getToken, getUserData } from "../services/userSessionManagement";
 
 export const UserContext = createContext({}); // provides currently logged in user
 export const UserLoginContext = createContext(null); // handles login/logout
@@ -14,7 +13,7 @@ function userManagementReducer(user, action) {
         console.log("Missing token");
         return {};
       }
-      return { username: "The User" };
+      return getUserData();
     }
     case "logout": {
       return {};

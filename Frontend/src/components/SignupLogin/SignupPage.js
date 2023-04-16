@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "./SignupPage.css";
+import "./form-styling.css";
 
 import { signup } from "../../services/userSessionManagement";
 import { UserLoginContext } from "../UserContext";
@@ -27,7 +27,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="signup-wrapper">
+    <div className="form-wrapper">
       <h1>Create a New Account</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -70,7 +70,7 @@ export default function LoginPage() {
             onChange={(e) => setLastname(e.target.value)}
           />
         </label>
-        <div style={{ margin: "20px" }}>
+        <div className="form-submit-button">
           <button type="submit">Signup</button>
         </div>
       </form>
