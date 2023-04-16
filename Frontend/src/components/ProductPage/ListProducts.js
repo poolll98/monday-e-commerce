@@ -2,17 +2,15 @@ import React from "react";
 import productData from "../../mockdata/products";
 import { Link } from "react-router-dom";
 
-
-const Products = () => {
-  const products = productData.map(product => {
-
+const ListProducts = () => {
+  const products = productData.map((product) => {
     return (
       <div key={product.id}>
         <h3>
           <Link to={`/products/${product.id}`}>{product.name}</Link>
         </h3>
         <p>Price: ${product.price}</p>
-        <img src={product.img} alt={product.id}/>
+        <img src={product.img} alt={product.id} />
         <hr />
       </div>
     );
@@ -26,4 +24,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ListProducts;

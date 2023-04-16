@@ -1,11 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import productData from "../../mocks/products";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { addItemToCart } from "../../services/shoppingCart";
+import { UserContext } from "../UserContext";
 
 export default function ProductPage() {
   const { productId } = useParams();
-  const thisProduct = productData.find((prod) => prod.id === productId);
+  const user = useContext(UserContext);
+  const thisProduct = productData.find((prod) => prod.id == productId);
   const [quantity, setQuantity] = useState(0);
 
   function handleAddClick() {
@@ -33,7 +36,8 @@ export default function ProductPage() {
 
       <button
         onClick={() => {
-          alert("Added to cart");
+          let itemData = { id: productId, quantity: quantity };
+          addItemToCart(itemData, user);
         }}
       >
         Add to Cart

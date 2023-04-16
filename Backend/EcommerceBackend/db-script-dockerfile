@@ -1,0 +1,11 @@
+FROM postgres:13.3-alpine
+
+RUN apk add --no-cache postgresql-client
+
+WORKDIR /app
+
+COPY initialize_db.sql .
+
+ENV PGPASSWORD=pgpwd1
+
+CMD ["sh", "-c", "sleep 20 && psql -U postgres -d postgres -h postgres -f ./initialize_db.sql"]

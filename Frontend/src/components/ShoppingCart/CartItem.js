@@ -1,20 +1,27 @@
 import React from "react";
 
 const CartItem = ({
-  index,
+  selected,
   item,
   addItem,
   subItem,
   removeItem,
   toggleSelection,
 }) => {
+  console.log("rendering");
+
+  function addToWishlist(itemId) {
+    // TODO: Add to wishlist.
+    console.log("Added item to wishlist.");
+  }
+
   return (
     <li className="item">
       <div className="sel-box">
         <input
           type="checkbox"
-          checked={item.selected}
-          onChange={() => toggleSelection(index)}
+          checked={selected}
+          onChange={() => toggleSelection(item.id)}
         />
       </div>
 
@@ -22,39 +29,55 @@ const CartItem = ({
         <img src={item.img} alt="item" />
       </div>
 
-      <div>
+      <div className="product-name">
         <p>{item.name}</p>
       </div>
 
-      <div className="price-box">
-        ￥<span className="price">{item.price}</span>
-      </div>
+      <div className="button-box">
+        <div className="action-box">
+          <button
+            className="white-button"
+            style={{ marginRight: "10px" }}
+            onClick={() => removeItem(item.id)}
+          >
+            Remove
+          </button>
+          <button
+            className="white-button"
+            onClick={() => addToWishlist(item.id)}
+          >
+            Wishlist♡
+          </button>
+        </div>
 
-      <div className="count-box">
-        <button onClick={() => subItem(index)}>-</button>
-        <input
-          value={item.count}
-          onChange={(newVal) => {
-            console.log(newVal);
-          }}
-        />
-        <button
-          onClick={() => {
-            console.log("on + click", index);
-            addItem(index);
-          }}
-        >
-          +
-        </button>
-      </div>
+        <div className="price-box">
+          &nbsp; &nbsp; Fr. &nbsp; &nbsp;{" "}
+          <span className="price">{item.price}</span>
+        </div>
 
-      <div className="amount-box">
-        <span className="price">{(item.price * item.count).toFixed(2)}</span>
-      </div>
-      <div className="action-box">
-        <a href="#" onClick={() => removeItem(index)}>
-          Remove Item
-        </a>
+        <div className="count-box">
+          <button onClick={() => subItem(item.id)}>-</button>
+          <input
+            value={item.amount}
+            onChange={(newVal) => {
+              console.log(newVal);
+            }}
+          />
+          <button
+            onClick={() => {
+              console.log("on + click", item.id);
+              addItem(item.id);
+            }}
+          >
+            +
+          </button>
+        </div>
+
+        <div className="action-box">
+          <button className="blue-button" onClick={() => subItem(item.id)}>
+            Buy
+          </button>
+        </div>
       </div>
     </li>
   );
