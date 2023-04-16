@@ -1,4 +1,4 @@
-import searchProducts from "../mockdata/searchProducts";
+import searchProducts from "../mocks/searchProducts";
 
 const searchEndpointUrl = "http://localhost:3333/search/name/";
 

@@ -1,7 +1,7 @@
 // TODO: Check if user needs to be passed or can be extracted from context.
 // TODO: Connection error handling.
 
-import products from "../mockdata/products";
+import products from "../mocks/products";
 
 const cartEndpointUrl = "http://localhost:3333/cart";
 
