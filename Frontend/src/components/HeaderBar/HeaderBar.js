@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext, UserLoginContext } from "./UserContext";
+import { UserContext, UserLoginContext } from "../UserContext";
 import { useContext } from "react";
-import { logout } from "../services/userSessionManagement";
+import IconMenu from "./IconMenu";
+import { logout } from "../../services/userSessionManagement";
 
 export default function HeaderBar() {
   const colors = { color: "blue" };
@@ -13,9 +14,22 @@ export default function HeaderBar() {
   let navigate = useNavigate();
 
   return (
-    <div style={{ ...colors, textAlign: "center" }}>
-      <Link to="/">MarketMate</Link>
-      <h3>Here be the header</h3>
+    <div
+      style={{
+        ...colors,
+        textAlign: "center",
+        display: "flex",
+        justifyContent: "space-around",
+      }}
+    >
+      <Link to="/">
+        <img
+          src="logo.png"
+          alt="Logo - Links to Homepage"
+          width="170"
+          height="32"
+        ></img>
+      </Link>
       {!user?.username && (
         <button
           onClick={() => {
@@ -35,7 +49,7 @@ export default function HeaderBar() {
           Log Out
         </button>
       )}
-      <Link to="/cart">Shopping Cart</Link>
+      <IconMenu></IconMenu>
     </div>
   );
 }

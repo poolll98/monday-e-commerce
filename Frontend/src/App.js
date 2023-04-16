@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import HeaderBar from "./components/HeaderBar";
-import ListProducts from "./components/ProductPage/ListProducts";
+import HeaderBar from "./components/HeaderBar/HeaderBar";
 import ProductPage from "./components/ProductPage/ProductPage";
 import HomePage from "./components/HomePage";
 import SearchPage from "./components/SearchBar";

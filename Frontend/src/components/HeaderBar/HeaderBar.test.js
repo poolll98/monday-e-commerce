@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import HeaderBar from "./HeaderBar";
-import App from "../App";
+import App from "../../App";
 const { Router } = require("react-router-dom");
 
 const { createMemoryHistory } = require("history");
