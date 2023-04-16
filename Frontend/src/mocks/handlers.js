@@ -8,27 +8,34 @@ import cart from "./cart";
 let requestUrl = "http://localhost:8080";
 
 export const handlers = [
-  rest.post(requestUrl + "/api/auth/signup", (req, res, ctx) => {
-    let userId = (Math.random() * 1000000).floor();
+  rest.post(requestUrl + "/api/auth/signup", async (req, res, ctx) => {
+    let userData = await req.json();
+    let userId = Math.floor(Math.random() * 1000000);
 
-    sessionStorage.setItem("userData", {
-      ...req.json(),
-      id: userId,
-    });
+    sessionStorage.setItem(
+      "userData",
+      JSON.stringify({
+        ...userData,
+        id: userId,
+      })
+    );
 
     return res(
-      // Respond with a 200 status code
-      ctx.status(200),
       ctx.json({
         message: "User successfully registered with basic permissions!",
-        id: userId,
       })
     );
   }),
 
-  rest.post(requestUrl + "/api/auth/signin", (req, res, ctx) => {
+  rest.post(requestUrl + "/api/auth/signin", async (req, res, ctx) => {
     let userData = sessionStorage.getItem("userData");
-    let request = req.json();
+    let request = await req.json();
+
+    if (!userData) {
+      return res(ctx.status(404));
+    }
+
+    userData = JSON.parse(userData);
 
     if (
       userData.username === request.username &&
