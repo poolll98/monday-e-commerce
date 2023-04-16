@@ -59,6 +59,6 @@ function setUserData(userData) {
 export function getUserData() {
   let data = localStorage.getItem("userData");
   return !data
-    ? {}
+    ? {} // TODO: Load data from backend.
     : { userId: data.id, username: data.username, email: data.email };
 }
