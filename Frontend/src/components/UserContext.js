@@ -7,12 +7,7 @@ export const UserLoginContext = createContext(null); // handles login/logout
 function userManagementReducer(user, action) {
   switch (action.type) {
     case "login": {
-      // TODO: Load user data using token and set user to result.
-      let token = getToken();
-      if (!token) {
-        console.log("Missing token");
-        return {};
-      }
+      // Assumes that token is set.
       return getUserData();
     }
     case "logout": {
@@ -27,7 +22,7 @@ function userManagementReducer(user, action) {
 export function UserProvider({ children }) {
   const [user, dispatch] = useReducer(userManagementReducer, {});
 
-  if ((!user || Object.keys(user).length === 0) && getToken()) {
+  if (!user && getToken()) {
     dispatch({ type: "login" });
   }
 
