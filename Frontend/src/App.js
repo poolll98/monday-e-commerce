@@ -5,6 +5,7 @@ import HeaderBar from "./components/HeaderBar";
 import ListProducts from "./components/ProductPage/ListProducts";
 import ProductPage from "./components/ProductPage/ProductPage";
 import HomePage from "./components/HomePage";
+import SearchPage from "./components/SearchBar";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import { UserProvider } from "./components/UserContext";
 import LoginPage from "./components/SignupLogin/LoginPage";
@@ -25,7 +26,8 @@ function App() {
             />
             <Route exact path="/login" element={<SignupLoginPage />} />
             <Route exact path="/cart" element={<ShoppingCart />} />
-            <Route exact path="/products" element={<ListProducts />} />
+            <Route exact path="/search" element={<SearchPage />} />
+            <Route exact path="/products" element={<ProductPage />} />
             <Route path="/products/:productId" element={<ProductPage />} />
           </Routes>
         </UserProvider>
