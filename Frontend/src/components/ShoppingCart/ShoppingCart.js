@@ -87,25 +87,24 @@ export default function ShoppingCart() {
 
   /* Calculate total quantity */
   const getTotalCount = useCallback(() => {
-    // console.log("getTotalItems");
-    return cart
-      .filter((item) => item.selected)
-      .reduce((pv, cv, i) => {
-        // console.log(pv, cv);
-        return pv + cv.count;
-      }, 0);
-  }, [cart]);
+    console.log("getTotalItems");
+    let selectedCartItems = selectedItems
+      .map((id) => cart.filter((item) => item.id === id))
+      .flat();
+    return selectedCartItems.reduce((total, item, i) => total + item.amount, 0);
+  }, [cart, selectedItems]);
 
   /* calculate total amount */
   const getTotalAmount = useCallback(() => {
-    // console.log("getTotalAmount");
-    return cart
-      .filter((item) => item.selected)
-      .reduce((pv, cv, i) => {
-        // console.log(pv, cv);
-        return pv + cv.price * cv.count;
-      }, 0);
-  }, [cart]);
+    console.log("getTotalAmount");
+    let selectedCartItems = selectedItems
+      .map((id) => cart.filter((item) => item.id === id))
+      .flat();
+    return selectedCartItems.reduce(
+      (total, item, i) => total + item.price * item.amount,
+      0
+    );
+  }, [cart, selectedItems]);
 
   /*     
   When the user actively uses the [Select All] function
@@ -133,24 +132,8 @@ export default function ShoppingCart() {
   /* functional component => render JSX */
   return (
     <div className="cart-wrapper">
-      <div className="top">
-        <div className="sel-box">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={(e) => {
-              console.log("SelectAll input onChanged", !allSelected);
-              toggleAllSelected(!allSelected);
-            }}
-          />
-          <i>SelectAll</i>
-        </div>
-
-        <span className="imgname-box">Product Name</span>
-        <span>Unit Price</span>
-        <span className="count-box">Quantity</span>
-        <span>Amount</span>
-        <span>Operation</span>
+      <div className="cart-header">
+        <h3>Shopping Cart</h3>
       </div>
 
       <div className="middle">
@@ -170,17 +153,29 @@ export default function ShoppingCart() {
       </div>
 
       <div className="bottom">
+        <div className="sel-box">
+          <input
+            type="checkbox"
+            checked={allSelected}
+            onChange={(e) => {
+              console.log("SelectAll input onChanged", !allSelected);
+              toggleAllSelected(!allSelected);
+            }}
+          />
+          <i> SelectAll </i>
+        </div>
         <div className="left"></div>
         <div className="count-box">
-          <span className="price">{getTotalCount()}</span> items has been
-          selected
+          <span className="price">{getTotalCount()}</span> Items selected
         </div>
         <div className="amount-box">
           Total Amount{" "}
           <span className="price">{getTotalAmount().toFixed(2)}</span>
         </div>
         <div className="pay-box">
-          <i>Buy</i>
+          <button className="blue-button" onClick={() => subItem(1)}>
+            Buy
+          </button>
         </div>
       </div>
     </div>
