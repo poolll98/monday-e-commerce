@@ -17,10 +17,10 @@ export default function ShoppingCart() {
   const [allSelected, setAllSelected] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]); // contains the ids of the selected items
 
-  // TODO: Only try to load when logged in.
   useEffect(() => {
     let isMounted = true;
     getShoppingCartItems(user).then((data) => {
+      console.log("Shopping cart items:");
       console.log(data);
       if (isMounted) {
         setCart(data);

@@ -1,8 +1,6 @@
 // TODO: Check if user needs to be passed or can be extracted from context.
 // TODO: Connection error handling.
 
-import products from "../mocks/products";
-
 const cartEndpointUrl = "http://localhost:8080/cart";
 
 export function getShoppingCartItems(user) {
@@ -10,18 +8,7 @@ export function getShoppingCartItems(user) {
     // do something?
   }
 
-  return fetch(cartEndpointUrl)
-    .then((data) => data.json())
-    .then((items) => {
-      // TODO: Load actual data.
-      let f = items
-        .map((item) => {
-          let product = products.find((product) => product.id === item.id);
-          return product ? { ...product, amount: item.amount } : undefined;
-        })
-        .filter((product) => product !== undefined);
-      return f;
-    });
+  return fetch(cartEndpointUrl).then((data) => data.json());
 }
 
 export function addItemToCart(itemData, user) {
