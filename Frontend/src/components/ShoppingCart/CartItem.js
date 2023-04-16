@@ -8,8 +8,6 @@ const CartItem = ({
   removeItem,
   toggleSelection,
 }) => {
-  console.log("rendering");
-
   function addToWishlist(itemId) {
     // TODO: Add to wishlist.
     console.log("Added item to wishlist.");
@@ -58,7 +56,7 @@ const CartItem = ({
         <div className="count-box">
           <button onClick={() => subItem(item.id)}>-</button>
           <input
-            value={item.amount}
+            value={item.quantity}
             onChange={(newVal) => {
               console.log(newVal);
             }}

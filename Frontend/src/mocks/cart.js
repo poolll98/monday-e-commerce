@@ -4,21 +4,24 @@ import item3 from "./images/item3.jpg";
 
 export default [
   {
+    id: 1,
     name: "Shoes1",
     img: item1,
     price: 12.34,
-    count: 2,
+    quantity: 2,
   },
   {
+    id: 2,
     name: "Shoes2",
     img: item2,
     price: 56.78,
-    count: 1,
+    quantity: 1,
   },
   {
+    id: 3,
     name: "Shoes3",
     img: item3,
     price: 90.12,
-    count: 4,
+    quantity: 4,
   },
 ];
