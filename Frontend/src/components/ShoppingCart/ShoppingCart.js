@@ -100,13 +100,16 @@ export default function ShoppingCart() {
   /* calculate total amount */
   const getTotalAmount = useCallback(() => {
     console.log("getTotalAmount");
-    return cart
-      .filter((item) => item.selected)
-      .reduce((pv, cv, i) => {
-        console.log(pv, cv);
-        return pv + cv.price * cv.amount;
-      }, 0);
-  }, [cart]);
+    console.log(selectedItems);
+    let selectedCartItems = selectedItems
+      .map((id) => cart.filter((item) => item.id === id))
+      .flat();
+    console.log(selectedCartItems);
+    return selectedCartItems.reduce(
+      (total, item, i) => total + item.price * item.amount,
+      0
+    );
+  }, [cart, selectedItems]);
 
   /*     
   When the user actively uses the [Select All] function
@@ -164,12 +167,11 @@ export default function ShoppingCart() {
               toggleAllSelected(!allSelected);
             }}
           />
-          <i>  SelectAll  </i>
+          <i> SelectAll </i>
         </div>
         <div className="left"></div>
         <div className="count-box">
-          <span className="price">{getTotalCount()}</span> items has been
-          selected
+          <span className="price">{getTotalCount()}</span> Items selected
         </div>
         <div className="amount-box">
           Total Amount{" "}
