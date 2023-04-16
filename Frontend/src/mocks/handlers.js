@@ -8,15 +8,44 @@ import cart from "./cart";
 let requestUrl = "http://localhost:8080";
 
 export const handlers = [
-  rest.post(requestUrl + "/login", (req, res, ctx) => {
-    // Persist user's authentication in the session
-    sessionStorage.setItem("is-authenticated", "true");
+  rest.post(requestUrl + "/api/auth/signup", (req, res, ctx) => {
+    let userId = (Math.random() * 1000000).floor();
+
+    sessionStorage.setItem("userData", {
+      ...req.json(),
+      id: userId,
+    });
 
     return res(
       // Respond with a 200 status code
       ctx.status(200),
-      ctx.json(testuser)
+      ctx.json({
+        message: "User successfully registered with basic permissions!",
+        id: userId,
+      })
     );
+  }),
+
+  rest.post(requestUrl + "/api/auth/signin", (req, res, ctx) => {
+    let userData = sessionStorage.getItem("userData");
+    let request = req.json();
+
+    if (
+      userData.username == request.username &&
+      userData.password == request.password
+    ) {
+      return res(
+        // Respond with a 200 status code
+        ctx.status(200),
+        ctx.json({
+          id: userData.id,
+          username: userData.username,
+          email: userData.email,
+          accessToken: "token",
+        })
+      );
+    }
+    return res(ctx.status(404)); // TODO: Check status.
   }),
 
   // example for replacement of json-server
@@ -42,26 +71,18 @@ export const handlers = [
     );
   }),
 
-  /* rest.get(requestUrl + "/user", (req, res, ctx) => {
-    // Check if the user is authenticated in this session
-    const isAuthenticated = sessionStorage.getItem("is-authenticated");
+  // example for replacement of json-server
+  rest.get("http://localhost:3333/search/name/:searchTerm", (req, res, ctx) => {
+    const { searchTerm } = req.params;
 
-    if (!isAuthenticated) {
-      // If not authenticated, respond with a 403 error
-      return res(
-        ctx.status(403),
-        ctx.json({
-          errorMessage: "Not authorized",
-        })
-      );
-    }
-
-    // If authenticated, return a mocked user details
-    return res(
-      ctx.status(200),
-      ctx.json({
-        username: "admin",
-      })
+    let matches = products.filter((products) =>
+      products.name.toLowerCase().includes(searchTerm)
     );
-  }), */
+
+    return res(
+      // Respond with a 200 status code
+      ctx.status(200),
+      ctx.json(matches)
+    );
+  }),
 ];
