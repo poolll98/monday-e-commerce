@@ -38,6 +38,7 @@ export default function FilterableList() {
   function handleChange(e) {
     setQuery(e.target.value);
     let trimmed = e.target.value.trim();
+    // TODO: Don't search on every keystroke.
     if (trimmed) {
       searchItems(trimmed).then((data) => {
         setSearchResults(data);
