@@ -66,8 +66,8 @@ export const handlers = [
 
   // example for replacement of json-server
   rest.get(requestUrl + "/cart", (req, res, ctx) => {
-    // Check if user is logged in.
-    if (!sessionStorage.getItem("is-authenticated")) {
+    // TODO: Maybe more complex checking?
+    if (!sessionStorage.getItem("userData")) {
       return res(ctx.status(401));
     }
 
