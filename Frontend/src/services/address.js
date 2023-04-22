@@ -1,11 +1,18 @@
 const addressAddEndpoint = "http://localhost:8080/user/address/add"; // TODO: Check if we can get a proper REST API.
 
-export function addAddress(street, streetNumber, cityCode, city, country) {
+export function addAddress(receiver, street, streetNumber, cityCode, city) {
+  if (!receiver || !street || !streetNumber || cityCode || !city) {
+    console.log("One or more address values were not set.");
+    return;
+  }
+
   let body = JSON.stringify({
-    city: city,
-    country: country,
+    receiver: receiver,
     street: street,
     street_nr: streetNumber,
+    city: city,
+    cityCode: cityCode,
+    country: "Switzerland",
   });
 
   return fetch(addressAddEndpoint, {
