@@ -24,9 +24,11 @@ export default function SearchPage() {
     <>
       <SearchEntry query={query} onChange={handleChange} />
       <hr />
-      {searchResults.map((productData) => (
-        <SearchResult productData={productData} />
-      ))}
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        {searchResults.map((productData) => (
+          <SearchResult productData={productData} />
+        ))}
+      </div>
     </>
   );
 }
