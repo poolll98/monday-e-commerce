@@ -8,16 +8,26 @@ export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  function handleChange(e) {
-    setQuery(e.target.value);
-    let trimmed = e.target.value.trim();
-    // TODO: Don't search on every keystroke.
+  function loadAndShowResults(name) {
+    setQuery(name);
+    let trimmed = name.trim();
     if (trimmed) {
       searchItems(trimmed).then((data) => {
         setSearchResults(data);
-        console.log(data);
       });
     }
+  }
+
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+
+  if (params.name && !query) {
+    loadAndShowResults(params.name);
+  }
+
+  function handleChange(e) {
+    loadAndShowResults(e.target.value);
   }
 
   return (
@@ -26,7 +36,7 @@ export default function SearchPage() {
       <hr />
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {searchResults.map((productData) => (
-          <SearchResult productData={productData} />
+          <SearchResult productData={productData} key={productData.id} />
         ))}
       </div>
     </>
