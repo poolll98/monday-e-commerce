@@ -4,6 +4,7 @@ import { rest } from "msw";
 import products from "./products";
 import searchProducts from "./searchProducts";
 import cart from "./cart";
+import address from "./address";
 
 let requestUrl = "http://localhost:8080";
 
@@ -78,7 +79,6 @@ export const handlers = [
     );
   }),
 
-  // example for replacement of json-server
   rest.get(requestUrl + "/search/name/:searchTerm", (req, res, ctx) => {
     const { searchTerm } = req.params;
 
@@ -91,5 +91,13 @@ export const handlers = [
       ctx.status(200),
       ctx.json(matches)
     );
+  }),
+
+  rest.get(requestUrl + "/user/address", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(address));
+  }),
+
+  rest.post(requestUrl + "/user/address/add", (req, res, ctx) => {
+    return res(ctx.status(200));
   }),
 ];
