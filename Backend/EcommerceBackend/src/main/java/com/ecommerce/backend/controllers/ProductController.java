@@ -42,9 +42,10 @@ public class ProductController {
             List<Product> productList = prodRepo.findProductsByProductCategory(productCategory.get(0));
             for(Product p: productList){
                 String name  = p.getProductCategory().getCategory_name();
+                Long seller_id = p.getSeller().getId();
                 SearchProductMessage m = new SearchProductMessage(p.getId(), p.getName(),
                         p.getDescription(), name, p.getMedia(), p.getInstock(),
-                        p.getPrice());
+                        p.getPrice(), seller_id);
                 searchResult.add(m);
 
             }
@@ -65,9 +66,10 @@ public class ProductController {
         List<SearchProductMessage> outputResult = new ArrayList<>();
         for(Product p: searchResult){
             String category_name  = p.getProductCategory().getCategory_name();
+            Long seller_id = p.getSeller().getId();
             SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),
                     p.getDescription(), category_name, p.getMedia(), p.getInstock(),
-                    p.getPrice());
+                    p.getPrice(), seller_id);
             outputResult.add(spm);
 
         }

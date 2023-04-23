@@ -47,15 +47,16 @@ export POSTGRES_DB_PASSWORD= POSTGRES_PASSWORD
 The first time you run the application, insert these data into the Database by hand (since we don't have any kind of APIs for this of operation yet):
 
 ```
-INSERT INTO roles(name) VALUES('ROLE_USER');
-INSERT INTO roles(name) VALUES('ROLE_ADMIN');
-
-INSERT INTO shopping_cart(login_user_id) VALUES(1);
-INSERT INTO product_category(category_name) VALUES('food');
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('super random pizza', true,'pizza', 8,1);
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('super test pizza', true,'pizza', 6, 1);
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('random burger', true,'burger', 5, 1);
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('random pasta', true,'pasta', 3, 1);
+INSERT INTO roles(id,name) VALUES(1,'ROLE_USER');
+INSERT INTO roles(id,name) VALUES(2,'ROLE_ADMIN');
+INSERT INTO login_user(username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES ('username', 'username@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
+INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
+INSERT INTO shopping_cart(id,login_user_id) VALUES(1,1);
+INSERT INTO product_category(id,category_name) VALUES(1,'food');
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(1,'super random pizza', true,'pizza', 8, 1, 1);
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(2,'super test pizza', true,'pizza', 6, 1, 1);
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(3,'random burger', true,'burger', 5, 1, 1);
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(4,'random pasta', true,'pasta', 3, 1, 1);
 commit;
 ```
 

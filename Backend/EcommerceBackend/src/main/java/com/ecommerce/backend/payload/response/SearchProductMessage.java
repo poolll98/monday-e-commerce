@@ -9,9 +9,10 @@ public class SearchProductMessage{
     private byte[] media;
     private Boolean instock;
     private Float price;
+    private Long seller_id;
 
-    public SearchProductMessage(Long id,String name, String description, String categoryName, byte[] media,
-                                Boolean instock, Float price) {
+    public SearchProductMessage(Long id, String name, String description, String categoryName, byte[] media,
+                                Boolean instock, Float price, Long seller_id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -19,7 +20,7 @@ public class SearchProductMessage{
         this.media = media;
         this.instock = instock;
         this.price = price;
-
+        this.seller_id = seller_id;
     }
 
     public Long getId() {
@@ -76,5 +77,13 @@ public class SearchProductMessage{
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public Long getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(Long seller_id) {
+        this.seller_id = seller_id;
     }
 }
