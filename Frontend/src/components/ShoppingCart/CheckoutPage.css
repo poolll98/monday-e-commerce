@@ -1,0 +1,41 @@
+.order-list-container {
+  border: solid;
+}
+
+.order-entry-container {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.order-entry-image {
+  width: 4em;
+  height: 4em;
+}
+
+.address-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em;
+  border: solid;
+}
+
+.horizontal-field-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-field-group > label {
+  padding: 1em;
+}
+
+.blue-button {
+  background: #319dff;
+  border-radius: 24px;
+  border: 1px solid #319dff;
+  width: 219px;
+  height: 36px;
+  color: #ffffff;
+}

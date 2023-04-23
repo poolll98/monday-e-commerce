@@ -1,4 +1,8 @@
-const addressAddEndpoint = "http://localhost:8080/user/address/add"; // TODO: Check if we can get a proper REST API.
+const addressEndpoint = "http://localhost:8080/user/address"; // TODO: Check if we can get a proper REST API.
+
+export function getAddress() {
+  return fetch(addressEndpoint).then((data) => data.json());
+}
 
 export function addAddress(receiver, street, streetNumber, cityCode, city) {
   if (!receiver || !street || !streetNumber || cityCode || !city) {
@@ -15,7 +19,7 @@ export function addAddress(receiver, street, streetNumber, cityCode, city) {
     country: "Switzerland",
   });
 
-  return fetch(addressAddEndpoint, {
+  return fetch(addressEndpoint + "/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
