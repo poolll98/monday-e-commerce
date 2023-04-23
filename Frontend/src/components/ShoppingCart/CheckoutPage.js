@@ -11,8 +11,6 @@ export default function CheckoutPage({ orderItems }) {
   useEffect(() => {
     let isMounted = true;
     getAddress().then((data) => {
-      console.log("User address:");
-      console.log(data);
       if (isMounted) {
         setAddress(data);
       }
@@ -20,10 +18,12 @@ export default function CheckoutPage({ orderItems }) {
     return () => {
       isMounted = false;
     };
-  }, [address]);
+  }, []);
 
   function confirmPurchase() {
     alert("Purchased");
+    console.log(orderItems);
+    console.log(address);
   }
 
   return (
@@ -47,8 +47,10 @@ export default function CheckoutPage({ orderItems }) {
             <input
               type="text"
               required={true}
-              onChange={(e) => (address.receiver = e.target.value)}
-              value={address.receiver}
+              onChange={(e) =>
+                setAddress({ ...address, receiver: e.target.value })
+              }
+              value={address?.receiver}
             />
           </label>
         </div>
@@ -58,8 +60,10 @@ export default function CheckoutPage({ orderItems }) {
             <input
               type="text"
               required={true}
-              onChange={(e) => (address.street = e.target.value)}
-              value={address.street}
+              onChange={(e) =>
+                setAddress({ ...address, street: e.target.value })
+              }
+              value={address?.street}
             />
           </label>
           <label>
@@ -67,8 +71,10 @@ export default function CheckoutPage({ orderItems }) {
             <input
               type="number"
               required={true}
-              onChange={(e) => (address.streetNumber = e.target.value)}
-              value={address.streetNumber}
+              onChange={(e) =>
+                setAddress({ ...address, street_nr: e.target.value })
+              }
+              value={address?.street_nr}
             />
           </label>
         </div>
@@ -78,8 +84,10 @@ export default function CheckoutPage({ orderItems }) {
             <input
               type="number"
               required={true}
-              onChange={(e) => (address.cityCode = e.target.value)}
-              value={address.cityCode}
+              onChange={(e) =>
+                setAddress({ ...address, cityCode: e.target.value })
+              }
+              value={address?.cityCode}
             />
           </label>
           <label>
@@ -87,8 +95,8 @@ export default function CheckoutPage({ orderItems }) {
             <input
               type="text"
               required={true}
-              onChange={(e) => (address.city = e.target.value)}
-              value={address.city}
+              onChange={(e) => setAddress({ ...address, city: e.target.value })}
+              value={address?.city}
             />
           </label>
         </div>
