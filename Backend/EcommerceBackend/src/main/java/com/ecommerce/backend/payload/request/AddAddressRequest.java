@@ -4,31 +4,31 @@ import javax.validation.constraints.NotNull;
 
 public class AddAddressRequest {
 
-    @NotNull
+    @NotNull(message="city is mandatory.")
     private String city;
 
-    @NotNull
+    @NotNull(message="country is mandatory.")
     private String country;
 
-    @NotNull
+    @NotNull(message="the receiver is mandatory.")
     private String receiver;
 
-    @NotNull
-    private String region;
+    @NotNull(message="postal code is mandatory.")
+    private Integer postal_code;
 
-    @NotNull
+    @NotNull(message="street is mandatory.")
     private String street;
 
-    @NotNull
+    @NotNull(message="street number is mandatory.")
     private Integer street_nr;
 
 
-    public AddAddressRequest(String city, String country, String receiver, String region, String street, Integer street_nr
+    public AddAddressRequest(String city, String country, String receiver, Integer postal_code, String street, Integer street_nr
                             ) {
         this.city = city;
         this.country = country;
         this.receiver = receiver;
-        this.region = region;
+        this.postal_code = postal_code;
         this.street = street;
         this.street_nr = street_nr;
     }
@@ -45,9 +45,7 @@ public class AddAddressRequest {
         return receiver;
     }
 
-    public String getRegion() {
-        return region;
-    }
+    public Integer getPostal_code() {return postal_code;}
 
     public String getStreet() {
         return street;
@@ -69,8 +67,8 @@ public class AddAddressRequest {
         this.receiver = receiver;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setPostal_code(Integer postal_code) {
+        this.postal_code = postal_code;
     }
 
     public void setStreet(String street) {
