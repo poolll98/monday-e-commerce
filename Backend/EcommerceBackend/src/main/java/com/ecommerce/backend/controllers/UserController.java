@@ -54,7 +54,7 @@ public class UserController {
         }
         if (! isAddressPresent) {
             newAddress = new Address(address.getStreet(), address.getStreet_nr(), address.getCity(),
-                    address.getRegion(), address.getCountry(), address.getReceiver());
+                    address.getPostal_code(), address.getCountry(), address.getReceiver());
             addressRepository.save(newAddress);
             System.out.println("New address added in the db.");
         }
@@ -149,7 +149,7 @@ public class UserController {
     
     private boolean equalAddresses(AddAddressRequest addr1, Address addr2){
         return addr1.getCountry().equals(addr2.getCountry()) &&
-                addr1.getRegion().equals(addr2.getRegion()) &&
+                addr1.getPostal_code().equals(addr2.getPostal_code()) &&
                 addr1.getCity().equals(addr2.getCity()) &&
                 addr1.getStreet().equals(addr2.getStreet()) &&
                 addr1.getStreet_nr().equals(addr2.getStreet_nr()) &&

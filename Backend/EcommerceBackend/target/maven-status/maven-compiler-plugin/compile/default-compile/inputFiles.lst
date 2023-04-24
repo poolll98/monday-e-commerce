@@ -35,6 +35,7 @@
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/payload/request/AddAddressRequest.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/payload/request/LoginRequest.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/repository/CartItemRepo.java
+/Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/payload/request/AddProductRequest.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/controllers/ProductController.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/controllers/AuthController.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/models/Review.java
@@ -42,3 +43,4 @@
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/controllers/TestController.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/repository/UserAddressRepository.java
 /Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/EcommerceBackendApplication.java
+/Users/user/Desktop/Advanced Software Engineering/project/monday-e-commerce/Backend/EcommerceBackend/src/main/java/com/ecommerce/backend/payload/response/MessageWithList.java

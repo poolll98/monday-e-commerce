@@ -4,6 +4,7 @@ com/ecommerce/backend/models/UserAddress.class
 com/ecommerce/backend/repository/UserAddressRepository.class
 com/ecommerce/backend/payload/response/MessageResponse.class
 com/ecommerce/backend/payload/request/SignupRequest.class
+com/ecommerce/backend/payload/request/AddProductRequest.class
 com/ecommerce/backend/models/CartItem.class
 com/ecommerce/backend/controllers/ShopController.class
 com/ecommerce/backend/security/jwt/AuthTokenFilter.class
@@ -40,5 +41,6 @@ com/ecommerce/backend/payload/request/AddCartItemRequest.class
 com/ecommerce/backend/controllers/TestController.class
 com/ecommerce/backend/payload/response/JwtResponse.class
 com/ecommerce/backend/models/Product.class
+com/ecommerce/backend/payload/response/MessageWithList.class
 com/ecommerce/backend/payload/request/LoginRequest.class
 com/ecommerce/backend/repository/CartItemRepo.class

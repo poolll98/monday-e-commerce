@@ -37,18 +37,24 @@ public class Product {
     @NotEmpty(message ="Product must have a name!")
     private String name;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "login_user.id")
+    private User seller;
+
     public Product(){
 
     }
 
     public Product(String description, ProductCategory productCategory, byte[] media, Boolean instock, Float price,
-                   String name) {
+                   String name, User seller) {
         this.description = description;
         this.productCategory = productCategory;
         this.media = media;
         this.instock = instock;
         this.price = price;
         this.name = name;
+        this.seller = seller;
     }
 
     public Long getId() {
@@ -105,5 +111,13 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
     }
 }

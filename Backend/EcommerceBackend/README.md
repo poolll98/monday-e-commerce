@@ -47,16 +47,23 @@ export POSTGRES_DB_PASSWORD= POSTGRES_PASSWORD
 The first time you run the application, insert these data into the Database by hand (since we don't have any kind of APIs for this of operation yet):
 
 ```
-INSERT INTO roles(name) VALUES('ROLE_USER');
-INSERT INTO roles(name) VALUES('ROLE_ADMIN');
-
-INSERT INTO shopping_cart(login_user_id) VALUES(1);
-INSERT INTO product_category(category_name) VALUES('food');
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('super random pizza', true,'pizza', 8,1);
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('super test pizza', true,'pizza', 6, 1);
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('random burger', true,'burger', 5, 1);
-INSERT INTO product(description,instock,name,price,product_category_id) VALUES('random pasta', true,'pasta', 3, 1);
+INSERT INTO roles(id,name) VALUES(1,'ROLE_USER');
+INSERT INTO roles(id,name) VALUES(2,'ROLE_ADMIN');
+ALTER SEQUENCE roles_id_seq RESTART WITH 3;
+INSERT INTO login_user(id, username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES (1, 'username', 'username@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
+ALTER SEQUENCE login_user_id_seq RESTART WITH 2;
+INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
+INSERT INTO shopping_cart(id, login_user_id) VALUES(1, 1);
+ALTER SEQUENCE shopping_cart_id_seq RESTART WITH 2;
+INSERT INTO product_category(id,category_name) VALUES(1,'food');
+ALTER SEQUENCE product_category_id_seq RESTART WITH 2;
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(1,'super random pizza', true,'pizza', 8, 1, 1);
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(2,'super test pizza', true,'pizza', 6, 1, 1);
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(3,'random burger', true,'burger', 5, 1, 1);
+INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(4,'random pasta', true,'pasta', 3, 1, 1);
+ALTER SEQUENCE product_id_seq RESTART WITH 5;
 commit;
+
 ```
 
 ## Interact with the services
@@ -301,6 +308,24 @@ REPONSE:[
     }
 ]
 
+- Add a new product sold by the test user:
+
+POST http://localhost:8080/product/add
+
+Authorization: type: Bear Token
+
+{
+   "category_name": "food",
+   "description": "just a type of pasta",
+   "instock": true,
+   "price": 4,
+   "name": "spaghetti"
+}
+
+RESPONSE: {
+    "message": "message": "Product correctly added."
+}
+
 - Add user's address:
 
 POST http://localhost:8080/user/address/add
@@ -311,7 +336,7 @@ body: {
     "city": "Rome",
     "country": "Italy",
     "receiver": "Marco Rossi",
-    "region": "Lazio",
+    "postal_code": 00042,
     "street": "Via del Quirinale",
     "street_nr": 9
 }

@@ -37,15 +37,19 @@ build-job:       # This job runs in the build stage, which runs first.
   artifacts:
     paths:
       - Backend/EcommerceBackend/target/*.jar
+  only:
+    refs:
+      - develop
+      - master
 
-docker-build:
-  image: docker:23.0.3
-  stage: build
-  services:
-    - docker:dind
-  script:
-    - cd Backend/EcommerceBackend
-    - echo "Building the backend image"
-    - docker build -t monday-backend .
-  dependencies:
-    - build-job
+#docker-build:
+#  image: docker:23.0.3
+#  stage: build
+#  services:
+#    - docker:dind
+#  script:
+#    - cd Backend/EcommerceBackend
+#    - echo "Building the backend image"
+#    - docker build -t monday-backend .
+#  dependencies:
+#    - build-job

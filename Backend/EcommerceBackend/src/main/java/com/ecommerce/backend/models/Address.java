@@ -20,8 +20,8 @@ public class Address {
     @NotBlank(message="")
     private String city;
 
-    @NotBlank(message="")
-    private String region;
+    @NotNull(message="")
+    private int postal_code;
 
     @NotBlank(message="")
     private String country;
@@ -33,11 +33,11 @@ public class Address {
 
     }
 
-    public Address(String street, int street_nr, String city, String region, String country, String receiver) {
+    public Address(String street, int street_nr, String city, int postal_code, String country, String receiver) {
         this.street = street;
         this.street_nr = street_nr;
         this.city = city;
-        this.region = region;
+        this.postal_code = postal_code;
         this.country = country;
         this.receiver = receiver;
     }
@@ -74,12 +74,12 @@ public class Address {
         this.city = city;
     }
 
-    public String getRegion() {
-        return region;
+    public Integer getPostal_code() {
+        return postal_code;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setPostal_code(int postal_code) {
+        this.postal_code = postal_code;
     }
 
     public String getCountry() {
