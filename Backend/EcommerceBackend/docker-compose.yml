@@ -1,7 +1,6 @@
-version: '3'
+version: "3"
 
 services:
-
   postgres:
     image: postgres
     container_name: pg-db
@@ -30,7 +29,7 @@ services:
       - postgres
 
   db-init:
-    build: 
+    build:
       context: .
       dockerfile: db-script-dockerfile
     container_name: db-init-script
@@ -42,18 +41,8 @@ services:
     image: "monday-frontend"
     build:
       context: ../../Frontend
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ../../Frontend/:/my-app
-      - /my-app/node_modules
     ports:
-      - 3000:3000
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    depends_on:
-      - postgres
-      - backend
+      - 3001:80
 
 volumes:
   pg-data:
-
