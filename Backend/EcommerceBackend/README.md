@@ -7,7 +7,7 @@ It uses Spring Data JPA to interact with PostgreSQL Database.
 
 1. Run "./mvnw clean package -DskipTests" to create the backend jar. Alternatively, you can run the Gitlab CI/CD Pipeline which will do the build for you, after which you can download the jar and place it under the project's "target" folder.
 
-2.1 For the Dev version, with hot reload run "docker compose -f docker-compose.dev.yml up" or "docker compose -f docker-compose.dev.yml up -d", if you want your containers to be running in the background. For stopping the backend, run "docker compose down"
+2.1 For the Dev version, with hot reload and mocking, run "docker compose -f docker-compose.dev.yml up" or "docker compose -f docker-compose.dev.yml up -d", if you want your containers to be running in the background. For stopping the backend, run "docker compose down"
 
 2.2 For the Production version, run "docker compose up" or "docker compose up -d", if you want your containers to be running in the background. For stopping the backend, run "docker compose down"
 
