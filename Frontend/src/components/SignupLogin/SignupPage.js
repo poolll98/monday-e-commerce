@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import "./form-styling.css";
 
 import { signup } from "../../services/userSessionManagement";
+import { addAddress } from "../../services/address";
 import { UserLoginContext } from "../UserContext";
 
 export default function LoginPage() {
@@ -10,6 +11,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState();
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
+
+  const [street, setStreet] = useState();
+  const [streetNumber, setStreetNumber] = useState();
+  const [cityCode, setCityCode] = useState();
+  const [city, setCity] = useState();
 
   const userAction = useContext(UserLoginContext);
 
@@ -23,6 +29,7 @@ export default function LoginPage() {
       lastName: lastname,
     };
     signup(userData);
+    addAddress(firstname + lastname, street, streetNumber, cityCode, city);
     userAction({ type: "login" });
   };
 
@@ -31,7 +38,7 @@ export default function LoginPage() {
       <h1>Create a New Account</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          <p>Username</p>
+          <p>Username *</p>
           <input
             type="text"
             required={true}
@@ -39,15 +46,7 @@ export default function LoginPage() {
           />
         </label>
         <label>
-          <p>Password</p>
-          <input
-            type="password"
-            required={true}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <label>
-          <p>E-Mail</p>
+          <p>E-Mail *</p>
           <input
             type="text"
             required={true}
@@ -55,21 +54,60 @@ export default function LoginPage() {
           />
         </label>
         <label>
-          <p>Firstname</p>
+          <p>Password *</p>
           <input
-            type="text"
+            type="password"
             required={true}
-            onChange={(e) => setFirstname(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <label>
-          <p>Lastname</p>
-          <input
-            type="text"
-            required={true}
-            onChange={(e) => setLastname(e.target.value)}
-          />
-        </label>
+        <div className="horizontal-field-group">
+          <label>
+            <p>Firstname *</p>
+            <input
+              type="text"
+              required={true}
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+          </label>
+          <label>
+            <p>Lastname *</p>
+            <input
+              type="text"
+              required={true}
+              onChange={(e) => setLastname(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="address-wrapper">
+          <h2 style={{ marginTop: 0 }}>Shipping Address</h2>
+          <div className="horizontal-field-group">
+            <label>
+              <p>Street</p>
+              <input type="text" onChange={(e) => setStreet(e.target.value)} />
+            </label>
+            <label>
+              <p>Street Number</p>
+              <input
+                type="number"
+                onChange={(e) => setStreetNumber(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="horizontal-field-group">
+            <label>
+              <p>City Code</p>
+              <input
+                type="number"
+                onChange={(e) => setCityCode(e.target.value)}
+              />
+            </label>
+            <label>
+              <p>City</p>
+              <input type="text" onChange={(e) => setCity(e.target.value)} />
+            </label>
+          </div>
+        </div>
         <div className="form-submit-button">
           <button type="submit">Signup</button>
         </div>
