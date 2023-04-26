@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: pgpwd1
       POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - pg-data:/var/lib/postgresql/data
 
@@ -20,7 +20,7 @@ services:
     container_name: backend
     restart: always
     ports:
-      - "8080:8080"
+      - 8080:8080
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
@@ -41,8 +41,14 @@ services:
     image: "monday-frontend"
     build:
       context: ../../Frontend
+    volumes:
+      - ../../Frontend/:/my-app
+      - /my-app/node_modules
     ports:
-      - 3001:80
+      - 80:3000
+    depends_on:
+      - postgres
+      - backend
 
 volumes:
   pg-data:

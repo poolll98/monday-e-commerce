@@ -15,7 +15,8 @@ services:
       - pg-data:/var/lib/postgresql/data
 
   backend:
-    build: .
+    build:
+      context: ../Backend/EcommerceBackend
     image: monday-backend
     container_name: backend
     restart: always
@@ -30,25 +31,27 @@ services:
 
   db-init:
     build:
-      context: .
+      context: ../Backend/EcommerceBackend
       dockerfile: db-script-dockerfile
+    image: pg-db-init
     container_name: db-init-script
     depends_on:
       - postgres
       - backend
 
   frontend:
-    image: "monday-frontend:dev"
+    image: "monday-frontend:prod"
+    container_name: frontend-prod
     build:
-      context: ../../Frontend
+      context: ../Frontend
       dockerfile: Dockerfile.dev
+    environment:
+      - DOCKER_BUILD_NO_CACHE=true  
     volumes:
-      - ../../Frontend/:/my-app
+      - ../Frontend/:/my-app
       - /my-app/node_modules
     ports:
-      - 3000:3000
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+      - 80:3000
     depends_on:
       - postgres
       - backend
