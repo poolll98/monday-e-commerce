@@ -40,18 +40,14 @@ services:
       - backend
 
   frontend:
-    image: "monday-frontend:prod"
     container_name: frontend-prod
     build:
       context: ../Frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     environment:
-      - DOCKER_BUILD_NO_CACHE=true  
-    volumes:
-      - ../Frontend/:/my-app
-      - /my-app/node_modules
+      - DOCKER_BUILD_NO_CACHE=true
     ports:
-      - 80:3000
+      - 3000:80
     depends_on:
       - postgres
       - backend
