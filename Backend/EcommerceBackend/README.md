@@ -55,8 +55,6 @@ ALTER SEQUENCE roles_id_seq RESTART WITH 3;
 INSERT INTO login_user(id, username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES (1, 'username', 'username@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
 ALTER SEQUENCE login_user_id_seq RESTART WITH 2;
 INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
-INSERT INTO shopping_cart(id, login_user_id) VALUES(1, 1);
-ALTER SEQUENCE shopping_cart_id_seq RESTART WITH 2;
 INSERT INTO product_category(id,category_name) VALUES(1,'food');
 ALTER SEQUENCE product_category_id_seq RESTART WITH 2;
 INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(1,'super random pizza', true,'pizza', 8, 1, 1);
@@ -159,15 +157,14 @@ RESULT: User Content.
 POST http://localhost:8080/shopcart/add
 
 body:{
-    "quantity": 5,
-    "cartid": 1,
-    "prodid": 1
+    "prodid": 1,
+    "quantity": 5
 }
 
 Authorization: type: Bear Token
 
 RESULT: {
-    "message": "Product has been added to the cart.",
+    "message": "A new Shopping has been created. The product has been added to the cart.",
     "id": 1
 }
 

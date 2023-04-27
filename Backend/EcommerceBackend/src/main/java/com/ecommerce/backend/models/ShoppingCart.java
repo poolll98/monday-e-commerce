@@ -16,11 +16,16 @@ public class ShoppingCart {
     @JoinColumn(name = "login_user.id")
     private User user;
 
+    @NotNull(message="")
+    private Boolean isActive;
+
     public ShoppingCart(){
     }
 
-    public ShoppingCart(User user) {
+    public ShoppingCart(User user, Boolean isActive) {
+
         this.user = user;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -37,5 +42,13 @@ public class ShoppingCart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

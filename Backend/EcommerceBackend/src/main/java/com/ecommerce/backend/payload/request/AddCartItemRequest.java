@@ -1,30 +1,24 @@
 package com.ecommerce.backend.payload.request;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class AddCartItemRequest {
-    
-    @NotNull
-    private Long cartid;
 
-    @NotNull
+    @NotNull(message = "The id of the product is mandatory")
     private Long prodid;
 
-    @NotNull
+    @NotNull(message = "Quantity is mandatory.")
+    @Min(value=1, message = "Quantity must be at least 1.")
     private Integer quantity;
 
-    public AddCartItemRequest(Integer quantity, Long cartid, Long prodid) {
+    public AddCartItemRequest(Integer quantity, Long prodid) {
         this.quantity=quantity;
-        this.cartid=cartid;
         this.prodid=prodid;
     }
 
     public Long getProdId() {
 		return prodid;
-	}
-
-	public Long getCartId() {
-		return cartid;
 	}
 
 	public Integer getQuantity() {
