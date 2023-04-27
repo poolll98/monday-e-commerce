@@ -37,18 +37,5 @@ services:
       - postgres
       - backend
 
-  frontend:
-    image: "monday-frontend"
-    build:
-      context: ../../Frontend
-    volumes:
-      - ../../Frontend/:/my-app
-      - /my-app/node_modules
-    ports:
-      - 3000:80
-    depends_on:
-      - postgres
-      - backend
-
 volumes:
   pg-data:
