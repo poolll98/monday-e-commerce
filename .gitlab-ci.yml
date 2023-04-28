@@ -50,7 +50,7 @@ code_quality:
     - mvn gitlab-code-quality:analyze
   artifacts:
     reports:
-      codequality: gl-code-quality-report.json
+      codequality: Backend/EcommerceBackend/target/code-quality-report.json
 
 #docker-build:
 #  image: docker:23.0.3
