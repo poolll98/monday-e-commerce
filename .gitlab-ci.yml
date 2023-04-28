@@ -49,8 +49,7 @@ build-job:       # This job runs in the build stage, which runs first.
 code_quality:
   stage: test-quality
   artifacts:
-    paths: 
-    - Backend/EcommerceBackend/target/gl-code-quality-report.json
+    paths: [gl-code-quality-report.json]
 
 #code_quality:
 #  image: maven:3-jdk-11
