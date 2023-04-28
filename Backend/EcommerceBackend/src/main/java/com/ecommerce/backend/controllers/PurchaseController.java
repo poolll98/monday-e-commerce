@@ -82,26 +82,25 @@ public class PurchaseController {
         boolean paymentok = PaymentService();
         System.out.println("paymentok is "+ paymentok);
 
-        Address ordadr = addrRepo.findById(purchaseRequest.getAddressId()).get();
+        if (paymentok){
+            Address ordadr = addrRepo.findById(purchaseRequest.getAddressId()).get();
 
-        List <CartItem> cartitems = cartRepo.findCartItemsByCartId(cart.getId());
+            List <CartItem> cartitems = cartRepo.findCartItemsByCartId(cart.getId());
 
-        float totalprice = 0;
-        List <Product> prodsInCart = new ArrayList<>();
+            float totalprice = 0;
+            List <Product> prodsInCart = new ArrayList<>();
 
-        for (CartItem cartItem : cartitems) {
-            float price = cartItem.getProduct().getPrice() * cartItem.getQuantity();
-            totalprice += price;
-            prodsInCart.add(cartItem.getProduct());
-        }
+            for (CartItem cartItem : cartitems) {
+                float price = cartItem.getProduct().getPrice() * cartItem.getQuantity();
+                totalprice += price;
+                prodsInCart.add(cartItem.getProduct());
+            }
 
-        UserPayment paymentMethod = userPayRepo.findById(purchaseRequest.getPaymentId()).get();
-
-        if (paymentok == true){
+            UserPayment paymentMethod = userPayRepo.findById(purchaseRequest.getPaymentId()).get();
             // add purchase record
             Purchase order = new Purchase(currentUser, new Date(), true, ordadr, totalprice, paymentMethod, cart);
             this.purchaseRepo.save(order);
-            Purchase usePurchase = purchaseRepo.findTopByUser(currentUser).get();
+            Purchase usePurchase = purchaseRepo.findFirstByUser(currentUser).get();
             for (Product prodsincart : prodsInCart){
                 PurchaseProduct newProdPurchase = new PurchaseProduct(usePurchase,prodsincart);
                 this.purhcaseProdRepo.save(newProdPurchase);
@@ -112,22 +111,22 @@ public class PurchaseController {
         }
         else
         {
-            ResponseEntity.badRequest().body(new MessageResponse("Payment Service 10% Probability Failure"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Payment Service 10% Probability Failure."));
         }
     
-        return ResponseEntity.ok(new MessageResponse("Order really created successfully?"));
+        return ResponseEntity.ok(new MessageResponse("Order really created successfully."));
     }
     
     public boolean PaymentService (){
 
-        Random whatever = new Random();
+        Random r = new Random();
+        double rangeMin = 0;
+        double rangeMax = 1;
 
         boolean paymentprocess = true;
-        int upperbound = 25;
-        // Generating random values from 0 - 24 using nextInt()
-        int int_random = whatever.nextInt(upperbound); 
-        // Generating random using nextDouble in 0.0 and 1.0 range
-        if (int_random > 0.9) {paymentprocess = false;}
+        double status = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+
+        if (status > 0.9) {paymentprocess = false;}
         else {paymentprocess = true;}
 
         return paymentprocess;

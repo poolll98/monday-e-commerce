@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface PurchaseRepository extends JpaRepository <Purchase, Long> {
     
- Optional <Purchase> findTopByUser(User user);
+ Optional <Purchase> findFirstByUser(User user);
 
 }
