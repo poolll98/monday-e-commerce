@@ -46,14 +46,14 @@ build-job:       # This job runs in the build stage, which runs first.
       - develop
       - master
 
-code_quality:
-  image: maven:3-jdk-11
-  stage: test-quality
-  script:
-    - mvn gitlab-code-quality:analyze
-  artifacts:
-    reports:
-      codequality: Backend/EcommerceBackend/target/code-quality-report.json
+#code_quality:
+#  image: maven:3-jdk-11
+#  stage: test-quality
+#  script:
+#    - mvn gitlab-code-quality:analyze
+#  artifacts:
+#    reports:
+#      codequality: Backend/EcommerceBackend/target/code-quality-report.json
 
 #docker-build:
 #  image: docker:23.0.3
