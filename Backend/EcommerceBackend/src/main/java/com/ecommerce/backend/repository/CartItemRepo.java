@@ -22,6 +22,9 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long>{
 
     Integer countDistinctByShoppingCart(ShoppingCart shoppingCart);
 
+    @Query(value = "SELECT * FROM public.cart_item WHERE shopping_cart_id =:cartId", nativeQuery = true)
+    List <CartItem> findCartItemsByCartId(@Param("cartId") Long cartId);
+
     @Query(value = "SELECT * FROM public.cart_item WHERE product_id =:productId AND shopping_cart_id =:cartId", nativeQuery = true)
     List<CartItem> findProductInTheCartById(@Param("cartId") Long cartId, @Param("productId") Long productId);
     void deleteById(Long id);
