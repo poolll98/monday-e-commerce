@@ -8,4 +8,4 @@ COPY initialize_db.sql .
 
 ENV PGPASSWORD=pgpwd1
 
-CMD ["sh", "-c", "sleep 20 && psql -U postgres -d postgres -h postgres -f ./initialize_db.sql"]
+CMD ["sh", "-c", "sleep 30 && psql -U postgres -d postgres -h postgres -f ./initialize_db.sql"]

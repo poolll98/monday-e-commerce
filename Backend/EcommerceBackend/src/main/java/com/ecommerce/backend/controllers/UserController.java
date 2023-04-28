@@ -50,7 +50,7 @@ public class UserController {
                 System.out.println("Address in the db.");
                 newAddress = addr;
                 break;
-            }
+            }   
         }
         if (! isAddressPresent) {
             newAddress = new Address(address.getStreet(), address.getStreet_nr(), address.getCity(),

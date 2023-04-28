@@ -1,9 +1,17 @@
-so either download the image from here and then do
+To start the Application, navigate to the Docker folder of the project, then run:
 
-docker load < mon-pg.tar
-docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres
-docker start mon-pg
+"docker compose up"
+or
+"docker compose up -d", if you want to let the docker containers run in the background. 
 
-or take it from docker hub
+MarketMate is now available at http:localhost/
 
-docker pull raul1doru2m/mon-team
+To start the Application in Development mode, with hot reload and mocking enabled, you can run:
+
+docker compose -f docker-compose.dev.yml up"
+or
+"docker compose -f docker-compose.dev.yml up -d", if you want to let the docker containers run in the background.
+
+MarketMate development version is now available at http:localhost:3000/
+
+To stop, run: docker compose down

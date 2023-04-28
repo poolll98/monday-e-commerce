@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    container_name: pg-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pgpwd1
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ../Backend/EcommerceBackend
+    image: monday-backend
+    container_name: backend
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: pgpwd1
+    depends_on:
+      - postgres
+
+  db-init:
+    build:
+      context: ../Backend/EcommerceBackend
+      dockerfile: db-script-dockerfile
+    image: pg-db-init
+    container_name: db-init-script
+    depends_on:
+      - postgres
+      - backend
+
+  frontend:
+    container_name: frontend-prod
+    build:
+      context: ../Frontend
+      dockerfile: Dockerfile
+    environment:
+      - DOCKER_BUILD_NO_CACHE=true
+    ports:
+      - 3000:80
+    depends_on:
+      - postgres
+      - backend
+
+volumes:
+  pg-data:

@@ -22,9 +22,7 @@ public class Purchase {
     private Date orderdate;
 
     @NotNull(message = "")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderstatus.id")
-    private OrderStatus orderstatusid;
+    private boolean orderstatus;
 
     @NotNull(message = "")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,10 +47,10 @@ public class Purchase {
 
     }
 
-    public Purchase(User user, Date orderdate, OrderStatus orderstatusid, Address address, Float totalprice, UserPayment userPayment, ShoppingCart shoppingCart) {
+    public Purchase(User user, Date orderdate, boolean orderstatus, Address address, Float totalprice, UserPayment userPayment, ShoppingCart shoppingCart) {
         this.user = user;
         this.orderdate = orderdate;
-        this.orderstatusid = orderstatusid;
+        this.orderstatus = orderstatus;
         this.address = address;
         this.totalprice = totalprice;
         this.userPayment = userPayment;
@@ -83,12 +81,12 @@ public class Purchase {
         this.orderdate = orderdate;
     }
 
-    public OrderStatus getOrderstatusId() {
-        return orderstatusid;
+    public boolean getOrderstatus() {
+        return orderstatus;
     }
 
-    public void setOrderstatusId(OrderStatus orderstatusid) {
-        this.orderstatusid = orderstatusid;
+    public void setOrderstatus(boolean orderstatus) {
+        this.orderstatus = orderstatus;
     }
 
     public Address getAddress() {
