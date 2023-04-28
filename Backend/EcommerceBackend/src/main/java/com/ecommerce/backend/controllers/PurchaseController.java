@@ -100,7 +100,8 @@ public class PurchaseController {
             // add purchase record
             Purchase order = new Purchase(currentUser, new Date(), true, ordadr, totalprice, paymentMethod, cart);
             this.purchaseRepo.save(order);
-            Purchase usePurchase = purchaseRepo.findFirstByUser(currentUser).get();
+            Purchase usePurchase = purchaseRepo.findPurchasesByUser(currentUser).get(purchaseRepo.
+                    findPurchasesByUser(currentUser).size()-1); //get the last record
             for (Product prodsincart : prodsInCart){
                 PurchaseProduct newProdPurchase = new PurchaseProduct(usePurchase,prodsincart);
                 this.purhcaseProdRepo.save(newProdPurchase);
