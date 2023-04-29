@@ -4,7 +4,7 @@ import { UserContext, UserLoginContext } from "../UserContext";
 import { useContext } from "react";
 import IconMenu from "./IconMenu";
 import { logout } from "../../services/userSessionManagement";
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
 
 export default function HeaderBar() {
   const colors = { color: "blue" };
@@ -31,7 +31,7 @@ export default function HeaderBar() {
           height="32"
         ></img>
       </Link>
-      <SearchBar />
+      {!window.location.href.includes("/search") ? <SearchBar /> : null}
       {!user?.username && (
         <button
           onClick={() => {

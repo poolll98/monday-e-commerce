@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { searchItems } from "../../services/search";
-import SearchEntry from "./SearchEntry";
 import SearchResult from "./SearchResult";
+import SearchBar from "../SearchBar";
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
@@ -26,13 +26,9 @@ export default function SearchPage() {
     loadAndShowResults(params.name);
   }
 
-  function handleChange(e) {
-    loadAndShowResults(e.target.value);
-  }
-
   return (
     <>
-      <SearchEntry query={query} onChange={handleChange} />
+      <SearchBar />
       <hr />
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {searchResults.map((productData) => (
