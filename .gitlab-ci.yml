@@ -41,7 +41,7 @@ npm-build-job:
 npm-test:
   stage: test
   dependencies:
-    - npm
+    - npm-build-job
   script:
     - npm test
 #docker-build:
