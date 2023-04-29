@@ -27,16 +27,15 @@ npm-build-job:
   stage: build
   image: node:latest
   script:
-    - npm config set registry ${CI_NPM_REGISTRY}
     - npm install
   cache:
     paths:
-      - node_modules/
+      - /Frontend/node_modules/
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
-      - node_modules/
+      - /Frontend/node_modules/
 
 npm-test:
   stage: test
