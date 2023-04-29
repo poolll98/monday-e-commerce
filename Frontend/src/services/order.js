@@ -3,11 +3,11 @@
 
 const orderEndpointUrl = "http://localhost:8080/order";
 
-export function confirmOrder(order, shippingAddress) {
-  let body = JSON.stringify({ order: order, shippingAddress: shippingAddress }); // TODO: Transform data as needed.
+export function confirmOrder(shippingAddress) {
+  let body = JSON.stringify({ shippingAddress: shippingAddress }); // TODO: Transform data as needed.
   console.log(body);
 
-  return fetch(orderEndpointUrl, {
+  return fetch(orderEndpointUrl + "/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +15,7 @@ export function confirmOrder(order, shippingAddress) {
     body: body,
   }).then((response) => {
     if (!response.ok) {
-      alert(`Error when adding item to cart.`);
+      alert(`Error when creating order.`);
       console.log(`Could not confirm order: ${body}.`);
       console.log(response);
     } else {

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getAddress } from "../../services/address";
+import { confirmOrder } from "../../services/order";
 
 import "./CheckoutPage.css";
 
@@ -21,6 +22,7 @@ export default function CheckoutPage({ orderItems }) {
   }, []);
 
   function confirmPurchase() {
+    confirmOrder();
     alert("Purchased");
     console.log(orderItems);
     console.log(address);

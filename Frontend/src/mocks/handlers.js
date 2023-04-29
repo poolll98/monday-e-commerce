@@ -66,7 +66,7 @@ export const handlers = [
   }),
 
   // example for replacement of json-server
-  rest.get(requestUrl + "/cart", (req, res, ctx) => {
+  rest.get(requestUrl + "/shopcart", (req, res, ctx) => {
     // TODO: Maybe more complex checking?
     if (!sessionStorage.getItem("userData")) {
       return res(ctx.status(401));
@@ -98,6 +98,10 @@ export const handlers = [
   }),
 
   rest.post(requestUrl + "/user/address/add", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+
+  rest.post(requestUrl + "/order/add", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
 ];
