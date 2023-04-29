@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   const [street, setStreet] = useState();
   const [streetNumber, setStreetNumber] = useState();
-  const [cityCode, setCityCode] = useState();
+  const [postalCode, setPostalCode] = useState();
   const [city, setCity] = useState();
 
   const userAction = useContext(UserLoginContext);
@@ -29,7 +29,7 @@ export default function LoginPage() {
       lastName: lastname,
     };
     signup(userData);
-    addAddress(firstname + lastname, street, streetNumber, cityCode, city);
+    addAddress(firstname + lastname, street, streetNumber, postalCode, city);
     userAction({ type: "login" });
   };
 
@@ -99,7 +99,7 @@ export default function LoginPage() {
               <p>City Code</p>
               <input
                 type="number"
-                onChange={(e) => setCityCode(e.target.value)}
+                onChange={(e) => setPostalCode(e.target.value)}
               />
             </label>
             <label>

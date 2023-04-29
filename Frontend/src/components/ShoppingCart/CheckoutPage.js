@@ -87,9 +87,9 @@ export default function CheckoutPage({ orderItems }) {
               type="number"
               required={true}
               onChange={(e) =>
-                setAddress({ ...address, cityCode: e.target.value })
+                setAddress({ ...address, postalCode: e.target.value })
               }
-              value={address?.cityCode}
+              value={address?.postalCode}
             />
           </label>
           <label>

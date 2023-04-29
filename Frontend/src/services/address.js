@@ -4,8 +4,8 @@ export function getAddress() {
   return fetch(addressEndpoint).then((data) => data.json());
 }
 
-export function addAddress(receiver, street, streetNumber, cityCode, city) {
-  if (!receiver || !street || !streetNumber || cityCode || !city) {
+export function addAddress(receiver, street, streetNumber, postalCode, city) {
+  if (!receiver || !street || !streetNumber || !postalCode || !city) {
     console.log("One or more address values were not set.");
     return;
   }
@@ -15,7 +15,7 @@ export function addAddress(receiver, street, streetNumber, cityCode, city) {
     street: street,
     street_nr: streetNumber,
     city: city,
-    cityCode: cityCode,
+    postalCode: postalCode,
     country: "Switzerland",
   });
 
