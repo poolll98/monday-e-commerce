@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function SearchBar() {
-  const [query, setQuery] = useState("");
+export default function SearchBar({ initialTerm = "", onEnter = () => {} }) {
+  const [query, setQuery] = useState(initialTerm);
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -12,6 +12,7 @@ export default function SearchBar() {
 
   function handleKeyPress(event) {
     if (event.key === "Enter") {
+      onEnter(query);
       navigate(`/search?name=${query}`, { replace: true });
     }
   }

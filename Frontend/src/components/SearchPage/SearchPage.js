@@ -28,7 +28,10 @@ export default function SearchPage() {
 
   return (
     <>
-      <SearchBar />
+      <SearchBar
+        initialTerm={query}
+        onEnter={(query) => loadAndShowResults(query)}
+      />
       <hr />
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {searchResults.map((productData) => (
