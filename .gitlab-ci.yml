@@ -27,6 +27,7 @@ npm-build-job:
   stage: build
   image: node:latest
   script:
+    - cd Frontend
     - npm install
   cache:
     paths:
