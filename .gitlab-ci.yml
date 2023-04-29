@@ -23,12 +23,13 @@ build-job: # This job runs in the build stage, which runs first.
       - develop
       - master
 
-npm-build-job:
-  stage: build
+npm-build-and-test:
+  stage: test
   image: node:latest
   script:
     - cd Frontend
     - npm install
+    - npm test
   cache:
     paths:
       - /Frontend/node_modules/
@@ -37,13 +38,6 @@ npm-build-job:
     when: on_success
     paths:
       - /Frontend/node_modules/
-
-npm-test:
-  stage: test
-  dependencies:
-    - npm-build-job
-  script:
-    - npm test
 #docker-build:
 #  image: docker:23.0.3
 #  stage: build
