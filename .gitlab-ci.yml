@@ -38,6 +38,10 @@ npm-build-and-test:
     when: on_success
     paths:
       - /Frontend/node_modules/
+  only:
+    refs:
+      - develop
+      - master
 #docker-build:
 #  image: docker:23.0.3
 #  stage: build
