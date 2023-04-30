@@ -82,9 +82,9 @@ export const handlers = [
   rest.get(requestUrl + "/search/name/:searchTerm", (req, res, ctx) => {
     const { searchTerm } = req.params;
 
-    let matches = searchProducts.filter((products) =>
-      products.name.toLowerCase().includes(searchTerm)
-    );
+    let matches = searchProducts.filter((product) => {
+      return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
 
     return res(
       // Respond with a 200 status code

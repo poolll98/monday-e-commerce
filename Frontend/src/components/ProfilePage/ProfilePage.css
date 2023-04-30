@@ -1,0 +1,103 @@
+.profile-wrapper {
+    width: 1148px;
+    min-height: 0;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  .profile-wrapper .profile-body .profile-field input {
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid #586A84;
+    border-radius: 8px;
+    height: 30px;
+    min-width: 145px;
+    width: auto;
+    align-items: center;
+  }
+
+  .profile-wrapper .profile-header {
+    /* Roboto 30px/Roboto_medium_30px */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: #1D232C;
+    text-align: center;
+  }
+
+  .profile-wrapper .profile-body {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0px;
+    margin: 6px;
+    overflow-y: scroll;
+    min-height: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .profile-wrapper .profile-body .left-box {
+    text-align: center;  
+    justify-content: center; 
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px; 
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-wrapper .profile-body .right-box {
+    justify-content: center; 
+    align-items: center;
+    padding-left: 280px;
+    padding-right: 180px;
+    border-left: 1px solid #ddd;
+  }
+
+  .profile-wrapper .profile-body .profile-field {
+    margin: 6px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .profile-wrapper .profile-body .profile-field .profile-field-title {
+    font-weight: bold;
+    width: 160px;
+  }
+
+  .profile-wrapper .blue-button {
+    background: #319DFF;
+    border-radius: 24px;
+    border: 1px solid #319DFF;
+    width: 219px;
+    height: 36px;
+    color: #FFFFFF;
+  }
+
+  .profile-wrapper .white-button {
+    background: #FFFFFF;
+    border: 1px solid #586A84;
+    border-radius: 24px;
+    width: 105px;
+    height: 36px;
+    color: #586A84;
+  }
+
+  .profile-wrapper .left-button {
+    background: #FFFFFF;
+    border: 0px ;
+    width: 200px;
+    height: 36px;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 16px;
+  }

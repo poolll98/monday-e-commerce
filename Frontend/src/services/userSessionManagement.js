@@ -34,7 +34,7 @@ export function login(username, password, callback) {
       setToken(data.accessToken);
       setUserData(JSON.stringify(data));
     })
-    .then((data) => callback(data))
+    .then((data) => (callback ? callback(data) : null))
     .catch((reason) => {
       alert("Unable to log in.");
       console.log(reason);
