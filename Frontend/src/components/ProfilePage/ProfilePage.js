@@ -30,8 +30,8 @@ function ProfileRightBoxDisplayMode({thisUser, setIsEditMode}) {
                 <p>{thisUser.phone || `\u00A0`}</p>
             </div>
             <div class="profile-field">
-                <p className="profile-field-title">Address:</p>
-                <p>{thisUser.address || `\u00A0`}</p>
+                <p className="profile-field-title">{thisUser.isseller ? "Payment:" : "Address:"}</p>
+                <p>{thisUser.isseller ? thisUser.payment : thisUser.address || `\u00A0`}</p>
             </div>
             <div class="profile-field">
                 <button className="blue-button" onClick={() => setIsEditMode(true)}>
@@ -66,8 +66,8 @@ function ProfileRightBoxEditMode({thisUser, setIsEditMode}) {
                 <input type="text" defaultValue={thisUser.phone} />
             </div>
             <div class="profile-field">
-                <p className="profile-field-title">Address:     </p>
-                <input type="text" defaultValue={thisUser.address} />
+                <p className="profile-field-title">{thisUser.isseller ? "Payment:" : "Address:"}</p>
+                <input type="text" defaultValue={thisUser.isseller ? thisUser.payment : thisUser.address} />
             </div>
             <div class="profile-field">
                 <button className="blue-button" onClick={() => setIsEditMode(false)}>
@@ -120,39 +120,39 @@ export default function ProfilePage() {
   
     /* functional component => render JSX */
     return (
-      <LoginGuard>
-        <div className="profile-wrapper">
-            <div className="profile-header">
-                <h3>{thisUser.isseller ? "Seller" : "User"} Profile</h3>
-            </div>
-  
-            <div className="profile-body">
-                <div className="left-box">
-                    <div class="profile-field">
-                        <button className="left-button" onClick={() => setIsProductList(false)}>
-                            Account Information
-                        </button>
-                    </div>
-                    <div class="profile-field">
-                        {thisUser.isseller && (
-                            <button className="left-button" onClick={() => setIsProductList(true)}>
-                                Product List
-                            </button>
-                        )}
-                    </div>
+        <LoginGuard>
+            <div className="profile-wrapper">
+                <div className="profile-header">
+                    <h3>{thisUser.isseller ? "Seller" : "User"} Profile</h3>
                 </div>
-                {isProductList ? (
-                    <ProfileRightBoxProductList thisUser={thisUser}/>
-                    ) : (
-                        isEditMode ? (
-                            <ProfileRightBoxEditMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
-                            ) : (
-                            <ProfileRightBoxDisplayMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
-                        )
-                )}
+    
+                <div className="profile-body">
+                    <div className="left-box">
+                        <div class="profile-field">
+                            <button className="left-button" onClick={() => setIsProductList(false)}>
+                                Account Information
+                            </button>
+                        </div>
+                        <div class="profile-field">
+                            {thisUser.isseller && (
+                                <button className="left-button" onClick={() => setIsProductList(true)}>
+                                    Product List
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    {isProductList ? (
+                        <ProfileRightBoxProductList thisUser={thisUser}/>
+                        ) : (
+                            isEditMode ? (
+                                <ProfileRightBoxEditMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
+                                ) : (
+                                <ProfileRightBoxDisplayMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
+                            )
+                    )}
+                </div>
             </div>
-        </div>
-      </LoginGuard>
+        </LoginGuard>
     );
 }
   

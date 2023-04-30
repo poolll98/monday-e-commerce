@@ -4,6 +4,8 @@ import { rest } from "msw";
 import products from "./products";
 import searchProducts from "./searchProducts";
 import cart from "./cart";
+import address from "./address";
+import payment from "./payment";
 
 let requestUrl = "http://localhost:8080";
 
@@ -65,7 +67,7 @@ export const handlers = [
   }),
 
   // example for replacement of json-server
-  rest.get(requestUrl + "/cart", (req, res, ctx) => {
+  rest.get(requestUrl + "/shopcart", (req, res, ctx) => {
     // TODO: Maybe more complex checking?
     if (!sessionStorage.getItem("userData")) {
       return res(ctx.status(401));
@@ -78,7 +80,6 @@ export const handlers = [
     );
   }),
 
-  // example for replacement of json-server
   rest.get(requestUrl + "/search/name/:searchTerm", (req, res, ctx) => {
     const { searchTerm } = req.params;
 
@@ -91,5 +92,25 @@ export const handlers = [
       ctx.status(200),
       ctx.json(matches)
     );
+  }),
+
+  rest.get(requestUrl + "/user/address", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(address));
+  }),
+
+  rest.post(requestUrl + "/user/address/add", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(1));
+  }),
+
+  rest.get(requestUrl + "/user/payment", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(payment));
+  }),
+
+  rest.post(requestUrl + "/user/payment/add", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(1));
+  }),
+
+  rest.post(requestUrl + "/order/add", (req, res, ctx) => {
+    return res(ctx.status(200));
   }),
 ];
