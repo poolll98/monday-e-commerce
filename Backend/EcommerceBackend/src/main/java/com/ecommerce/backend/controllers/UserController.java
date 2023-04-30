@@ -3,10 +3,16 @@ package com.ecommerce.backend.controllers;
 import com.ecommerce.backend.models.Address;
 import com.ecommerce.backend.models.User;
 import com.ecommerce.backend.models.UserAddress;
+import com.ecommerce.backend.models.UserPayment;
 import com.ecommerce.backend.payload.request.AddAddressRequest;
+import com.ecommerce.backend.payload.request.AddPaymentMethodRequest;
 import com.ecommerce.backend.payload.response.MessageResponse;
+import com.ecommerce.backend.payload.response.SearchAddressMessage;
+import com.ecommerce.backend.payload.response.SearchPaymentMessage;
+import com.ecommerce.backend.payload.response.SearchProductMessage;
 import com.ecommerce.backend.repository.AddressRepository;
 import com.ecommerce.backend.repository.UserAddressRepository;
+import com.ecommerce.backend.repository.UserPaymentRepo;
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.security.jwt.JwtUtils;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -31,6 +38,8 @@ public class UserController {
     AddressRepository addressRepository;
     @Autowired
     UserAddressRepository userAddressRepository;
+    @Autowired
+    UserPaymentRepo userPaymentRepo;
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -159,8 +168,78 @@ public class UserController {
     private void setDefaultAddress(List<UserAddress> userAddresses, Long id){
         for (UserAddress userAddr : userAddresses) { //we set false all the addresses except the target one
             userAddr.setDefaultaddr(userAddr.getAddress().getId().equals(id));
-            userAddressRepository.save(userAddr);
+            this.userAddressRepository.save(userAddr);
         }
     }
 
+    @GetMapping("/address")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> getAddresses(@RequestHeader(name = "Authorization") String token) {
+
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        List<UserAddress> addressList = this.userAddressRepository.findAllByUser(currentUser);
+        List<SearchAddressMessage> finalList = addressList.stream().map(UserAddress::getAddress).map((a)->{ return
+                new SearchAddressMessage(a.getId(), a.getStreet(), a.getStreet_nr(), a.getCity(),
+                        a.getPostal_code(), a.getCountry(), a.getReceiver());}).toList();
+        return ResponseEntity.ok(finalList);
+    }
+
+    @PostMapping("/payment/add")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> addPaymentMethod(@Valid @RequestBody AddPaymentMethodRequest paymentRequest,
+                                              @RequestHeader(name = "Authorization") String token) {
+
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        List<UserPayment> paymentList = this.userPaymentRepo.findUserPaymentsByUser(currentUser);
+        long cardAlreadyExists = paymentList.stream().filter((p) -> {
+            return p.getCard_nr().equals(
+                    paymentRequest.getCard_nr());
+        }).count(); //check if we already have that card associated with the user.
+        if (cardAlreadyExists == 1) {
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: This payment method already exists."));
+        } else {
+            UserPayment newUserPayment = new UserPayment(currentUser, "credit card", paymentRequest.getName_on_card(),
+            paymentRequest.getCard_nr(), paymentRequest.getExpiry_date(), paymentRequest.getSecurity_code());
+            this.userPaymentRepo.save(newUserPayment);
+            //paymentList = userPaymentRepo.findUserPaymentsByUser(currentUser);
+            //Long id = paymentList.get(paymentList.size()-1).getId();
+            return ResponseEntity.ok(new MessageResponse("Payment method correctly added to the User."));
+        }
+    }
+
+    @DeleteMapping("payment/remove/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    //notice that this is the id of the UserPayment
+    public ResponseEntity<?> removePaymentMethod(@PathVariable Long id,
+                                                   @RequestHeader(name = "Authorization") String token) {
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        List<UserPayment> paymentList = this.userPaymentRepo.findUserPaymentsByUser(currentUser);
+        long paymentExists = paymentList.stream().filter((a)->{return id.equals(a.getId());}).count();
+        if (paymentExists == 0){
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: This payment method doesn't exist."));
+        }
+        else{
+            this.userPaymentRepo.deleteById(id);
+            return ResponseEntity.ok(new MessageResponse("Payment method correctly deleted."));
+        }
+    }
+
+
+    @GetMapping("/payment")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> getPaymentMethods(@RequestHeader(name = "Authorization") String token) {
+
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        List<UserPayment> paymentList = this.userPaymentRepo.findUserPaymentsByUser(currentUser);
+        List<SearchPaymentMessage> finalList = paymentList.stream().map((p)->{ return new SearchPaymentMessage(
+                p.getId(), p.getPayment_type(), p.getName_on_card(), p.getCard_nr(), p.getExpiry_date(),
+                p.getSecurity_code());}).toList();
+        return ResponseEntity.ok(finalList);
+    }
 }

@@ -2,7 +2,6 @@ package com.ecommerce.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,21 +27,21 @@ public class UserPayment {
 
     @NotNull(message = "")
     @Size(min=13, max=16, message="")
-    private int card_nr;
+    private String card_nr;
 
     @NotNull(message = "")
-    @JsonFormat(pattern = "MM/YY")
-    private Date expiry_date;
+    @JsonFormat(pattern = "MM/yyyy")
+    private String expiry_date;
 
     @NotNull(message = "")
     @Size(min = 3, max=5, message="")
-    private int security_code;
+    private String security_code;
 
     public UserPayment(){
 
     }
 
-    public UserPayment(User user, String payment_type, String name_on_card, int card_nr, Date expiry_date, int security_code) {
+    public UserPayment(User user, String payment_type, String name_on_card, String card_nr, String expiry_date, String security_code) {
         this.user = user;
         this.payment_type = payment_type;
         this.name_on_card = name_on_card;
@@ -83,27 +82,27 @@ public class UserPayment {
         this.name_on_card = name_on_card;
     }
 
-    public int getCard_nr() {
+    public String getCard_nr() {
         return card_nr;
     }
 
-    public void setCard_nr(int card_nr) {
+    public void setCard_nr(String card_nr) {
         this.card_nr = card_nr;
     }
 
-    public Date getExpiry_date() {
+    public String getExpiry_date() {
         return expiry_date;
     }
 
-    public void setExpiry_date(Date expiry_date) {
+    public void setExpiry_date(String expiry_date) {
         this.expiry_date = expiry_date;
     }
 
-    public int getSecurity_code() {
+    public String getSecurity_code() {
         return security_code;
     }
 
-    public void setSecurity_code(int security_code) {
+    public void setSecurity_code(String security_code) {
         this.security_code = security_code;
     }
 }

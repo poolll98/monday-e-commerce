@@ -108,14 +108,12 @@ public class PurchaseController {
             }
             cart.setActive(false);
             this.shopRepo.save(cart);
-            ResponseEntity.ok(new MessageResponse("Order created successfully."));
+            return ResponseEntity.ok(new MessageResponse("Order created successfully."));
         }
         else
         {
             return ResponseEntity.badRequest().body(new MessageResponse("Payment Service 10% Probability Failure."));
         }
-    
-        return ResponseEntity.ok(new MessageResponse("Order really created successfully."));
     }
     
     public boolean PaymentService (){

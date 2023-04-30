@@ -123,7 +123,7 @@ body: {
 
 RESULT: {
     "id": 2,
-    "username": "test_username",
+    "username": "test123",
     "email": "test123@gmail.com",
     "roles": [
         "ROLE_USER"
@@ -131,13 +131,6 @@ RESULT: {
     "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X3VzZXJuYW1lIiwiaWF0IjoxNjgxNTQ2ODg2LCJleHAiOjE2ODE2MzMyODZ9.NvMtcFWM3t1dHQa2hFrp_4HA6fRkYARyAq6ZJtPq6hIrUuetsmizZj4j-YZuj1WHMnmJImCYSZCAdrLLAZyMSg",
     "tokenType": "Bearer"
 }
-
-- From now on log in use the following test account already inserted in the db:
-
-  body: {
-  "username" = "username"
-  "password" = "password"
-  }
 
 Take note of the generated bear token,
 which could be different than that of this example.
@@ -151,50 +144,6 @@ Authorization: type: Bear Token
 
 RESULT: User Content.
 
-
-- Add a product (already inserted in the db) to the shopping cart (already inserted in the db):
-
-POST http://localhost:8080/shopcart/add
-
-body:{
-    "prodid": 1,
-    "quantity": 5
-}
-
-Authorization: type: Bear Token
-
-RESULT: {
-    "message": "A new Shopping has been created. The product has been added to the cart.",
-    "id": 1
-}
-
-
-- Edit the quantity of a product in the shopping cart:
-
-PUT http://localhost:8080/shopcart/editq
-
-body:
-{
-    "cartItemId": 1,
-    "quantity": 8
-}
-
-Authorization: type: Bear Token
-
-RESPONSE: {
-    "message": "1: quantity updated."
-}
-
-
-- Delete a product from the shopping cart:
-
-DELETE http://localhost:8080/shopcart/remove/1
-
-Authorization: type: Bear Token
-
-RESPONSE: {
-    "message": "Item has been removed from the cart."
-}
 
 - Search products by name (public API, no autorization required):
 
@@ -221,6 +170,7 @@ RESPONSE: [
     }
 ]
 
+
 - Search products by category (public API, no autorization required):
 
 GET http://localhost:8080/product/search/category/food
@@ -233,7 +183,8 @@ RESPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 8.0
+        "price": 8.0,
+        "seller_id": 1
     },
     {
         "id": 2,
@@ -242,7 +193,8 @@ RESPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 6.0
+        "price": 6.0,
+        "seller_id": 1
     },
     {
         "id": 3,
@@ -251,7 +203,8 @@ RESPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 5.0
+        "price": 5.0,
+        "seller_id": 1
     },
     {
         "id": 4,
@@ -260,9 +213,11 @@ RESPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 3.0
+        "price": 3.0,
+        "seller_id": 1
     }
 ]
+
 
 - Search products by instock (public API, no autorization required):
 
@@ -276,7 +231,8 @@ REPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 8.0
+        "price": 8.0,
+         "seller_id": 1
     },
     {
         "id": 2,
@@ -285,7 +241,8 @@ REPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 6.0
+        "price": 6.0,
+        "seller_id": 1
     },
     {
         "id": 3,
@@ -294,7 +251,8 @@ REPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 5.0
+        "price": 5.0,
+        "seller_id": 1
     },
     {
         "id": 4,
@@ -303,11 +261,13 @@ REPONSE:[
         "categoryName": "food",
         "media": null,
         "instock": true,
-        "price": 3.0
+        "price": 3.0,
+        "seller_id": 1
     }
 ]
 
-- Add a new product sold by the test user:
+
+- Add a new product sold by the current user:
 
 POST http://localhost:8080/product/add
 
@@ -325,6 +285,63 @@ RESPONSE: {
     "message": "message": "Product correctly added."
 }
 
+
+- Add a product (already inserted in the db) to the shopping cart:
+
+POST http://localhost:8080/shopcart/add
+
+body:{
+    "prodid": 1,
+    "quantity": 5
+}
+
+Authorization: type: Bear Token
+
+RESULT: {
+    "message": "A new Shopping has been created. The product has been added to the cart.",
+    "id": 1
+}
+
+- Now add also the following product:
+
+body:{
+    "prodid": 2,
+    "quantity": 4
+
+RESULT: {
+    "message": " The product has been added to the cart.",
+    "id": 2
+}
+
+
+- Edit the quantity of a product in the shopping cart:
+
+PUT http://localhost:8080/shopcart/editq
+
+body:
+{
+    "cartItemId": 1,
+    "quantity": 8
+}
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "1: quantity updated."
+}
+
+
+- Delete a product from the shopping cart:
+
+DELETE http://localhost:8080/shopcart/remove/2
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Item has been removed from the cart."
+}
+
+
 - Add user's address:
 
 POST http://localhost:8080/user/address/add
@@ -335,7 +352,7 @@ body: {
     "city": "Rome",
     "country": "Italy",
     "receiver": "Marco Rossi",
-    "postal_code": 00042,
+    "postal_code": 42000,
     "street": "Via del Quirinale",
     "street_nr": 9
 }
@@ -343,6 +360,18 @@ body: {
 RESPONSE: {
     "message": "Address correctly added to the User."
 }
+
+- Now add also the following address:
+
+body: {
+    "city": "Adliswil",
+    "country": "Switzerland",
+    "receiver": "Doctor Who",
+    "postal_code": 8340,
+    "street": "Zurichstrasse",
+    "street_nr": 28
+}
+
 
 - Modify default user's address:
 
@@ -354,13 +383,127 @@ RESPONSE: {
     "message": "Address has been set has default address."
 }
 
+
+- List all the addresses of the current user:
+
+GET http://localhost:8080/user/address
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+[
+ {
+        "address_id": 2,
+        "street": "Zurichstrasse",
+        "street_nr": 28,
+        "city": "Adliswil",
+        "postal_code": 8340,
+        "country": "Switzerland",
+        "receiver": "Doctor Who"
+    },
+    {
+        "address_id": 1,
+        "street": "Via del Quirinale",
+        "street_nr": 9,
+        "city": "Rome",
+        "postal_code": 42000,
+        "country": "Italy",
+        "receiver": "Marco Rossi"
+    }
+    
+]
+}
+
+
 - Delete user's address:
 
-DELETE: http://localhost:8080/user/address/remove/1
+DELETE: http://localhost:8080/user/address/remove/2
 
 Authorization: type: Bear Token
 
 RESPONSE: {
     "message": "Address has been removed from the user's list."
+}
+
+
+- Add a new payment method for the current user:
+
+POST http://localhost:8080/user/payment/add
+
+Authorization: type: Bear Token
+
+body:{
+    "name_on_card": "Marco Rossi",
+    "card_nr": "4534567890998765",
+    "expiry_date": "05/2027",
+    "security_code": "9867"
+}
+
+RESPONSE: {
+    "message": "Payment method correctly added to the User."
+}
+
+- Now add also the following payment:
+
+body:{
+    "name_on_card": "Doctor Who",
+    "card_nr": "4134567890998765",
+    "expiry_date": "02/2026",
+    "security_code": "003"
+}
+
+
+- List  all the payment methods of the current user:
+
+GET http://localhost:8080/user/payment
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+[
+    {
+        "id": 1,
+        "payment_type": "credit card",
+        "name_on_card": "Marco Rossi",
+        "card_nr": "4534567890998765",
+        "expiry_date": "05/2027",
+        "security_code": "9867"
+    },
+    {
+        "id": 2,
+        "payment_type": "credit card",
+        "name_on_card": "Doctor Who",
+        "card_nr": "4134567890998765",
+        "expiry_date": "02/2026",
+        "security_code": "003"
+    }
+]
+}
+
+
+- Delete a payment method:
+
+DELETE http://localhost:8080/user/payment/remove/2
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "message": "Payment method correctly deleted."
+}
+
+
+- Complete a purchase of the current user:
+
+POST http://localhost:8080/order/add
+
+Authorization: type: Bear Token
+
+body: {
+    "addressid": 1,
+    "paymentid": 1
+}
+
+RESPONSE: {
+    "message": "Order created successfully."
 }
 ```
