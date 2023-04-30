@@ -8,7 +8,7 @@ import CartItem from "./CartItem";
 
 import "./ShoppingCart.css";
 import LoginGuard from "../LoginGuard";
-//import productData from "./MockData";
+import CheckoutPage from "./CheckoutPage";
 
 export default function ShoppingCart() {
   const user = useContext(UserContext);
@@ -16,6 +16,8 @@ export default function ShoppingCart() {
   const [cart, setCart] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]); // contains the ids of the selected items
+
+  const [checkingOut, setCheckingOut] = useState(false); // flag if checkout page should be shown
 
   useEffect(() => {
     let isMounted = true;
@@ -131,6 +133,10 @@ export default function ShoppingCart() {
     return <div>Loading...</div>;
   }
 
+  if (checkingOut) {
+    return <CheckoutPage orderItems={cart}></CheckoutPage>;
+  }
+
   /* functional component => render JSX */
   return (
     <LoginGuard>
@@ -176,7 +182,10 @@ export default function ShoppingCart() {
             <span className="price">{getTotalAmount().toFixed(2)}</span>
           </div>
           <div className="pay-box">
-            <button className="blue-button" onClick={() => subItem(1)}>
+            <button
+              className="blue-button"
+              onClick={() => setCheckingOut(true)}
+            >
               Buy
             </button>
           </div>
