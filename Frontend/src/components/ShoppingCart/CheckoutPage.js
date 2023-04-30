@@ -18,7 +18,7 @@ export default function CheckoutPage({ orderItems }) {
       if (isMounted) {
         // For now, use first address by default.
         data = data.length >= 1 ? data[0] : {};
-        setAddressIsStored(data.id !== undefined);
+        setAddressIsStored(data.length > 0);
         setAddress(data);
       }
     });
@@ -26,7 +26,7 @@ export default function CheckoutPage({ orderItems }) {
       if (isMounted) {
         // For now, use first payment method by default.
         data = data.length >= 1 ? data[0] : {};
-        setPaymentMethodIsStored(data.id !== undefined);
+        setPaymentMethodIsStored(data.length > 0);
         setPaymentMethod(data);
       }
     });
@@ -64,6 +64,10 @@ export default function CheckoutPage({ orderItems }) {
           .toFixed(2)}
       </div>
       <AddressForm address={address} addAddress={addAddress} />
+      <PaymentMethodForm
+        paymentMethod={paymentMethod}
+        addPaymentMethod={addPaymentMethod}
+      />
       <button
         className="blue-button"
         style={{ marginTop: "2em" }}
@@ -211,7 +215,7 @@ function PaymentMethodForm({ paymentMethod, setPaymentMethod }) {
         <label>
           <p>Security Code</p>
           <input
-            type="number"
+            type="text"
             required={true}
             onChange={(e) =>
               setPaymentMethod({
