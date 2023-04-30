@@ -8,6 +8,9 @@ import SearchPage from "./components/SearchPage/SearchPage";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import { UserProvider } from "./components/UserContext";
 import SignupLoginPage from "./components/SignupLogin/SignupLoginPage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
+
+
 
 function App() {
   return (
@@ -27,6 +30,7 @@ function App() {
             <Route exact path="/search" element={<SearchPage />} />
             <Route exact path="/products" element={<ProductPage />} />
             <Route path="/products/:productId" element={<ProductPage />} />
+            <Route exact path="/profile" element={<ProfilePage />} />
           </Routes>
         </UserProvider>
       </BrowserRouter>
