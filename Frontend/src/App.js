@@ -4,7 +4,7 @@ import "./App.css";
 import HeaderBar from "./components/HeaderBar/HeaderBar";
 import ProductPage from "./components/ProductPage/ProductPage";
 import HomePage from "./components/HomePage";
-import SearchPage from "./components/SearchBar";
+import SearchPage from "./components/SearchPage/SearchPage";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import { UserProvider } from "./components/UserContext";
 import SignupLoginPage from "./components/SignupLogin/SignupLoginPage";

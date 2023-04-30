@@ -1,57 +1,26 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { searchItems } from "../services/search";
+import { useNavigate } from "react-router-dom";
 
-function SearchBar({ query, onChange }) {
-  return (
-    <label>
-      Search: <input value={query} onChange={onChange} />
-    </label>
-  );
-}
-
-function List({ items }) {
-  // TODO: Handle missing images.
-  return (
-    <table>
-      <tbody>
-        {items.map((productData) => (
-          <div key={productData.id}>
-            <h3>
-              <Link to={`/products/${productData.id}`}>{productData.name}</Link>
-            </h3>
-            <p>{productData.description}</p>
-            <img src={productData.media[0]} alt={productData.description} />
-            <hr />
-          </div>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-export default function FilterableList() {
-  const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+export default function SearchBar({ initialTerm = "", onEnter = () => {} }) {
+  const [query, setQuery] = useState(initialTerm);
+  const navigate = useNavigate();
 
   function handleChange(e) {
-    setQuery(e.target.value);
-    let trimmed = e.target.value.trim();
-    // TODO: Don't search on every keystroke.
-    if (trimmed) {
-      searchItems(trimmed).then((data) => {
-        setSearchResults(data);
-        console.log(data);
-      });
+    setQuery(e.target.value.trim());
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      onEnter(query);
+      navigate(`/search?name=${query}`, { replace: true });
     }
   }
 
   return (
-    <>
-      <SearchBar query={query} onChange={handleChange} />
-      <hr />
-      {searchResults ? <List items={searchResults} /> : null}
-    </>
+    <label>
+      Search:{" "}
+      <input value={query} onChange={handleChange} onKeyDown={handleKeyPress} />
+    </label>
   );
 }
