@@ -37,7 +37,13 @@ export default function CheckoutPage({ orderItems }) {
 
   async function confirmPurchase() {
     if (!addressIsStored) {
-      let addressId = await addAddress(address);
+      let addressId = await addAddress(
+        address.receiver,
+        address.street,
+        address.street_nr,
+        address.postal_code,
+        address.city
+      );
       setAddress({ ...address, id: addressId });
     }
     if (!paymentMethodIsStored) {
@@ -48,6 +54,16 @@ export default function CheckoutPage({ orderItems }) {
     alert("Purchased");
     console.log(orderItems);
     console.log(address);
+  }
+
+  function updateAddress(address) {
+    setAddress(address);
+    setAddressIsStored(false);
+  }
+
+  function updatePaymentMethod(paymentMethod) {
+    setPaymentMethod(paymentMethod);
+    setPaymentMethodIsStored(false);
   }
 
   return (
@@ -63,10 +79,10 @@ export default function CheckoutPage({ orderItems }) {
           .reduce((total, item, i) => total + item.quantity * item.price, 0)
           .toFixed(2)}
       </div>
-      <AddressForm address={address} addAddress={addAddress} />
+      <AddressForm address={address} setAddress={updateAddress} />
       <PaymentMethodForm
         paymentMethod={paymentMethod}
-        addPaymentMethod={addPaymentMethod}
+        addPaymentMethod={updatePaymentMethod}
       />
       <button
         className="blue-button"
@@ -140,14 +156,14 @@ function AddressForm({ address, setAddress }) {
       </div>
       <div className="horizontal-field-group">
         <label>
-          <p>City Code</p>
+          <p>Postal Code</p>
           <input
             type="number"
             required={true}
             onChange={(e) =>
-              setAddress({ ...address, postalCode: e.target.value })
+              setAddress({ ...address, postal_code: e.target.value })
             }
-            value={address?.postalCode}
+            value={address?.postal_code}
           />
         </label>
         <label>
