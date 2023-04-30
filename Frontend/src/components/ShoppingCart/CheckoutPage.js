@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getAddress } from "../../services/address";
+import { addAddress, getAddresses, setAddress } from "../../services/address";
 import { confirmOrder } from "../../services/order";
 
 import "./CheckoutPage.css";
@@ -8,11 +8,15 @@ import "./CheckoutPage.css";
 export default function CheckoutPage({ orderItems }) {
   // TODO: Confirm to trigger payment.
   const [address, setAddress] = useState({});
+  const [addressIsStored, setAddressIsStored] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
-    getAddress().then((data) => {
+    getAddresses().then((data) => {
       if (isMounted) {
+        // For now, use first address by default.
+        data = data.length >= 1 ? data[0] : {};
+        setAddressIsStored(data.id !== undefined);
         setAddress(data);
       }
     });
@@ -21,7 +25,11 @@ export default function CheckoutPage({ orderItems }) {
     };
   }, []);
 
-  function confirmPurchase() {
+  async function confirmPurchase() {
+    if (!addressIsStored) {
+      let addressId = await addAddress(address);
+      setAddress({ ...address, id: addressId });
+    }
     confirmOrder();
     alert("Purchased");
     console.log(orderItems);

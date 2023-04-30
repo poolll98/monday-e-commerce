@@ -1,6 +1,6 @@
 const addressEndpoint = "http://localhost:8080/user/address"; // TODO: Check if we can get a proper REST API.
 
-export function getAddress() {
+export function getAddresses() {
   return fetch(addressEndpoint).then((data) => data.json());
 }
 
