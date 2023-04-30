@@ -4,7 +4,7 @@ import { ReactComponent as ProfileIcon } from "./profile_icon.svg";
 
 export default function ProfileLink() {
   return (
-    <Link to="/wishlist" style={{ width: "30px" }}>
+    <Link to="/profile" style={{ width: "30px" }}>
       <ProfileIcon />
     </Link>
   );

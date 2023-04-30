@@ -4,6 +4,21 @@
   align-items: center;
 }
 
+.address-wrapper {
+  margin-top: 3em;
+  padding: 1em;
+  border: solid;
+}
+
+.horizontal-field-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-field-group > label {
+  padding: 1em;
+}
+
 .form-submit-button {
   margin: 20px;
 }
