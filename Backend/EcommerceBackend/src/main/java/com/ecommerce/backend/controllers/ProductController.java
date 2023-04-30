@@ -102,7 +102,9 @@ public class ProductController {
             Product newProduct = new Product(productRequest.getDescription(), category, productRequest.getMedia(),
                     productRequest.getInstock(), productRequest.getPrice(), productRequest.getName(), currentUser);
             this.prodRepo.save(newProduct);
-            return ResponseEntity.ok(new MessageResponse("Product correctly added."));
+            List<Product> producList = prodRepo.findProductsBySeller(currentUser);
+            Long product_id = producList.get(producList.size()-1).getId();
+            return ResponseEntity.ok(new AddElementMessage("Product correctly added.", product_id));
         }
     }
 

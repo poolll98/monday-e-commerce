@@ -1,6 +1,7 @@
 com/ecommerce/backend/security/jwt/JwtUtils.class
 com/ecommerce/backend/models/UserAddress.class
 com/ecommerce/backend/payload/response/MessageResponse.class
+com/ecommerce/backend/payload/request/AddPaymentMethodRequest.class
 com/ecommerce/backend/security/jwt/AuthTokenFilter.class
 com/ecommerce/backend/repository/UserRepository.class
 com/ecommerce/backend/repository/AddressRepository.class
@@ -32,10 +33,12 @@ com/ecommerce/backend/security/services/UserDetailsServiceImpl.class
 com/ecommerce/backend/repository/UserAddressRepository.class
 com/ecommerce/backend/payload/request/SignupRequest.class
 com/ecommerce/backend/controllers/PurchaseController.class
+com/ecommerce/backend/payload/response/SearchPaymentMessage.class
 com/ecommerce/backend/payload/request/AddProductRequest.class
 com/ecommerce/backend/models/CartItem.class
 com/ecommerce/backend/controllers/ShopController.class
 com/ecommerce/backend/repository/PurchaseProductRepo.class
+com/ecommerce/backend/payload/response/SearchAddressMessage.class
 com/ecommerce/backend/repository/RoleRepository.class
 com/ecommerce/backend/controllers/ProductController.class
 com/ecommerce/backend/models/UserPayment.class

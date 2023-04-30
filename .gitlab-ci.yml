@@ -1,10 +1,14 @@
 stages: # List of stages for jobs, and their order of execution
   - build
-  #  - docker-build
+  - test-quality
+#  - docker-build
   - test
 #  - deploy
 
-variables:
+include:
+   - template: Code-Quality.gitlab-ci.yml
+
+variables: 
   DOCKER_HOST: tcp://docker:2375/
 
 build-job: # This job runs in the build stage, which runs first.
@@ -22,6 +26,27 @@ build-job: # This job runs in the build stage, which runs first.
     refs:
       - develop
       - master
+
+code_quality:
+  stage: test-quality
+  artifacts:
+    paths: [gl-code-quality-report.json]
+
+code_quality_html:
+  extends: code_quality
+  variables:
+    REPORT_FORMAT: html
+  artifacts:
+    paths: [gl-code-quality-report.html]
+
+#code_quality:
+#  image: maven:3-jdk-11
+#  stage: test-quality
+#  script:
+#    - mvn gitlab-code-quality:analyze
+#  artifacts:
+#    reports:
+#      codequality: Backend/EcommerceBackend/target/code-quality-report.json
 
 npm-build-and-test:
   stage: test
@@ -42,14 +67,3 @@ npm-build-and-test:
     refs:
       - develop
       - master
-#docker-build:
-#  image: docker:23.0.3
-#  stage: build
-#  services:
-#    - docker:dind
-#  script:
-#    - cd Backend/EcommerceBackend
-#    - echo "Building the backend image"
-#    - docker build -t monday-backend .
-#  dependencies:
-#    - build-job
