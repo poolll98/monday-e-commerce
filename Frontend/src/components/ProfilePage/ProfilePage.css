@@ -16,6 +16,7 @@
     height: 30px;
     min-width: 145px;
     width: auto;
+    align-items: center;
   }
 
   .profile-wrapper .profile-header {
@@ -37,14 +38,40 @@
     margin: 6px;
     overflow-y: scroll;
     min-height: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .profile-wrapper .profile-body .left-box {
+    text-align: center;  
+    justify-content: center; 
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px; 
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-wrapper .profile-body .right-box {
+    justify-content: center; 
+    align-items: center;
+    padding-left: 280px;
+    padding-right: 180px;
+    border-left: 1px solid #ddd;
   }
 
   .profile-wrapper .profile-body .profile-field {
     margin: 6px;
+    display: flex;
+    flex-direction: row;
   }
 
   .profile-wrapper .profile-body .profile-field .profile-field-title {
     font-weight: bold;
+    width: 160px;
   }
 
   .profile-wrapper .blue-button {
@@ -54,4 +81,23 @@
     width: 219px;
     height: 36px;
     color: #FFFFFF;
+  }
+
+  .profile-wrapper .white-button {
+    background: #FFFFFF;
+    border: 1px solid #586A84;
+    border-radius: 24px;
+    width: 105px;
+    height: 36px;
+    color: #586A84;
+  }
+
+  .profile-wrapper .left-button {
+    background: #FFFFFF;
+    border: 0px ;
+    width: 200px;
+    height: 36px;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 16px;
   }
