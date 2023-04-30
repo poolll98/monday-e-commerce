@@ -19,8 +19,6 @@ export function addPaymentMethod(paymentMethod, userToken = "") {
       alert(`Error when adding payment.`);
       console.log(`Could not add payment: ${body}.`);
       console.log(response);
-    } else {
-      alert("success");
     }
   });
 }
