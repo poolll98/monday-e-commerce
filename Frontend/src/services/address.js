@@ -4,15 +4,24 @@ export function getAddresses() {
   return fetch(addressEndpoint).then((data) => data.json());
 }
 
-export function addAddress(address) {
+export function addAddress(receiver, street, streetNumber, postalCode, city) {
+  let address = {
+    receiver: receiver,
+    street: street,
+    street_nr: streetNumber,
+    postal_code: postalCode,
+    city: city,
+  };
+
   if (
     !address.receiver ||
     !address.street ||
-    !address.streetNumber ||
-    !address.postalCode ||
+    !address.street_nr ||
+    !address.postal_code ||
     !address.city
   ) {
     console.log("One or more address values were not set.");
+    console.log(address);
     return;
   }
 
