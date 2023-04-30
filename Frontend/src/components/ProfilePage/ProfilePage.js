@@ -120,37 +120,39 @@ export default function ProfilePage() {
   
     /* functional component => render JSX */
     return (
-        <div className="profile-wrapper">
-            <div className="profile-header">
-                <h3>{thisUser.isseller ? "Seller" : "User"} Profile</h3>
-            </div>
-  
-            <div className="profile-body">
-                <div className="left-box">
-                    <div class="profile-field">
-                        <button className="left-button" onClick={() => setIsProductList(false)}>
-                            Account Information
-                        </button>
-                    </div>
-                    <div class="profile-field">
-                        {thisUser.isseller && (
-                            <button className="left-button" onClick={() => setIsProductList(true)}>
-                                Product List
-                            </button>
-                        )}
-                    </div>
+        <LoginGuard>
+            <div className="profile-wrapper">
+                <div className="profile-header">
+                    <h3>{thisUser.isseller ? "Seller" : "User"} Profile</h3>
                 </div>
-                {isProductList ? (
-                    <ProfileRightBoxProductList thisUser={thisUser}/>
-                    ) : (
-                        isEditMode ? (
-                            <ProfileRightBoxEditMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
-                            ) : (
-                            <ProfileRightBoxDisplayMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
-                        )
-                )}
+    
+                <div className="profile-body">
+                    <div className="left-box">
+                        <div class="profile-field">
+                            <button className="left-button" onClick={() => setIsProductList(false)}>
+                                Account Information
+                            </button>
+                        </div>
+                        <div class="profile-field">
+                            {thisUser.isseller && (
+                                <button className="left-button" onClick={() => setIsProductList(true)}>
+                                    Product List
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    {isProductList ? (
+                        <ProfileRightBoxProductList thisUser={thisUser}/>
+                        ) : (
+                            isEditMode ? (
+                                <ProfileRightBoxEditMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
+                                ) : (
+                                <ProfileRightBoxDisplayMode thisUser={thisUser} setIsEditMode={setIsEditMode}/>
+                            )
+                    )}
+                </div>
             </div>
-        </div>
+        </LoginGuard>
     );
 }
   
