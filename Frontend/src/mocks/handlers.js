@@ -98,7 +98,7 @@ export const handlers = [
   }),
 
   rest.post(requestUrl + "/user/address/add", (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json(1));
   }),
 
   rest.post(requestUrl + "/order/add", (req, res, ctx) => {
