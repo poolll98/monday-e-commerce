@@ -7,7 +7,6 @@ import java.util.Optional;
 import com.ecommerce.backend.models.ShoppingCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +20,8 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long>{
     boolean existsById(Long id);
 
     Integer countDistinctByShoppingCart(ShoppingCart shoppingCart);
+
+    List<CartItem> findCartItemByShoppingCart(ShoppingCart shoppingCart);
 
     @Query(value = "SELECT * FROM public.cart_item WHERE shopping_cart_id =:cartId", nativeQuery = true)
     List <CartItem> findCartItemsByCartId(@Param("cartId") Long cartId);

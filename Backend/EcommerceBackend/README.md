@@ -282,7 +282,8 @@ Authorization: type: Bear Token
 }
 
 RESPONSE: {
-    "message": "message": "Product correctly added."
+    "message": "message": "Product correctly added.",
+    "id": 5
 }
 
 
@@ -358,7 +359,8 @@ body: {
 }
 
 RESPONSE: {
-    "message": "Address correctly added to the User."
+    "message": "Address correctly added to the User.",
+    "id": 1
 }
 
 - Now add also the following address:
@@ -440,7 +442,8 @@ body:{
 }
 
 RESPONSE: {
-    "message": "Payment method correctly added to the User."
+    "message": "Payment method correctly added to the User.",
+    "id": 1
 }
 
 - Now add also the following payment:
@@ -504,6 +507,7 @@ body: {
 }
 
 RESPONSE: {
-    "message": "Order created successfully."
+    "message": "Order created successfully.",
+    "id": 1
 }
 ```

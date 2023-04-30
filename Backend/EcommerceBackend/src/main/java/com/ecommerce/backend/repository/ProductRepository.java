@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.ecommerce.backend.models.ProductCategory;
+import com.ecommerce.backend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   //@Query(value = "SELECT * FROM product WHERE product.name =:name", nativeQuery = true)
   List<Product> findProductsByName(String name);
 
+  List<Product> findProductsBySeller(User seller);
   List<Product> findProductsByProductCategory(ProductCategory productCategory);
   List<Product> findProductsByInstock(Boolean instock);
   Optional<Product> findById(Long id);

@@ -35,8 +35,6 @@ import java.util.*;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/order")
-
-
 public class PurchaseController {
     
 
@@ -108,7 +106,8 @@ public class PurchaseController {
             }
             cart.setActive(false);
             this.shopRepo.save(cart);
-            return ResponseEntity.ok(new MessageResponse("Order created successfully."));
+            Long purchase_id = usePurchase.getId();
+            return ResponseEntity.ok(new AddElementMessage("Order created successfully.", purchase_id));
         }
         else
         {
@@ -126,7 +125,6 @@ public class PurchaseController {
         double status = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
 
         if (status > 0.9) {paymentprocess = false;}
-        else {paymentprocess = true;}
 
         return paymentprocess;
     }

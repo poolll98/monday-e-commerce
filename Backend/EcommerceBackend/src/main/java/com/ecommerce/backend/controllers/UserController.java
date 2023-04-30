@@ -6,10 +6,7 @@ import com.ecommerce.backend.models.UserAddress;
 import com.ecommerce.backend.models.UserPayment;
 import com.ecommerce.backend.payload.request.AddAddressRequest;
 import com.ecommerce.backend.payload.request.AddPaymentMethodRequest;
-import com.ecommerce.backend.payload.response.MessageResponse;
-import com.ecommerce.backend.payload.response.SearchAddressMessage;
-import com.ecommerce.backend.payload.response.SearchPaymentMessage;
-import com.ecommerce.backend.payload.response.SearchProductMessage;
+import com.ecommerce.backend.payload.response.*;
 import com.ecommerce.backend.repository.AddressRepository;
 import com.ecommerce.backend.repository.UserAddressRepository;
 import com.ecommerce.backend.repository.UserPaymentRepo;
@@ -52,12 +49,14 @@ public class UserController {
         List<Address> addressList = addressRepository.findAll();
         boolean isAddressPresent = false;
         Address newAddress = new Address();
+        Long address_id = null;
         User currentUser = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
         for (Address addr : addressList) {
             if (this.equalAddresses(address, addr)) {
                 isAddressPresent = true; // we already have that address in the db
                 System.out.println("Address in the db.");
                 newAddress = addr;
+                address_id = addr.getId();
                 break;
             }   
         }
@@ -65,6 +64,8 @@ public class UserController {
             newAddress = new Address(address.getStreet(), address.getStreet_nr(), address.getCity(),
                     address.getPostal_code(), address.getCountry(), address.getReceiver());
             addressRepository.save(newAddress);
+            addressList = addressRepository.findAll();
+            address_id = addressList.get(addressList.size()-1).getId(); //we get the id of the inserted address
             System.out.println("New address added in the db.");
         }
         else { // we check that the user doesn't have that address associated with him
@@ -85,7 +86,7 @@ public class UserController {
 
         UserAddress newUserAddress = new UserAddress(currentUser, newAddress, false);
         userAddressRepository.save(newUserAddress);
-        return ResponseEntity.ok(new MessageResponse("Address correctly added to the User."));
+        return ResponseEntity.ok(new AddElementMessage("Address correctly added to the User.", address_id));
     }
 
     @DeleteMapping("address/remove/{id}")
@@ -204,9 +205,9 @@ public class UserController {
             UserPayment newUserPayment = new UserPayment(currentUser, "credit card", paymentRequest.getName_on_card(),
             paymentRequest.getCard_nr(), paymentRequest.getExpiry_date(), paymentRequest.getSecurity_code());
             this.userPaymentRepo.save(newUserPayment);
-            //paymentList = userPaymentRepo.findUserPaymentsByUser(currentUser);
-            //Long id = paymentList.get(paymentList.size()-1).getId();
-            return ResponseEntity.ok(new MessageResponse("Payment method correctly added to the User."));
+            paymentList = userPaymentRepo.findUserPaymentsByUser(currentUser);
+            Long id = paymentList.get(paymentList.size()-1).getId();
+            return ResponseEntity.ok(new AddElementMessage("Payment method correctly added to the User.", id));
         }
     }
 
