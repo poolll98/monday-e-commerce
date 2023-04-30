@@ -9,7 +9,6 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import { UserProvider } from "./components/UserContext";
 import SignupLoginPage from "./components/SignupLogin/SignupLoginPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
-import EditProfilePage from "./components/ProfilePage/EditProfilePage";
 
 
 
@@ -32,7 +31,6 @@ function App() {
             <Route exact path="/products" element={<ProductPage />} />
             <Route path="/products/:productId" element={<ProductPage />} />
             <Route exact path="/profile" element={<ProfilePage />} />
-            <Route exact path="/editprofile" element={<EditProfilePage />} />
           </Routes>
         </UserProvider>
       </BrowserRouter>
