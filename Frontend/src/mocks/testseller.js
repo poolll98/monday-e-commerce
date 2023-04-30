@@ -6,5 +6,6 @@ export default {
     firstname: "test_name",
     lastname: "test_surname",
     address: "Dietlikon 8305",
+    payment: "Visa Card",
     isseller: true,
   };
