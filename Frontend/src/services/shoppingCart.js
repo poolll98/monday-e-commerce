@@ -1,7 +1,7 @@
 // TODO: Check if user needs to be passed or can be extracted from context.
 // TODO: Connection error handling.
 
-const cartEndpointUrl = "http://localhost:8080/cart";
+const cartEndpointUrl = "http://localhost:8080/shopcart";
 
 export function getShoppingCartItems(user) {
   if (!isValidUser(user)) {
