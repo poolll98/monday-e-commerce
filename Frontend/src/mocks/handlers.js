@@ -5,6 +5,7 @@ import products from "./products";
 import searchProducts from "./searchProducts";
 import cart from "./cart";
 import address from "./address";
+import payment from "./payment";
 
 let requestUrl = "http://localhost:8080";
 
@@ -98,6 +99,14 @@ export const handlers = [
   }),
 
   rest.post(requestUrl + "/user/address/add", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(1));
+  }),
+
+  rest.get(requestUrl + "/user/payment", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(payment));
+  }),
+
+  rest.post(requestUrl + "/user/payment/add", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(1));
   }),
 
