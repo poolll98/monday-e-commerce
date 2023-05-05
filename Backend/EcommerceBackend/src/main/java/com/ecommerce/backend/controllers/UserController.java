@@ -6,6 +6,8 @@ import com.ecommerce.backend.models.UserAddress;
 import com.ecommerce.backend.models.UserPayment;
 import com.ecommerce.backend.payload.request.AddAddressRequest;
 import com.ecommerce.backend.payload.request.AddPaymentMethodRequest;
+import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
+import com.ecommerce.backend.payload.request.UpdateUserInfo;
 import com.ecommerce.backend.payload.response.*;
 import com.ecommerce.backend.repository.AddressRepository;
 import com.ecommerce.backend.repository.UserAddressRepository;
@@ -243,4 +245,61 @@ public class UserController {
                 p.getSecurity_code());}).toList();
         return ResponseEntity.ok(finalList);
     }
+
+
+    @GetMapping("/")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> getUserInfoormatioon(@RequestHeader(name = "Authorization") String token) {
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        currentUser.setPassword("**********"); // we want to avoid to return the encrypted password
+        return ResponseEntity.ok(currentUser);
+    }
+
+    @PutMapping("/")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> editUserInformation(@RequestBody UpdateUserInfo updateUserInfo,
+                                                 @RequestHeader(name = "Authorization") String token) {
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        boolean flag = false;
+        if(! updateUserInfo.getFirstname().equals("")){
+            currentUser.setFirstname(updateUserInfo.getFirstname());
+            flag = true;
+        }
+        if(! updateUserInfo.getLastname().equals("")){
+            currentUser.setLastname(updateUserInfo.getLastname());
+            flag = true;
+        }
+
+        if(! updateUserInfo.getEmail().equals("")){
+            currentUser.setEmail(updateUserInfo.getEmail());
+            flag = true;
+        }
+        if(! updateUserInfo.getPhone().equals("")){
+            currentUser.setPhone(updateUserInfo.getPhone());
+            flag = true;
+        }
+        if(! updateUserInfo.getPhone().equals("")){
+            currentUser.setPhone(updateUserInfo.getPhone());
+            flag = true;
+        }
+        if(updateUserInfo.getIsbuyer() != null){
+            currentUser.setIsbuyer(updateUserInfo.getIsbuyer());
+            flag = true;
+        }
+        if(updateUserInfo.getIsseller() != null){
+            currentUser.setIsseller(updateUserInfo.getIsseller());
+            flag = true;
+        }
+        if(flag) {
+            userRepository.save(currentUser);
+            return ResponseEntity.ok(new MessageResponse("Informatioon correctly updated."));
+        }
+        else{
+            return ResponseEntity.ok(new MessageResponse("Nothing  to update."));
+        }
+
+    }
+
 }
