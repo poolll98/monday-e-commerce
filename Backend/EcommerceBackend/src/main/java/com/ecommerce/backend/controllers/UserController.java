@@ -257,8 +257,8 @@ public class UserController {
     }
 
     @PutMapping("/")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> editUserInformation(@RequestBody UpdateUserInfo updateUserInfo,
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')") //check the valid tag
+    public ResponseEntity<?> editUserInformation(@Valid @RequestBody UpdateUserInfo updateUserInfo,
                                                  @RequestHeader(name = "Authorization") String token) {
         token = token.substring(7);
         User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
@@ -294,7 +294,7 @@ public class UserController {
         }
         if(flag) {
             userRepository.save(currentUser);
-            return ResponseEntity.ok(new MessageResponse("Informatioon correctly updated."));
+            return ResponseEntity.ok(new MessageResponse("Information correctly updated."));
         }
         else{
             return ResponseEntity.ok(new MessageResponse("Nothing  to update."));

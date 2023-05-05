@@ -6,6 +6,7 @@ import com.ecommerce.backend.models.User;
 import com.ecommerce.backend.payload.request.AddCartItemRequest;
 import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
 import com.ecommerce.backend.payload.response.AddElementMessage;
+import com.ecommerce.backend.payload.response.GetCartItems;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.repository.CartItemRepo;
 import com.ecommerce.backend.repository.ProductRepository;
@@ -19,7 +20,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -121,6 +124,26 @@ public class ShopController {
         cartRepo.save(updatedCartItem);
 
         return ResponseEntity.ok(new MessageResponse(updatedCartItem.getId().toString()+": quantity updated."));
+    }
+
+    @GetMapping("/")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> getCurrentShoppingCart(@RequestHeader(name = "Authorization") String token) {
+        token = token.substring(7); //we just drop the word "bearer" from the token's signature
+        User currentUser = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        ShoppingCart currentShoppingCart = null;
+        List<ShoppingCart> cartList =  shopRepo.findByIsActiveAndUser(true, currentUser);
+        if(cartList.size() == 0){
+            return  ResponseEntity.ok(new ArrayList<>());
+        }
+        else{
+            List<CartItem> itemsList = cartRepo.findCartItemsByCartId(cartList.get(0).getId());
+            List<GetCartItems> resultList = itemsList.stream().map(p -> {
+                return new GetCartItems(p.getProduct().getId(),
+                        p.getProduct().getName(), p.getProduct().getMedia(), p.getProduct().getPrice(), p.getQuantity());
+            }).toList();
+            return ResponseEntity.ok(resultList);
+        }
     }
 
 }
