@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -45,6 +46,24 @@ public class ProductController {
         List<Product> searchResult = prodRepo.findProductsByName(name);
         System.out.println("This many products found by name: "+searchResult.size());
         return ResponseEntity.ok(this.prepareOutputMessage(searchResult));
+    }
+
+    @GetMapping("search/id/{id}")
+    // public endpoint
+    public ResponseEntity<?> searchProductByName(@PathVariable Long id){
+        Optional<Product> searchResult = prodRepo.findById(id);
+        if(searchResult.isPresent()){
+            Product p = searchResult.get();
+            String category_name  = p.getProductCategory().getCategory_name();
+            Long seller_id = p.getSeller().getId();
+            SearchProductMessage spm = new SearchProductMessage(p.getId(), p.getName(),
+                    p.getDescription(), category_name, p.getMedia(), p.getInstock(),
+                    p.getPrice(), seller_id);
+            return ResponseEntity.ok(spm);
+        }
+        else{
+            return ResponseEntity.badRequest().body(new MessageResponse("This product doesn't exist."));
+        }
     }
 
     @GetMapping("search/category/{category_name}")
