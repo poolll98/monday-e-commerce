@@ -62,6 +62,8 @@ public class WebSecurityConfig{
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/product/search/**").permitAll()
+        .antMatchers("/product/category").permitAll()
+        .antMatchers("/product/soldby/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
         .antMatchers("/swagger-ui.html").permitAll()
         .antMatchers("/v3/**").permitAll()

@@ -247,7 +247,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping("")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserInfoormatioon(@RequestHeader(name = "Authorization") String token) {
         token = token.substring(7);
@@ -256,34 +256,27 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
-    @PutMapping("/")
+    @PutMapping("/edit")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')") //check the valid tag
     public ResponseEntity<?> editUserInformation(@Valid @RequestBody UpdateUserInfo updateUserInfo,
                                                  @RequestHeader(name = "Authorization") String token) {
         token = token.substring(7);
         User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
         boolean flag = false;
-        if(! updateUserInfo.getFirstname().equals("")){
+        if(updateUserInfo.getFirstname()!= null && !updateUserInfo.getFirstname().equals("")){
             currentUser.setFirstname(updateUserInfo.getFirstname());
             flag = true;
         }
-        if(! updateUserInfo.getLastname().equals("")){
+        if(updateUserInfo.getLastname()!=null && !updateUserInfo.getLastname().equals("")){
             currentUser.setLastname(updateUserInfo.getLastname());
             flag = true;
         }
 
-        if(! updateUserInfo.getEmail().equals("")){
-            currentUser.setEmail(updateUserInfo.getEmail());
-            flag = true;
-        }
-        if(! updateUserInfo.getPhone().equals("")){
+        if(updateUserInfo.getPhone()!=null && !updateUserInfo.getPhone().equals("")){
             currentUser.setPhone(updateUserInfo.getPhone());
             flag = true;
         }
-        if(! updateUserInfo.getPhone().equals("")){
-            currentUser.setPhone(updateUserInfo.getPhone());
-            flag = true;
-        }
+
         if(updateUserInfo.getIsbuyer() != null){
             currentUser.setIsbuyer(updateUserInfo.getIsbuyer());
             flag = true;

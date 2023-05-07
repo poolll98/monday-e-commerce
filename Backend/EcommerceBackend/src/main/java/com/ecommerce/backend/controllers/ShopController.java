@@ -126,7 +126,7 @@ public class ShopController {
         return ResponseEntity.ok(new MessageResponse(updatedCartItem.getId().toString()+": quantity updated."));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getCurrentShoppingCart(@RequestHeader(name = "Authorization") String token) {
         token = token.substring(7); //we just drop the word "bearer" from the token's signature

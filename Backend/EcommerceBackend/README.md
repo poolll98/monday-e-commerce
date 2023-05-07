@@ -94,7 +94,6 @@ Use this tool to test the endpoints:
 POST http://localhost:8080/api/auth/signup
 
 body: {
-
     "username": "test123",
     "email": "test123@gmail.com",
     "password": "testpassw",
@@ -168,6 +167,15 @@ RESPONSE: [
         "instock": true,
         "price": 6.0
     }
+]
+
+
+- List all the available categories (public API, no autorization required):
+
+GET http://localhost:8080/product/category
+
+RESPONSE: [
+    "food"
 ]
 
 
@@ -267,13 +275,29 @@ REPONSE:[
 ]
 
 
+- Search products by id (public API, no autorization required):
+
+GET http://localhost:8080/product/search/id/4
+
+RESPONSE: {
+    "id": 4,
+    "name": "pasta",
+    "description": "random pasta",
+    "categoryName": "food",
+    "media": null,
+    "instock": true,
+    "price": 3.0,
+    "seller_id": 1
+}
+
+
 - Add a new product sold by the current user:
 
 POST http://localhost:8080/product/add
 
 Authorization: type: Bear Token
 
-{
+body{
    "category_name": "food",
    "description": "just a type of pasta",
    "instock": true,
@@ -287,12 +311,47 @@ RESPONSE: {
 }
 
 
+- Modify the information of a product sold by the current user:
+
+PUT http://localhost:8080/product/edit/5
+
+Authorization: type: Bear Token
+
+body{
+    "price": 7
+}
+
+Notice: the body can contain all the combinations of the following fields :
+[category_name, description, media, instock, price, name]
+
+RESPONSE: {
+    "message": "Information correctly updated."
+}
+
+
+- List all the products sold by a specified user (should be a seller) (public API, no autorization required):
+
+GET http://localhost:8080/product/soldby/2
+
+
+RESPONSE: {
+        "id": 5,
+        "name": "spaghetti",
+        "description": "just a type of pasta",
+        "categoryName": "food",
+        "media": null,
+        "instock": true,
+        "price": 7.0,
+        "seller_id": 2
+    }
+
+
 - Add a product (already inserted in the db) to the shopping cart:
 
 POST http://localhost:8080/shopcart/add
 
 body:{
-    "prodid": 1,
+    "prodid": 3,
     "quantity": 5
 }
 
@@ -330,6 +389,30 @@ Authorization: type: Bear Token
 RESPONSE: {
     "message": "1: quantity updated."
 }
+
+
+- List the items in the currently shopping cart:
+
+GET http://localhost:8080/shopcart
+
+Authorization: type: Bear Token
+
+RESPONSE: [
+    {
+        "id": 3,
+        "name": "burger",
+        "img": null,
+        "price": 5.0,
+        "quantity": 8
+    },
+    {
+        "id": 2,
+        "name": "pizza",
+        "img": null,
+        "price": 6.0,
+        "quantity": 4
+    }
+]
 
 
 - Delete a product from the shopping cart:
@@ -509,5 +592,50 @@ body: {
 RESPONSE: {
     "message": "Order created successfully.",
     "id": 1
+}
+
+- List the information of the current user (the password is obfuscated):
+
+GET http://localhost:8080/user
+
+Authorization: type: Bear Token
+
+RESPONSE: {
+    "id": 2,
+    "username": "test123",
+    "email": "test123@gmail.com",
+    "password": "**********",
+    "phone": "3456787981",
+    "firstname": "test_name",
+    "lastname": "test_surname",
+    "firstlogin": "2023-05-06T15:55:14.442+00:00",
+    "lastlogin": "2023-05-06T15:55:18.815+00:00",
+    "isbuyer": true,
+    "isseller": true,
+    "roles": [
+        {
+            "id": 1,
+            "name": "ROLE_USER"
+        }
+    ]
+}
+
+
+- Edit the information of the current user:
+
+PUT http://localhost:8080/user/edit
+
+Authorization: type: Bear Token
+
+body: {
+    "firstname": "paolo",
+    "lastname": "ceffa"
+}
+
+Notice: the body can contain all the combinations of the following fields :
+[firstname, lastname, phone, isbuyer, isseller]
+
+RESPONSE: {
+    "message": "Information correctly updated."
 }
 ```

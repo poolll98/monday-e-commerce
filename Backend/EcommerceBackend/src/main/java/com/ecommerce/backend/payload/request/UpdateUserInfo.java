@@ -12,11 +12,6 @@ public class UpdateUserInfo {
 
     @Size(max=20, message="Invalid phone number.")
     private String phone;
-
-    @Size(max = 50, message = "Email too long.")
-    @Email(message= "Bad Email format.")
-    private String email;
-
     private Boolean isbuyer;
 
     private Boolean isseller;
@@ -43,14 +38,6 @@ public class UpdateUserInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Boolean getIsbuyer() {

@@ -3,6 +3,7 @@ import com.ecommerce.backend.models.Product;
 import com.ecommerce.backend.models.ProductCategory;
 import com.ecommerce.backend.models.User;
 import com.ecommerce.backend.payload.request.AddProductRequest;
+import com.ecommerce.backend.payload.request.UpdateProductInfo;
 import com.ecommerce.backend.payload.response.AddElementMessage;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.payload.response.MessageWithList;
@@ -95,6 +96,16 @@ public class ProductController {
         return ResponseEntity.ok(this.prepareOutputMessage(searchResult));
     }
 
+    @GetMapping("category")
+    // public endpoint
+    public ResponseEntity<?> getAvailableCategories() {
+        List<ProductCategory> allCategories = categoryRepo.getAll();
+        List<String> categoryNames = allCategories.stream().map(ProductCategory::getCategory_name).
+                distinct().toList();
+        return ResponseEntity.ok(categoryNames);
+    }
+
+
     @PostMapping("/add")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> addProduct(@Valid @RequestBody AddProductRequest productRequest,
@@ -140,6 +151,92 @@ public class ProductController {
         }
         return outputResult;
     }
+
+    @PutMapping("/edit/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> editProductInformation(@PathVariable Long id,
+                                                    @Valid @RequestBody UpdateProductInfo updateProductInfo,
+                                                    @RequestHeader(name = "Authorization") String token) {
+        token = token.substring(7);
+        User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
+        Optional<Product> searchProduct = prodRepo.findById(id);
+        if(searchProduct.isEmpty()){
+            return ResponseEntity.badRequest().body(new MessageResponse("This product doesn't exist."));
+        }
+        else{
+            Product product = searchProduct.get();
+            if(! product.getSeller().getId().equals(currentUser.getId())){
+                return ResponseEntity.badRequest().body(new MessageResponse("This product it is not sold by this user"));
+            }
+            else{
+                boolean flag = false;
+                if (updateProductInfo.getCategory_name()!= null && !updateProductInfo.getCategory_name().equals("")){
+                    List<ProductCategory> productCategory = categoryRepo.findProductCategoryByCategory_name(
+                            updateProductInfo.getCategory_name());
+                    if (productCategory.isEmpty()) {
+                        List<ProductCategory> allCategories = categoryRepo.getAll();
+                        List<String> categoryNames = allCategories.stream().map(ProductCategory::getCategory_name).
+                                distinct().toList();
+                        return ResponseEntity.badRequest().
+                                body(new MessageWithList("Error: This category doesn't exist. Available categories:",
+                                        categoryNames));
+                    }
+                    else{
+                        product.setProductCategory(productCategory.get(0));
+                        flag = true;
+                    }
+                }
+                if(updateProductInfo.getDescription()!=null && !updateProductInfo.getDescription().equals("")){
+                    product.setDescription(updateProductInfo.getDescription());
+                    flag = true;
+                }
+                if(updateProductInfo.getMedia() != null){
+                    product.setMedia(updateProductInfo.getMedia());
+                    flag = true;
+                }
+                if(updateProductInfo.getInstock() != null){
+                    product.setInstock(updateProductInfo.getInstock());
+                    flag = true;
+                }
+                if(updateProductInfo.getPrice() != null){
+                    product.setPrice(updateProductInfo.getPrice());
+                    flag = true;
+                }
+                if(updateProductInfo.getName()!= null && !updateProductInfo.getName().equals("")){
+                    product.setName(updateProductInfo.getName());
+                    flag = true;
+                }
+                if(flag) {
+                    userRepository.save(currentUser);
+                    return ResponseEntity.ok(new MessageResponse("Information correctly updated."));
+                }
+                else{
+                    return ResponseEntity.ok(new MessageResponse("Nothing  to update."));
+                }
+
+            }
+        }
+
+    }
+
+    @GetMapping("/soldby/{id}")
+    // public endpoint
+    public ResponseEntity<?> getSoldProductsOfASeller(@PathVariable Long id) {
+
+        Optional<User> sellerSearch = userRepository.findById(id);
+        if (sellerSearch.isEmpty()) {
+            return ResponseEntity.badRequest().body(new MessageResponse("User: " + id.toString() + " doesn't exist."));
+        } else {
+            User seller = sellerSearch.get();
+            if (!seller.getIsseller()) {
+                return ResponseEntity.badRequest().body(new MessageResponse("User: " + id.toString() + " is not a seller."));
+            } else {
+                List<Product> producList = prodRepo.findProductsBySeller(seller);
+                return ResponseEntity.ok(this.prepareOutputMessage(producList));
+            }
+        }
+    }
+
 
 
 }

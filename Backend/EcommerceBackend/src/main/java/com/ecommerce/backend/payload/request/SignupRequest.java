@@ -27,10 +27,7 @@ public class SignupRequest {
   @NotBlank(message = "Last name is mandatory.")
   private String lastname;
 
-  @NotBlank(message = "You must specify if the user is a buyer.")
   private Boolean isbuyer;
-
-  @NotBlank(message = "You must specify if the user is a seller.")
   private Boolean isseller;
   private Set<String> role;
 

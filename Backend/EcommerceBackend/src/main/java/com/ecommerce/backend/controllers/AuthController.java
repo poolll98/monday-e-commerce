@@ -64,7 +64,7 @@ public class AuthController {
     //update last login date
     updateLastLogin(userDetails);
 
-    return ResponseEntity.ok(new JwtResponse(jwt, 
+    return ResponseEntity.ok(new JwtResponse(jwt,
                          userDetails.getId(), 
                          userDetails.getUsername(), 
                          userDetails.getEmail(),
