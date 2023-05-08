@@ -1,6 +1,6 @@
 package com.ecommerce.backend.payload.response;
 
-public class GetCartItems {
+public class GetCartItem {
 
     private Long id;
 
@@ -12,7 +12,7 @@ public class GetCartItems {
 
     private Integer quantity;
 
-    public GetCartItems(Long id, String name, byte[] img, float price, Integer quantity ) {
+    public GetCartItem(Long id, String name, byte[] img, float price, Integer quantity ) {
         this.id = id;
         this.name = name;
         this.img = img;

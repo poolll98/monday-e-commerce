@@ -6,7 +6,7 @@ import com.ecommerce.backend.models.User;
 import com.ecommerce.backend.payload.request.AddCartItemRequest;
 import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
 import com.ecommerce.backend.payload.response.AddElementMessage;
-import com.ecommerce.backend.payload.response.GetCartItems;
+import com.ecommerce.backend.payload.response.GetCartItem;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.repository.CartItemRepo;
 import com.ecommerce.backend.repository.ProductRepository;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -138,8 +137,8 @@ public class ShopController {
         }
         else{
             List<CartItem> itemsList = cartRepo.findCartItemsByCartId(cartList.get(0).getId());
-            List<GetCartItems> resultList = itemsList.stream().map(p -> {
-                return new GetCartItems(p.getProduct().getId(),
+            List<GetCartItem> resultList = itemsList.stream().map(p -> {
+                return new GetCartItem(p.getProduct().getId(),
                         p.getProduct().getName(), p.getProduct().getMedia(), p.getProduct().getPrice(), p.getQuantity());
             }).toList();
             return ResponseEntity.ok(resultList);
