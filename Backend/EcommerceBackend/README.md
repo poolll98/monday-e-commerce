@@ -277,7 +277,7 @@ REPONSE:[
 
 - Search products by id (public API, no autorization required):
 
-GET http://localhost:8080/product/search/id/4
+GET http://localhost:8080/product/4
 
 RESPONSE: {
     "id": 4,

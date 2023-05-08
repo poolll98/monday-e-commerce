@@ -49,7 +49,7 @@ public class ProductController {
         return ResponseEntity.ok(this.prepareOutputMessage(searchResult));
     }
 
-    @GetMapping("search/id/{id}")
+    @GetMapping("/{id}")
     // public endpoint
     public ResponseEntity<?> searchProductByName(@PathVariable Long id){
         Optional<Product> searchResult = prodRepo.findById(id);
@@ -63,7 +63,7 @@ public class ProductController {
             return ResponseEntity.ok(spm);
         }
         else{
-            return ResponseEntity.badRequest().body(new MessageResponse("This product doesn't exist."));
+            return ResponseEntity.notFound().build();
         }
     }
 

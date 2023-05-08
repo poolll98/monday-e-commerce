@@ -64,6 +64,7 @@ public class WebSecurityConfig{
         .antMatchers("/product/search/**").permitAll()
         .antMatchers("/product/category").permitAll()
         .antMatchers("/product/soldby/**").permitAll()
+        .antMatchers("/product/*").permitAll()
         .antMatchers("/api/test/**").permitAll()
         .antMatchers("/swagger-ui.html").permitAll()
         .antMatchers("/v3/**").permitAll()
