@@ -63,7 +63,7 @@ public class ProductController {
             return ResponseEntity.ok(spm);
         }
         else{
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body("This product doesn't exist.");
         }
     }
 

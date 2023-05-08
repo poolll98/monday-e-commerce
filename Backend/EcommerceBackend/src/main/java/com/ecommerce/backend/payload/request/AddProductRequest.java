@@ -3,10 +3,7 @@ package com.ecommerce.backend.payload.request;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Lob;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class AddProductRequest {
 
@@ -25,7 +22,7 @@ public class AddProductRequest {
     private Boolean instock;
 
     @NotNull(message = "price is mandatory.")
-    @Min(value=0, message = "price may be positive!")
+    @DecimalMin(value= "0.01" , message = "price may be positive!")
     private Float price;
 
     @NotEmpty(message ="The product must have a name!")

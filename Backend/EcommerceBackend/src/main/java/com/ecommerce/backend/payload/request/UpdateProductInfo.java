@@ -3,6 +3,7 @@ package com.ecommerce.backend.payload.request;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Lob;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -19,7 +20,7 @@ public class UpdateProductInfo {
 
     private Boolean instock;
 
-    @Min(value=0, message = "price may be positive!")
+    @DecimalMin(value= "0.01" , message = "price may be positive!")
     private Float price;
 
     private String name;

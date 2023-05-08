@@ -254,7 +254,7 @@ public class UserController {
         token = token.substring(7);
         User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
         if(!currentUser.getId().equals(id)){
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(401).body("You can't access the information of another user.");
         }
         else {
             currentUser.setPassword("**********"); // we want to avoid to return the encrypted password
