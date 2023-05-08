@@ -41,7 +41,7 @@ public class ProductController {
     private JwtUtils jwtUtils;
 
 
-    @GetMapping("search/name/{name}")
+    @GetMapping("/search/name/{name}")
     // public endpoint
     public ResponseEntity<?> searchProductByName(@PathVariable String name){
         List<Product> searchResult = prodRepo.findProductsByName(name);
@@ -67,7 +67,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("search/category/{category_name}")
+    @GetMapping("/search/category/{category_name}")
     // public endpoint
     public ResponseEntity<?> searchProductByCategory(@PathVariable String category_name){
         List<ProductCategory> productCategory = categoryRepo.findProductCategoryByCategory_name(category_name);
@@ -88,7 +88,7 @@ public class ProductController {
         return ResponseEntity.badRequest().body(new MessageResponse("This category doesn't exist."));
     }
 
-    @GetMapping("search/instock/{instock}")
+    @GetMapping("/search/instock/{instock}")
     // public endpoint
     public ResponseEntity<?> searchProductByStock(@PathVariable Boolean instock){
         List<Product> searchResult = prodRepo.findProductsByInstock(instock);
@@ -96,7 +96,7 @@ public class ProductController {
         return ResponseEntity.ok(this.prepareOutputMessage(searchResult));
     }
 
-    @GetMapping("category")
+    @GetMapping("/category")
     // public endpoint
     public ResponseEntity<?> getAvailableCategories() {
         List<ProductCategory> allCategories = categoryRepo.getAll();

@@ -247,13 +247,19 @@ public class UserController {
     }
 
 
-    @GetMapping("")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> getUserInfoormatioon(@RequestHeader(name = "Authorization") String token) {
+    public ResponseEntity<?> getUserInformation(@PathVariable Long id,
+                                                @RequestHeader(name = "Authorization") String token) {
         token = token.substring(7);
         User currentUser = this.userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
-        currentUser.setPassword("**********"); // we want to avoid to return the encrypted password
-        return ResponseEntity.ok(currentUser);
+        if(!currentUser.getId().equals(id)){
+            return ResponseEntity.status(401).build();
+        }
+        else {
+            currentUser.setPassword("**********"); // we want to avoid to return the encrypted password
+            return ResponseEntity.ok(currentUser);
+        }
     }
 
     @PutMapping("/edit")

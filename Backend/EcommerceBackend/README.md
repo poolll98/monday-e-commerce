@@ -596,7 +596,7 @@ RESPONSE: {
 
 - List the information of the current user (the password is obfuscated):
 
-GET http://localhost:8080/user
+GET http://localhost:8080/user/2
 
 Authorization: type: Bear Token
 
