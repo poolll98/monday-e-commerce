@@ -590,9 +590,18 @@ body: {
 }
 
 RESPONSE: {
-    "message": "Order created successfully.",
+    "message": "Order created successfully.Email correctly send to: market.mate.ecommerce@gmail.com",
     "id": 1
 }
+
+Notice: Calling this endpoint we have also sent an email to the seller, in this case our test account (id=1, and email=
+market.mate.ecommerce@gmail.com), which contains all the recap information about the order (buyer's address, product 
+quantity and so on). In order to perform this operation we use the services offered by SendGrid, a professional marketing
+email manager (ask to an admin to obtain the credentials and access to our dashboard on https://app.sendgrid.com).
+Every email will be sent by our official MarketMate admin email: market.mate.ecommerce@gmail.com (ask to an admin to
+obtain the credentials for this account). 
+WARNING: our free plan on SendGrid allows us to send 100 free emails/day, so play with responsability. 
+
 
 - List the information of the current user (the password is obfuscated):
 

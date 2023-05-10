@@ -1,4 +1,5 @@
 com/ecommerce/backend/security/jwt/JwtUtils.class
+com/ecommerce/backend/services/util/OrderEmailData.class
 com/ecommerce/backend/models/UserAddress.class
 com/ecommerce/backend/payload/response/MessageResponse.class
 com/ecommerce/backend/payload/request/AddPaymentMethodRequest.class
@@ -18,9 +19,11 @@ com/ecommerce/backend/payload/request/UpdateQCartItemRequest.class
 com/ecommerce/backend/models/Address.class
 com/ecommerce/backend/EcommerceBackendApplication.class
 com/ecommerce/backend/repository/ProductRepository.class
+com/ecommerce/backend/payload/response/GetCartItem.class
 com/ecommerce/backend/exception/ExceptionManager.class
 com/ecommerce/backend/models/Review.class
 com/ecommerce/backend/models/PurchaseProduct.class
+com/ecommerce/backend/services/EmailService.class
 com/ecommerce/backend/security/WebSecurityConfig.class
 com/ecommerce/backend/payload/request/PurchaseRequest.class
 com/ecommerce/backend/payload/response/AddElementMessage.class
@@ -30,7 +33,6 @@ com/ecommerce/backend/controllers/TestController.class
 com/ecommerce/backend/payload/response/JwtResponse.class
 com/ecommerce/backend/models/Product.class
 com/ecommerce/backend/repository/CartItemRepo.class
-com/ecommerce/backend/payload/response/GetCartItems.class
 com/ecommerce/backend/security/services/UserDetailsServiceImpl.class
 com/ecommerce/backend/repository/UserAddressRepository.class
 com/ecommerce/backend/payload/request/SignupRequest.class

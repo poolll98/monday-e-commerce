@@ -1,7 +1,7 @@
 INSERT INTO roles(id,name) VALUES(1,'ROLE_USER');
 INSERT INTO roles(id,name) VALUES(2,'ROLE_ADMIN');
 ALTER SEQUENCE roles_id_seq RESTART WITH 3;
-INSERT INTO login_user(id, username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES (1, 'username', 'username@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
+INSERT INTO login_user(id, username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES (1, 'username', 'market.mate.ecommerce@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
 ALTER SEQUENCE login_user_id_seq RESTART WITH 2;
 INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
 INSERT INTO product_category(id,category_name) VALUES(1,'food');

@@ -8,9 +8,7 @@ import com.ecommerce.backend.models.PurchaseProduct;
 import com.ecommerce.backend.models.ShoppingCart;
 import com.ecommerce.backend.models.User;
 import com.ecommerce.backend.models.UserPayment;
-import com.ecommerce.backend.payload.request.AddCartItemRequest;
 import com.ecommerce.backend.payload.request.PurchaseRequest;
-import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
 import com.ecommerce.backend.payload.response.AddElementMessage;
 import com.ecommerce.backend.payload.response.MessageResponse;
 import com.ecommerce.backend.repository.AddressRepository;
@@ -23,6 +21,9 @@ import com.ecommerce.backend.repository.PurchaseRepository;
 
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.security.jwt.JwtUtils;
+import com.ecommerce.backend.services.EmailService;
+import com.ecommerce.backend.services.util.OrderEmailData;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -81,6 +82,8 @@ public class PurchaseController {
         System.out.println("paymentok is "+ paymentok);
 
         if (paymentok){
+            List<OrderEmailData> emailData = new ArrayList<>();
+
             Address ordadr = addrRepo.findById(purchaseRequest.getAddressId()).get();
 
             List <CartItem> cartitems = cartRepo.findCartItemsByCartId(cart.getId());
@@ -92,6 +95,9 @@ public class PurchaseController {
                 float price = cartItem.getProduct().getPrice() * cartItem.getQuantity();
                 totalprice += price;
                 prodsInCart.add(cartItem.getProduct());
+                emailData.add(new OrderEmailData(cartItem.getProduct().getSeller().getEmail(), new Date(),
+                        currentUser.getFirstname(), currentUser.getLastname(), ordadr, currentUser.getEmail(),
+                        cartItem.getProduct().getName(), cartItem.getQuantity(), cartItem.getProduct().getPrice()));
             }
 
             UserPayment paymentMethod = userPayRepo.findById(purchaseRequest.getPaymentId()).get();
@@ -107,11 +113,14 @@ public class PurchaseController {
             cart.setActive(false);
             this.shopRepo.save(cart);
             Long purchase_id = usePurchase.getId();
-            return ResponseEntity.ok(new AddElementMessage("Order created successfully.", purchase_id));
+            for(OrderEmailData orderEmailData: emailData) orderEmailData.setTransactionNumber(purchase_id);
+            String message = "Order created successfully. ";
+            message += this.sendRecapEmailToSellers(emailData);
+            return ResponseEntity.ok(new AddElementMessage(message, purchase_id));
         }
         else
         {
-            return ResponseEntity.badRequest().body(new MessageResponse("Payment Service 10% Probability Failure."));
+            return ResponseEntity.status(402).body("Payment Service 10% Probability Failure.");
         }
     }
     
@@ -127,6 +136,23 @@ public class PurchaseController {
         if (status > 0.9) {paymentprocess = false;}
 
         return paymentprocess;
+    }
+
+    private String sendRecapEmailToSellers(List<OrderEmailData> emailData){
+        final List<String> emailMessages = new ArrayList<>();
+        emailData.forEach(d -> {boolean status = new EmailService().sendOrderRecapEmail(d);
+            if(status){
+                System.out.println("Email correctly send to: " + d.getSellerEmail());
+                emailMessages.add("Email correctly send to: " + d.getSellerEmail()+". ");
+            }
+            else{
+                System.out.println("Failed to send to: "+ d.getSellerEmail());
+                emailMessages.add("Failed to send to: "+ d.getSellerEmail()+". ");
+            }
+        });
+        StringBuilder finalMessage = new StringBuilder();
+        for(String message: emailMessages) finalMessage.append(message);
+        return finalMessage.toString();
     }
 
 }

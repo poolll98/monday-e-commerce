@@ -1,73 +1,78 @@
 package com.ecommerce.backend.services.util;
 
+import com.ecommerce.backend.models.Address;
+
+import java.util.Date;
+
 public class OrderEmailData {
 
+    private String sellerEmail;
+    private Long transactionNumber;
+    private Date transactionDate;
     private String firstName;
-
     private String lastName;
+    private Address address;
 
+    private String buyerEmail;
     private String productName;
-
-    private String productCategory;
-
-    private float price;
-
     private Integer quantity;
+    private Double price;
 
-    public OrderEmailData(String firstName, String lastName, String productName, String productCategory, float price, Integer quantity) {
+    public OrderEmailData(){};
+    public OrderEmailData(String sellerEmail, Date transactionDate, String firstName, String lastName,
+                          Address address, String buyerEmail, String productName, Integer quantity, double price) {
+        this.sellerEmail = sellerEmail;
+        this.transactionDate = transactionDate;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
+        this.buyerEmail = buyerEmail;
         this.productName = productName;
-        this.productCategory = productCategory;
-        this.price = price;
         this.quantity = quantity;
+        this.price = price;
+    }
+
+    public Long getTransactionNumber() {
+        return transactionNumber;
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public Address getAddress() {
+        return address;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
     public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public Double getPrice() {
+        return price;
+    }
+
+    public String getSellerEmail() {
+        return sellerEmail;
+    }
+
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+
+    public void setTransactionNumber(Long transactionNumber) {
+        this.transactionNumber = transactionNumber;
     }
 }
