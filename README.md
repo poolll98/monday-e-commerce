@@ -1,3 +1,8 @@
-Docker folder contains the Postgres DB image we all use for the DB instance.
+Welcome to the MarketMate Project!
 
-Backend folder contains the ERD diagram of the data model and the DDL for the DB Schema. The Backend Java project is committed under a separate dedicated Backend branch.
+If you're interested in a quick start, please visit our [Wiki](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/wikis/home)
+
+
+The project's two main components, each have their comprehensive Readmes:
+- for Backend, please pay a visit [here])(https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/blob/feature/backend-development/Backend/EcommerceBackend/README.md)
+- for Frontend, please pay a visit [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/blob/feature/backend-development/Frontend/README.md)
