@@ -10,7 +10,7 @@ packaging the application, running tests, and managing dependencies.
 
 ## Use the backend application with Docker Compose
 
-<img src="docs/dockercomposee.png" alt="Docker Compose Logo" style="max-width: 15%; height: auto;" /> 
+<img src="docs/dockercompose.png" alt="Docker Compose Logo" style="max-width: 15%; height: auto;" /> 
 
 1. Run the following command, using Maven, to create/update the application jar:
    ```
