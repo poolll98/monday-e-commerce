@@ -1,6 +1,6 @@
 # E-commerce Backend
 
-The application is based on a RESTful Web Server based on the Spring Boot framework. <img src="docs/springboot.png" alt="Spring Boot Logo" style="max-width: 4%; height: auto;" />
+The application is based on a RESTful Web Server based on the Spring Boot framework. <img src="docs/springboot.png" alt="Spring Boot Logo" width="60px" />
 
 It supports Bearer-Token based Authentication, using JWT and Spring Security.
 In addition, it uses Spring Data JPA, which leverages Hibernate, to interact with the PostgreSQL Database.
@@ -10,7 +10,7 @@ packaging the application, running tests, and managing dependencies.
 
 ## Use the backend application with Docker Compose
 
-<img src="docs/dockercompose.png" alt="Docker Compose Logo" style="max-width: 15%; height: auto;" /> 
+<img src="docs/dockercompose.png" alt="Docker Compose Logo" width="200px" /> 
 
 1. Run the following command, using Maven, to create/update the application jar:
    ```
@@ -50,7 +50,7 @@ docker load -i mon-pg.tar; docker run --name mon-pg -p 5432:5432 -e POSTGRES_PAS
 ```
 
 Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL instance.
-<img src="docs/postresql.png" alt="Maven Logo" style="max-width: 3%; height: auto;" />
+<img src="docs/postresql.png" alt="Maven Logo" width="35px" />
 
 Instead, the e-commerce schema will be automatically generated, if it is not yet present, by the Spring Boot application.
 thanks to Hibernate.
@@ -107,7 +107,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ### Postman
 
-Use [<img src="docs/postman.png" alt="Postman Logo" style="max-width: 3%; height: auto;" />](https://web.postman.co/) for testing and interacting with the APIs:
+Use [<img src="docs/postman.png" alt="Postman Logo" width="35px" />](https://web.postman.co/) for testing and interacting with the APIs:
 
 1)Test public resources:
 
