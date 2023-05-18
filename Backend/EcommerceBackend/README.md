@@ -8,7 +8,7 @@ In addition, it uses Spring Data JPA, which leverages Hibernate, to interact wit
 Notice that [<img src="docs/maven.png" alt="Maven Logo" width="80px"/>](https://maven.apache.org)  was used a software project management to manage the project's build process, including compiling source code,
 packaging the application, running tests, and managing dependencies.
 
-## Use the backend application with Docker Compose 
+## Use the backend application with Docker Compose
 
 <img src="docs/dockercomposee.png" alt="Docker Compose Logo" style="max-width: 15%; height: auto;" /> 
 
@@ -49,7 +49,7 @@ And on Windows:
 docker load -i mon-pg.tar; docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres; docker start mon-pg
 ```
 
-Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL instance. 
+Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL instance.
 <img src="docs/postresql.png" alt="Maven Logo" style="max-width: 3%; height: auto;" />
 
 Instead, the e-commerce schema will be automatically generated, if it is not yet present, by the Spring Boot application.
@@ -77,7 +77,7 @@ java -jar target/EcommerceBackend-1.0.0-SNAPSHOT.jar
 ### Run the following SQL insert statements
 At this point, the first time you run the entire backend service, the Spring Boot application will have created the schema inside the database.
 Since some pre-entered values are needed by the application, just the first time you run the application,
-perform the following Sql statements by hand (we suggest to use [pgAdmin](https://www.pgadmin.org) tool): 
+perform the following Sql statements by hand (we suggest to use [pgAdmin](https://www.pgadmin.org) tool):
 
 ```
 INSERT INTO roles(id,name) VALUES(1,'ROLE_USER');
@@ -99,7 +99,7 @@ commit;
 
 ## Interact with the services
 
-The application automatically generates the documentation about the available endpoints, thanks to the integration 
+The application automatically generates the documentation about the available endpoints, thanks to the integration
 of the Spring Boot application with [Swagger](https://swagger.io), here:
 ```
 http://localhost:8080/swagger-ui/index.html
