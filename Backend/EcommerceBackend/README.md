@@ -5,7 +5,7 @@ The application is based on a RESTful Web Server based on the Spring Boot framew
 It supports Bearer-Token based Authentication, using JWT and Spring Security.
 In addition, it uses Spring Data JPA, which leverages Hibernate, to interact with the PostgreSQL Database.
 
-Notice that [<img src="docs/maven.png" alt="Maven Logo" style="max-width: 6%; height: auto;" />](https://maven.apache.org)  was used a software project management to manage the project's build process, including compiling source code,
+Notice that [<img src="docs/maven.png" alt="Maven Logo" width="80px"/>](https://maven.apache.org)  was used a software project management to manage the project's build process, including compiling source code,
 packaging the application, running tests, and managing dependencies.
 
 ## Use the backend application with Docker Compose 
