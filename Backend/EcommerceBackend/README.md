@@ -1,15 +1,18 @@
 # E-commerce Backend
 
-The application is based on a RESTful Web Server based on Spring Boot framework.
+The application is based on a RESTful Web Server based on the Spring Boot framework. <img src="docs/springboot.png" alt="Spring Boot Logo" style="max-width: 4%; height: auto;" />
+
 It supports Bearer-Token based Authentication, using JWT and Spring Security.
 In addition, it uses Spring Data JPA, which leverages Hibernate, to interact with the PostgreSQL Database.
 
-Notice that [Maven](https://maven.apache.org), was used a software project management to manage the project's build process, including compiling source code,
+Notice that [<img src="docs/maven.png" alt="Maven Logo" style="max-width: 6%; height: auto;" />](https://maven.apache.org)  was used a software project management to manage the project's build process, including compiling source code,
 packaging the application, running tests, and managing dependencies.
 
-## Use the backend application with Docker
+## Use the backend application with Docker Compose 
 
-1. Run the following command, using maven, to create/update the application jar:
+<img src="docs/dockercomposee.png" alt="Docker Compose Logo" style="max-width: 15%; height: auto;" /> 
+
+1. Run the following command, using Maven, to create/update the application jar:
    ```
    ./mvnw clean package -DskipTests
    ``` 
@@ -30,9 +33,9 @@ packaging the application, running tests, and managing dependencies.
 
 3. See "Interact with the Services" for testing or integrating the APIs
 
-## Use the backend application without Docker
+## Use the backend application without Docker Compose
 
-### Run the Database
+### Run the Database using Docker
 
 The first time you execute the procedure on MacOs/Linux:
 
@@ -46,27 +49,27 @@ And on Windows:
 docker load -i mon-pg.tar; docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres; docker start mon-pg
 ```
 
-Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL instance.
+Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL instance. 
+<img src="docs/postresql.png" alt="Maven Logo" style="max-width: 3%; height: auto;" />
+
 Instead, the e-commerce schema will be automatically generated, if it is not yet present, by the Spring Boot application.
 thanks to Hibernate.
 
 **Warning:** Make sure that the PostgreSQL Database instance is correctly running, otherwise The Spring Boot application
 fail to start as described in the following steps!!
 
-### Set the following environment variable:
-
+### Set the following environment variable
 ```
 export POSTGRES_DB_PASSWORD="POSTGRES_PASSWORD"
 ```
 
-### Run the Spring Boot application using Maven
-
+### Run the Spring Boot application using Maven:
 ```
 ./mvnw spring-boot:run
 ```
 
-### Run the Spring Boot application directly using JVM
-Make sure to have the updated jar file in the target directory. Otherwise, see section **1-Use the backend application with Docker**.
+### Run the Spring Boot application directly using JVM:
+Make sure to have the updated jar file in the target directory. Otherwise, see section this [section](#use-the-backend-application-with-docker-compose).
 ```
 java -jar target/EcommerceBackend-1.0.0-SNAPSHOT.jar
 ```
@@ -104,7 +107,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ### Postman
 
-Use [Postman](https://web.postman.co/) for testing and interacting with the APIs:
+Use [<img src="docs/postman.png" alt="Postman Logo" style="max-width: 3%; height: auto;" />](https://web.postman.co/) for testing and interacting with the APIs:
 
 1)Test public resources:
 
