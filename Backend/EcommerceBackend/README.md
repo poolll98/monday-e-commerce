@@ -5,7 +5,7 @@ The application is based on a RESTful Web Server based on the Spring Boot framew
 It supports Bearer-Token based Authentication, using JWT and Spring Security.
 In addition, it uses Spring Data JPA, which leverages Hibernate, to interact with the PostgreSQL Database.
 
-Notice that [<img src="docs/maven.png" alt="Maven Logo" width="80px"/>](https://maven.apache.org)  was used a software project management to manage the project's build process, including compiling source code,
+Notice that [<img src="docs/maven.png" alt="Maven Logo" width="80px"/>](https://maven.apache.org)  was used to manage the project's build process, including compiling source code,
 packaging the application, running tests, and managing dependencies.
 
 ## Use the backend application with Docker Compose
@@ -37,17 +37,9 @@ packaging the application, running tests, and managing dependencies.
 
 ### Run the Database using Docker
 
-The first time you execute the procedure on MacOs/Linux:
+Pull the Postgres image from DockerHub, then create and start the DB container:
 
-```
-docker load < mon-pg.tar docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres docker start mon-pg
-```
-
-And on Windows:
-
-```
-docker load -i mon-pg.tar; docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=xyz -d postgres; docker start mon-pg
-```
+docker run --name mon-pg -p 5432:5432 -e POSTGRES_PASSWORD=pgpwd1 -d postgres
 
 Otherwise, just make sure that the container "mon-ecom-pg" is active, since it contains the PostgreSQL instance.
 <img src="docs/postresql.png" alt="Maven Logo" width="35px" />
@@ -90,7 +82,69 @@ Since some pre-entered values are needed by the application, just the first time
 perform the following Sql statements by hand (we suggest to use [pgAdmin](https://www.pgadmin.org) tool): ```sql_initialize_db_manager/initialize_db.sql```.
 
 
-## Interact with the services
+
+## Use the backend application with Localstack
+
+### Start the LocalStack ec2 container
+
+Run the following inside the Docker folder:
+
+```
+docker compose -f docker-compose.dev.yml up localstack
+```
+
+Create a key pair for facilitating ssh connectivity to the EC2 container:
+
+```
+awslocal ec2 create-key-pair --key-name monday
+```
+
+Start an EC2 localstack container:
+
+```
+awslocal ec2 run-instances --image-id ami-df5de72bdb3b --key-name
+```
+
+If interested in details of the just started EC2 localstack instance, take a look, by running:
+
+```
+awslocal ec2 describe-instances
+```
+
+### Login onto the EC2 container 
+
+SSH login to the EC2 localstack container by running the below command(after reading the indications):
+
+```
+docker exec -it localstack-ec2.i-5b71baf9f92b8ac15 sh
+```
+
+Before running, do not forget to use your EC2 InstanceId, found by running the command in the previous step or by looking at the name of the docker container for the EC2 localstack instance:
+
+At this point you are inside the EC2 localstack container, so let's get the application running. As nothing is installed, a few prerequisites are required, so let's install them using the apt-get package manager, by running:
+
+```
+apt-get update
+apt-get install docker.io
+apt-get install git
+apt-get install openjdk-17-jdk
+apt-get install docker-compose
+```
+
+### Start the application on EC2
+
+Clone the repository before starting
+
+```
+git clone https://gitlab.com/seal-uzh/monday-team/monday-e-commerce.git
+```
+Once you are in the Docker folder, as usual, run:
+docker-compose up
+
+MarketMate will now be available on http://localhost:3001/
+
+
+### Interact with the services
 
 The application automatically generates the documentation about the available endpoints, thanks to the integration
 of the Spring Boot application with [Swagger](https://swagger.io), here:

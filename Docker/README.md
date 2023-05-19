@@ -4,7 +4,7 @@ To start the Application, navigate to the Docker folder of the project, then run
 or
 "docker compose up -d", if you want to let the docker containers run in the background. 
 
-MarketMate is now available at http:localhost/
+MarketMate is now available at http:localhost:3001/
 
 To start the Application in Development mode, with hot reload and mocking enabled, you can run:
 

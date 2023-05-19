@@ -44,10 +44,11 @@ services:
     build:
       context: ../Frontend
       dockerfile: Dockerfile
+    image: monday-frontend
     environment:
       - DOCKER_BUILD_NO_CACHE=true
     ports:
-      - 3000:80
+      - 3001:80
     depends_on:
       - postgres
       - backend

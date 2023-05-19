@@ -10,4 +10,11 @@ The project's two main components, each have their comprehensive Readmes:
 
 The Git branching graph can be found [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/network/master). Our branching strategy is described [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/wikis/Git-Repository-Rules/Branching-Strategy)
 
+A burnup/burndown view on the progress through the Sprints can be seen [here] (https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/cadences), while the progress across the whole project can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/milestones/1#tab-issues).
+
+The SCRUM boards used can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/boards). For the completed Sprints, the Stories can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/issues/?sort=updated_desc&state=all&iteration_id=131950&first_page_size=20) and further on, by filter similarly for any of the Sprints.
+
+
+
+
 
