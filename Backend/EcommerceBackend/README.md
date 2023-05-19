@@ -83,9 +83,12 @@ perform the following Sql statements by hand (we suggest to use [pgAdmin](https:
 
 
 
-## Use the backend application with Localstack
+## Use the backend application with Localstack 
+<img src="docs/localstack.png" alt="LocalStack Logo" width="35px" />
 
 ### Start the LocalStack ec2 container
+
+Prerequisites are having Docker and awslocal installed. While Docker has been already refered to and used, awslocal is being introduced here. The "awslocal" command is a wrapper around the "aws" command line interface, for using with LocalStack, and it can be installed following the instructions [here](https://docs.localstack.cloud/user-guide/integrations/aws-cli/#localstack-aws-cli-awslocal)
 
 Run the following inside the Docker folder:
 
