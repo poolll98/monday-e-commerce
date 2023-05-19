@@ -4,7 +4,7 @@ RUN apk add --no-cache postgresql-client
 
 WORKDIR /app
 
-COPY initialize_db.sql .
+COPY sql_initialize_db_manager/initialize_db.sql initialize_db.sql
 
 ENV PGPASSWORD=pgpwd1
 

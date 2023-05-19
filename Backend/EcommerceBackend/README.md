@@ -74,28 +74,21 @@ Make sure to have the updated jar file in the target directory. Otherwise, see s
 java -jar target/EcommerceBackend-1.0.0-SNAPSHOT.jar
 ```
 
-### Run the following SQL insert statements
+### Prepare the e-commerce Database 
+
+#### Customize the product categories
+You are free to add/modify/delete the product categories of the e-commerce stored in the file: ```sql_initialize_db_manager/initialize_db.sql```.
+If you are not interested, just skip to the mandatory instructions section, a couple of lines below.
+Then, if you modified the categories, please run the following command in order to update the sql instructions file:
+```
+ python3 initialize_db_preparator.py
+```
+
+#### Run the following SQL insert statements
 At this point, the first time you run the entire backend service, the Spring Boot application will have created the schema inside the database.
 Since some pre-entered values are needed by the application, just the first time you run the application,
-perform the following Sql statements by hand (we suggest to use [pgAdmin](https://www.pgadmin.org) tool):
+perform the following Sql statements by hand (we suggest to use [pgAdmin](https://www.pgadmin.org) tool): ```sql_initialize_db_manager/initialize_db.sql```.
 
-```
-INSERT INTO roles(id,name) VALUES(1,'ROLE_USER');
-INSERT INTO roles(id,name) VALUES(2,'ROLE_ADMIN');
-ALTER SEQUENCE roles_id_seq RESTART WITH 3;
-INSERT INTO login_user(id, username, email, password, phone, firstname, lastname, isbuyer, isseller) VALUES (1, 'username', 'username@gmail.com', '$2a$10$9cOQijrPNVgUeMzqnSI1PezrYpZ07TwoSnrtxJWK/PSz9jSxAJt8a', 3467867981, 'firstname', 'lastname', true, true);
-ALTER SEQUENCE login_user_id_seq RESTART WITH 2;
-INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
-INSERT INTO product_category(id,category_name) VALUES(1,'food');
-ALTER SEQUENCE product_category_id_seq RESTART WITH 2;
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(1,'super random pizza', true,'pizza', 8, 1, 1);
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(2,'super test pizza', true,'pizza', 6, 1, 1);
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(3,'random burger', true,'burger', 5, 1, 1);
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(4,'random pasta', true,'pasta', 3, 1, 1);
-ALTER SEQUENCE product_id_seq RESTART WITH 5;
-commit;
-
-```
 
 ## Interact with the services
 
@@ -271,7 +264,7 @@ REPONSE:[
         "media": null,
         "instock": true,
         "price": 8.0,
-         "seller_id": 1
+        "seller_id": 1
     },
     {
         "id": 2,
