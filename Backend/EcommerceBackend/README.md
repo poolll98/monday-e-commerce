@@ -83,8 +83,7 @@ perform the following Sql statements by hand (we suggest to use [pgAdmin](https:
 
 
 
-## Use the backend application with Localstack 
-<img src="docs/localstack.png" alt="LocalStack Logo" width="35px" />
+## Use the backend application with Localstack  <img src="docs/localstack.png" alt="LocalStack Logo" width="150px" />
 
 ### Start the LocalStack ec2 container
 
