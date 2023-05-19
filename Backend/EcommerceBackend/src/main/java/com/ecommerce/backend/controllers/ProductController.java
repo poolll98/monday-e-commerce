@@ -85,7 +85,7 @@ public class ProductController {
             }
             return ResponseEntity.ok(searchResult);
         }
-        return ResponseEntity.badRequest().body(new MessageResponse("This category doesn't exist."));
+        return ResponseEntity.status(404).body("This category doesn't exist.");
     }
 
     @GetMapping("/search/instock/{instock}")
@@ -114,7 +114,7 @@ public class ProductController {
         token = token.substring(7); //we just drop the word "bearer" from the token's signature
         User currentUser = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token)).get();
         if(! currentUser.getIsseller()){
-            return ResponseEntity.badRequest().
+            return ResponseEntity.status(401).
                     body(new MessageResponse("Error: only a seller user can add a product."));
         }
         List<ProductCategory> productCategory = categoryRepo.findProductCategoryByCategory_name(
@@ -166,7 +166,7 @@ public class ProductController {
         else{
             Product product = searchProduct.get();
             if(! product.getSeller().getId().equals(currentUser.getId())){
-                return ResponseEntity.badRequest().body(new MessageResponse("This product it is not sold by this user"));
+                return ResponseEntity.status(401).body(new MessageResponse("This product it is not sold by this user"));
             }
             else{
                 boolean flag = false;

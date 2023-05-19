@@ -6,7 +6,6 @@ import com.ecommerce.backend.models.UserAddress;
 import com.ecommerce.backend.models.UserPayment;
 import com.ecommerce.backend.payload.request.AddAddressRequest;
 import com.ecommerce.backend.payload.request.AddPaymentMethodRequest;
-import com.ecommerce.backend.payload.request.UpdateQCartItemRequest;
 import com.ecommerce.backend.payload.request.UpdateUserInfo;
 import com.ecommerce.backend.payload.response.*;
 import com.ecommerce.backend.repository.AddressRepository;
@@ -23,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -133,7 +131,7 @@ public class UserController {
     public ResponseEntity<?> makeDefaultAddress(@PathVariable Long id,
                                                 @RequestHeader(name = "Authorization") String token) {
         if (!addressRepository.existsById(id)) { //check if we have that address in the db
-            return ResponseEntity.badRequest().
+            return ResponseEntity.status(404).
                     body(new MessageResponse("Error: This Address doesn't exist."));
         } else {
             token = token.substring(7); //we just drop the word "bearer" from the token's signature
@@ -223,7 +221,7 @@ public class UserController {
         List<UserPayment> paymentList = this.userPaymentRepo.findUserPaymentsByUser(currentUser);
         long paymentExists = paymentList.stream().filter((a)->{return id.equals(a.getId());}).count();
         if (paymentExists == 0){
-            return ResponseEntity.badRequest().
+            return ResponseEntity.status(404).
                     body(new MessageResponse("Error: This payment method doesn't exist."));
         }
         else{

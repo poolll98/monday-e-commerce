@@ -93,8 +93,7 @@ public class ShopController {
         Policy: if the cart item that we remove is the last one in that shopping cart, we remove also the shopping cart.
          */
         if(! cartRepo.existsById(id)){
-            return ResponseEntity.badRequest().
-                    body(new MessageResponse("Error: This Item is not present in the Cart."));
+            return ResponseEntity.status(404).body("Error: This Item is not present in the Cart.");
         }
         CartItem cartItem = cartRepo.findById(id).get();
         ShoppingCart shoppingCart = cartItem.getShoppingCart();
