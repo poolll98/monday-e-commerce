@@ -69,10 +69,11 @@ java -jar target/EcommerceBackend-1.0.0-SNAPSHOT.jar
 ### Prepare the e-commerce Database 
 
 #### Customize the product categories
-You are free to add/modify/delete the product categories of the e-commerce stored in the file: ```sql_initialize_db_manager/initialize_db.sql```.
+You are free to add/modify/delete the product categories of the e-commerce stored in the file: ```sql_initialize_db_manager/categories_raw_db.txt```.
 If you are not interested, just skip to the mandatory instructions section, a couple of lines below.
 Then, if you modified the categories, please run the following command in order to update the sql instructions file:
 ```
+ cd sql_initialize_db_manager
  python3 initialize_db_preparator.py
 ```
 
