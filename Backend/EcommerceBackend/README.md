@@ -146,7 +146,14 @@ docker-compose up
 MarketMate will now be available on http://localhost:3001/
 
 
-### Interact with the services
+## CI/CD Pipeline
+
+For building and packaging the application, a CI/CD Pipeline dedicated stage is being run. This pipeline stage runs every time a merge is being done from a feature branch into a develop branch. By default, the merge will be done only if the pipeline succeeded, ensuring that the new build does not break the stable version existing currently on the develop branch.
+
+For testing the code quality, and reporting vulnerabilities or suggestions, a pipeline stage was implemented. This stage runs for every branches, everytime a commit was done, ensuring the newly pushed changes do not jeopardize the underlying quality of the project.
+
+
+## Interact with the services
 
 The application automatically generates the documentation about the available endpoints, thanks to the integration
 of the Spring Boot application with [Swagger](https://swagger.io), here:

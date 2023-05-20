@@ -14,6 +14,8 @@ A burnup/burndown view on the progress through the Sprints can be seen [here] (h
 
 The SCRUM boards used can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/boards). For the completed Sprints, the Stories can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/issues/?sort=updated_desc&state=all&iteration_id=131950&first_page_size=20) and further on, by filter similarly for any of the Sprints.
 
+The Docker images are also published on DockerHub and can be pulled from [here](https://hub.docker.com/repository/docker/raul1doru2m/mon-team/tags?page=1&ordering=last_updated)
+
 
 
 
