@@ -147,7 +147,19 @@ Once you are in the Docker folder, as usual, run:
 MarketMate will now be available on ```http://localhost:3001/```
 
 
-### Interact with the services
+## CI/CD Pipeline
+
+For building and packaging the application, a CI/CD Pipeline dedicated stage is being run. This pipeline stage runs every time a merge is being done from a feature branch into a develop branch. By default, the merge will be done only if the pipeline succeeded, ensuring that the new build does not break the stable version existing currently on the develop branch.
+
+For testing the code quality, and reporting vulnerabilities or suggestions, a pipeline stage was implemented. This stage runs for every branches, everytime a commit was done, ensuring the newly pushed changes do not jeopardize the underlying quality of the project.
+
+A history of the pipelines being run and their statuses can be found [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/pipelines)
+
+The yml definition of the pipeline stages can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/ci/editor?branch_name=master).
+
+The artifacts procuded by the pipeline jobs can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/artifacts)
+
+## Interact with the services
 
 Let's follow this [guide](APIs_guide/README.md) to get in touch with all the services!
 
