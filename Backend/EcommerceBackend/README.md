@@ -153,6 +153,11 @@ For building and packaging the application, a CI/CD Pipeline dedicated stage is 
 
 For testing the code quality, and reporting vulnerabilities or suggestions, a pipeline stage was implemented. This stage runs for every branches, everytime a commit was done, ensuring the newly pushed changes do not jeopardize the underlying quality of the project.
 
+A history of the pipelines being run and their statuses can be found [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/pipelines)
+
+The yml definition of the pipeline stages can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/ci/editor?branch_name=master).
+
+The artifacts procuded by the pipeline jobs can be seen [here](https://gitlab.com/seal-uzh/monday-team/monday-e-commerce/-/artifacts)
 
 ## Interact with the services
 
