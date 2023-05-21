@@ -18,7 +18,8 @@ packaging the application, running tests, and managing dependencies.
    ``` 
    Alternatively, you can run the Gitlab CI/CD Pipeline which will do the build for you, after which you can download the jar and place it under the project's "target" folder.
 
-2. Run the entire application using docker:
+2. Run the entire application using docker, once inside the Docker folder:
+
    ```
    docker compose up
    ```
