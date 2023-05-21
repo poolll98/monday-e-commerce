@@ -106,7 +106,7 @@ awslocal ec2 create-key-pair --key-name monday
 Start an EC2 localstack container:
 
 ```
-awslocal ec2 run-instances --image-id ami-df5de72bdb3b --key-name
+awslocal ec2 run-instances --image-id ami-df5de72bdb3b --key-name monday
 ```
 
 If interested in details of the just started EC2 localstack instance, take a look, by running:
