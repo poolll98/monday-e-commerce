@@ -18,7 +18,8 @@ packaging the application, running tests, and managing dependencies.
    ``` 
    Alternatively, you can run the Gitlab CI/CD Pipeline which will do the build for you, after which you can download the jar and place it under the project's "target" folder.
 
-2. Run the entire application using docker:
+2. Run the entire application using docker, once inside the Docker folder:
+
    ```
    docker compose up
    ```
@@ -117,7 +118,7 @@ awslocal ec2 create-key-pair --key-name monday
 Start an EC2 localstack container:
 
 ```
-awslocal ec2 run-instances --image-id ami-df5de72bdb3b --key-name
+awslocal ec2 run-instances --image-id ami-df5de72bdb3b --key-name monday
 ```
 
 If interested in details of the just started EC2 localstack instance, take a look, by running:
