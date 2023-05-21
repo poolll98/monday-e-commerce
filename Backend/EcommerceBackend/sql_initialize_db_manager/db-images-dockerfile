@@ -1,0 +1,35 @@
+# Use a base image that has Python installed
+FROM python:3.9
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Bash script to the container
+#COPY venv/bin/activate .
+
+# Copy images to be inserted to the DB
+COPY images/item1.jpg /app/images/item1.jpg
+COPY images/item2.jpg /app/images/item2.jpg
+COPY images/item3.jpg /app/images/item3.jpg
+COPY images/item4.jpg /app/images/item4.jpg
+COPY images/item5.jpg /app/images/item5.jpg
+COPY images/item6.jpg /app/images/item6.jpg
+COPY images/item7.jpg /app/images/item7.jpg
+COPY images/item8.jpg /app/images/item8.jpg
+COPY images/item9.jpg /app/images/item9.jpg
+COPY images/item10.jpg /app/images/item10.jpg
+
+# Copy the Python script to the container
+COPY insert_images_docker.py .
+
+# Set the environment variables by sourcing the Bash script
+#RUN . ./activate&& \
+#    echo "Env var: $VIRTUAL_ENV"
+
+# Install required packages including PIL
+RUN apt-get update && apt-get install -y libjpeg-dev zlib1g-dev
+RUN pip install pillow
+RUN pip install psycopg2
+
+# Run the Python script, but leep for 70 seconds first
+CMD [ "bash", "-c", "sleep 70 && python insert_images_docker.py" ]
