@@ -35,7 +35,8 @@ packaging the application, running tests, and managing dependencies.
 3. Only the first time you go through the whole procedure, insert the images of the test products into the database:
 ```
  cd sql_initialize_db_manager
- source venv/bin/activate
+ pip install psycopg2-binary
+ pip install Pillow
  python3 insert_images.py
 ```
 
@@ -93,7 +94,8 @@ perform the following Sql statements by hand (we suggest to use [pgAdmin](https:
 Then, insert the images of the test products into the database:
 ```
  cd sql_initialize_db_manager
- source venv/bin/activate
+ pip install psycopg2-binary
+ pip install Pillow
  python3 insert_images.py
 ```
 
