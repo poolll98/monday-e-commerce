@@ -21,6 +21,8 @@ if __name__ == "__main__":
         sql_instructions += sql_insertion_instruction.replace("xxxx",category).replace("counter", str(n)) +"\n"
         if(category=='food'):
             raw_instructions = raw_instructions.replace("*_food_id_*", str(n))
+        if(category=='shoes and footwear'):
+            raw_instructions = raw_instructions.replace("*_shoes_id_*", str(n))
 
 
     sql_instructions += sql_alter_instruction.replace("counter", str(len(list(set(categories)))))

@@ -30,8 +30,15 @@ packaging the application, running tests, and managing dependencies.
    ```
    docker compose down
    ```
+   
+3. Only the first time you go through the whole procedure, insert the images of the test products into the database:
+```
+ cd sql_initialize_db_manager
+ source venv/bin/activate
+ python3 insert_images.py
+```
 
-3. See "Interact with the Services" for testing or integrating the APIs
+4. See "Interact with the Services" for testing or integrating the APIs
 
 ## Use the backend application without Docker Compose
 
@@ -82,7 +89,12 @@ At this point, the first time you run the entire backend service, the Spring Boo
 Since some pre-entered values are needed by the application, just the first time you run the application,
 perform the following Sql statements by hand (we suggest to use [pgAdmin](https://www.pgadmin.org) tool): ```sql_initialize_db_manager/initialize_db.sql```.
 
-
+Then, insert the images of the test products into the database:
+```
+ cd sql_initialize_db_manager
+ source venv/bin/activate
+ python3 insert_images.py
+```
 
 ## Use the backend application with Localstack  <img src="docs/localstack.png" alt="LocalStack Logo" width="150px" />
 

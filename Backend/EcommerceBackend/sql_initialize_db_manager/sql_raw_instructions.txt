@@ -5,9 +5,15 @@ INSERT INTO login_user(id, username, email, password, phone, firstname, lastname
 ALTER SEQUENCE login_user_id_seq RESTART WITH 2;
 INSERT INTO user_roles(user_id, role_id) VALUES(1, 1);
 XXXX
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(1,'super random pizza', true,'pizza', 8, *_food_id_*, 1);
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(2,'super test pizza', true,'pizza', 6, *_food_id_*, 1);
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(3,'random burger', true,'burger', 5, *_food_id_*, 1);
-INSERT INTO product(id,description,instock,name,price,product_category_id,login_user_id) VALUES(4,'random pasta', true,'pasta', 3, *_food_id_*, 1);
-ALTER SEQUENCE product_id_seq RESTART WITH 5;
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(1, 'super random pizza', true,'pizza', 8, *_food_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(2, 'super test pizza', true,'pizza', 6, *_food_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(3, 'random burger', true,'burger', 5, *_food_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(4, 'random pasta', true,'pasta', 3, *_food_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(5, 'Fashionable shoes for young people', true,'Winter Shoes', 110, *_shoes_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(6, 'New product!', true,'Adidas Shoes', 80, *_shoes_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(7, 'Cool!', true,'Vans', 120, *_shoes_id_*, 1);
+INSERT INTO product(id,description,  instock,name,price,product_category_id,login_user_id) VALUES(8, 'Young and Fresh!', true,'White', 260, *_shoes_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(9, 'Brown! Show your individuality!', true,'Cropped-sho', 160, *_shoes_id_*, 1);
+INSERT INTO product(id,description, instock,name,price,product_category_id,login_user_id) VALUES(10, 'Take it! You will fall in love with sports!', true,'Blues', 90, *_shoes_id_*, 1);
+ALTER SEQUENCE product_id_seq RESTART WITH 11;
 commit;
