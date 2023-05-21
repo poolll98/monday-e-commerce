@@ -38,6 +38,17 @@ services:
     depends_on:
       - postgres
       - backend
+    
+  db-images-init:
+    build:
+      context: ../Backend/EcommerceBackend/sql_initialize_db_manager
+      dockerfile: db-images-dockerfile
+    image: pg-db-images
+    container_name: db-images-script
+    depends_on:
+      - postgres
+      - backend
+      - db-init
 
   frontend:
     container_name: frontend-prod
