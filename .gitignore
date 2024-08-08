@@ -23,3 +23,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Big stuff
+Docker/mon-ecom-pg.tar
+Docker/mon-pg.tar
